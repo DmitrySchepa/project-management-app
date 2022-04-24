@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FooterComponent } from './core/components/footer/footer.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { HomePageComponent } from './core/pages/home-page/home-page.component';
 
