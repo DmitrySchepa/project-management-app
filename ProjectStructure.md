@@ -49,7 +49,7 @@
     |   |   ├── LogInComponent
     |   |   ├── SignUpComponent
     │   ├── models
-    |   |   ├── user.model.ts
+    |   |   ├── auth.model.ts
     │   ├── pages
     |   |   ├── SignUpPageComponent
     |   |   ├── LogInPageComponent
