@@ -1,0 +1,13 @@
+.form {
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  max-width: 450px;
+  min-width: 300px;
+
+  &__submit {
+    width: 300px;
+    align-self: center;
+  }
+}
