@@ -5,11 +5,11 @@ import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'boards',
     component: BoardsPageComponent,
   },
   {
-    path: ':id',
+    path: 'board/:id',
     component: BoardPageComponent,
   },
 ];

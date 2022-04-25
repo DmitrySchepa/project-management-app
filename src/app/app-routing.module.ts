@@ -9,17 +9,17 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'boards',
+    path: 'main',
     loadChildren: () => import('./boards/boards.module').then((m) => m.BoardsModule),
     canLoad: [AuthGuard],
   },
   {
-    path: 'main',
+    path: 'home',
     component: HomePageComponent,
   },
   {
     path: '',
-    redirectTo: '/main',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
   // {
