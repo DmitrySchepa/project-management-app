@@ -1,1 +1,28 @@
-<p>header works!</p>
+<mat-toolbar color="primary" class="header">
+    <h1 class="logo">PMA</h1>
+    <div class="navbar">
+      <div class="navbar_item navbar__language">
+        <span>Language</span>
+        <mat-radio-group aria-label="Select an option">
+          <mat-radio-button value="en">
+            <img src="./assets/images/en.svg" alt="English Language" class="navbar_selected-language">
+          </mat-radio-button>
+          <mat-radio-button value="ru">
+            <img src="./assets/images/ru.svg" alt="Russian Language" class="navbar_selected-language">
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <a class="navbar_item navbar__new-board">
+        <mat-icon>add</mat-icon>
+        <span>New Board</span>
+      </a>
+      <a class="navbar_item navbar__edit-profile">
+        <mat-icon>edit</mat-icon>
+        <span>Edit profile</span>
+      </a>
+      <a class="navbar_item navbar__log">
+        <mat-icon>input</mat-icon>
+        <span>Log Out</span>
+      </a>
+    </div>
+</mat-toolbar>
