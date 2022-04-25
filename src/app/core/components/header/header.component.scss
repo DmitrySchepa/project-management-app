@@ -30,10 +30,6 @@
   transition: .3s;
 }
 
-.navbar__language span {
-  margin-right: 5px;
-}
-
 .navbar_item span {
   margin-bottom: 4px;
 }
@@ -43,5 +39,24 @@
 }
 
 .navbar_selected-language {
-  margin: 8px 5px 0 0;
+  position: relative;
+  right: 20px;
+}
+
+mat-button-toggle {
+  width: 50px;
+}
+
+.russian-selected {
+  background-image: url("../../../../assets/images/ru.jpg");
+  background-size: cover;
+}
+
+.english-selected {
+  background-image: url("../../../../assets/images/en.jpg");
+  background-size: cover;
+}
+
+.mat-button-toggle-checked {
+  border: 1px solid white;
 }
