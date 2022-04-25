@@ -15,14 +15,13 @@ export class LogInComponent extends AuthDirective implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      login: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
 
   submit() {
     if (this.formGroup.invalid) return;
-    console.log('log');
     this.authService.login(this.formGroup.value);
   }
 }

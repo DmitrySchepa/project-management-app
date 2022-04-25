@@ -1,12 +1,9 @@
 <form [formGroup]='formGroup' (submit)='submit()' class='form'>
   <mat-form-field appearance='outline'>
-    <mat-label>User email</mat-label>
-    <input matInput formControlName='email' type='email'>
-    <mat-error *ngIf='email?.errors?.["required"]'>
-      Please enter email
-    </mat-error>
-    <mat-error *ngIf='email?.errors?.["email"]'>
-      Email is not valid
+    <mat-label>User login</mat-label>
+    <input matInput formControlName='login' type='login'>
+    <mat-error *ngIf='login?.errors?.["required"]'>
+      Please enter login
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance='outline'>

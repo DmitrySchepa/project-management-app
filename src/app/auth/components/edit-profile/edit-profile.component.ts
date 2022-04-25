@@ -22,7 +22,7 @@ export class EditProfileComponent extends SignUpComponent implements OnInit {
     if (this.formGroup.invalid) return;
     this.authService.updateUser({
       name: this.name?.value,
-      login: this.email?.value,
+      login: this.login?.value,
       password: this.password?.value,
     });
   }

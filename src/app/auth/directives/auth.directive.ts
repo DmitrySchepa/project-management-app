@@ -15,8 +15,8 @@ export class AuthDirective {
     return this.formGroup.get('name');
   }
 
-  get email() {
-    return this.formGroup.get('email');
+  get login() {
+    return this.formGroup.get('login');
   }
 
   get password() {

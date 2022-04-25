@@ -23,7 +23,7 @@ export class SignUpComponent extends AuthDirective implements OnInit {
     this.formGroup = this.fb.group(
       {
         name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-        email: ['', [Validators.required, Validators.email]],
+        login: ['', [Validators.required]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required]],
       },
@@ -53,7 +53,7 @@ export class SignUpComponent extends AuthDirective implements OnInit {
     if (this.formGroup.invalid) return;
     this.authService.signup({
       name: this.name?.value,
-      login: this.email?.value,
+      login: this.login?.value,
       password: this.password?.value,
     });
   }
