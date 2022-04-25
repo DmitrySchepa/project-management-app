@@ -11,7 +11,14 @@ import { EditProfilePageComponent } from './pages/edit-profile-page/edit-profile
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 @NgModule({
-  declarations: [LogInComponent, SignUpComponent, SignUpPageComponent, LogInPageComponent, EditProfilePageComponent, EditProfileComponent],
+  declarations: [
+    LogInComponent,
+    SignUpComponent,
+    SignUpPageComponent,
+    LogInPageComponent,
+    EditProfilePageComponent,
+    EditProfileComponent,
+  ],
   imports: [CommonModule, AuthRoutingModule, SharedModule],
 })
 export class AuthModule {}
