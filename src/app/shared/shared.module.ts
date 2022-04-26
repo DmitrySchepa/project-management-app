@@ -4,8 +4,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
-const MaterialModules = [MatToolbarModule, MatInputModule, MatIconModule, MatButtonModule];
+const MaterialModules = [
+  MatToolbarModule,
+  MatInputModule,
+  MatIconModule,
+  MatButtonModule,
+  MatCardModule,
+];
 
 @NgModule({
   declarations: [],
