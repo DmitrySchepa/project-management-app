@@ -7,9 +7,24 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
 import { LogInPageComponent } from './pages/log-in-page/log-in-page.component';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EditProfilePageComponent } from './pages/edit-profile-page/edit-profile-page.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { AuthDirective } from './directives/auth.directive';
+import { BaseFormComponent } from './components/base-form/base-form.component';
 
 @NgModule({
-  declarations: [LogInComponent, SignUpComponent, SignUpPageComponent, LogInPageComponent],
-  imports: [CommonModule, AuthRoutingModule, SharedModule],
+  declarations: [
+    LogInComponent,
+    SignUpComponent,
+    SignUpPageComponent,
+    LogInPageComponent,
+    EditProfilePageComponent,
+    EditProfileComponent,
+    AuthDirective,
+    BaseFormComponent,
+  ],
+  imports: [CommonModule, AuthRoutingModule, SharedModule, ReactiveFormsModule],
+  exports: [LogInComponent, SignUpComponent, EditProfileComponent],
 })
 export class AuthModule {}

@@ -8,7 +8,6 @@ import { BoardColumnComponent } from './components/board-column/board-column.com
 import { BoardTaskComponent } from './components/board-task/board-task.component';
 import { BoardTitleComponent } from './components/board-title/board-title.component';
 import { BoardSearchComponent } from './components/board-search/board-search.component';
-import { RdSeapageComponent } from './зÑpages/rd-seapage/rd-seapage.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 import { FilterPipe } from './pipes/filter.pipe';
@@ -20,7 +19,6 @@ import { FilterPipe } from './pipes/filter.pipe';
     BoardTaskComponent,
     BoardTitleComponent,
     BoardSearchComponent,
-    RdSeapageComponent,
     BoardPageComponent,
     BoardsPageComponent,
     FilterPipe,
