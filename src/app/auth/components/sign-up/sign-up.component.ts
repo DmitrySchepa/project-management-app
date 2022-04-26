@@ -12,7 +12,7 @@ import { AuthDirective } from '../../directives/auth.directive';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss', '../formStyles.scss'],
+  styleUrls: ['../form-styles.scss'],
 })
 export class SignUpComponent extends AuthDirective implements OnInit {
   constructor(private readonly fb: FormBuilder, protected readonly authService: AuthService) {

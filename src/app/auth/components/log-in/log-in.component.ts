@@ -6,7 +6,7 @@ import { AuthDirective } from '../../directives/auth.directive';
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.scss', '../formStyles.scss'],
+  styleUrls: ['../form-styles.scss'],
 })
 export class LogInComponent extends AuthDirective implements OnInit {
   constructor(private readonly fb: FormBuilder, private readonly authService: AuthService) {
