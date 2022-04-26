@@ -1,1 +1,33 @@
-<p>header works!</p>
+<mat-toolbar color="primary" class="header">
+    <h1 class="logo">PMA</h1>
+    <div class="navbar">
+      <div class="navbar_item">
+        <mat-button-toggle-group
+          appearance="legacy"
+          name="languages"
+          aria-label="Available languages">
+            <mat-button-toggle
+              value="en"
+              class="english-selected"
+              checked="true">
+            </mat-button-toggle>
+            <mat-button-toggle
+              value="ru"
+              class="russian-selected">
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <a class="navbar_item">
+        <mat-icon>add</mat-icon>
+        <span>New Board</span>
+      </a>
+      <a class="navbar_item">
+        <mat-icon>edit</mat-icon>
+        <span>Edit profile</span>
+      </a>
+      <a class="navbar_item">
+        <mat-icon>input</mat-icon>
+        <span>Log Out</span>
+      </a>
+    </div>
+</mat-toolbar>
