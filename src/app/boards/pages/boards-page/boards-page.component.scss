@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 32px;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boards__list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &-item {
+    display: flex;
+    flex: 1;
+    padding: 10px;
+    @media (max-width: 959px) {
+      justify-content: center;
+    }
+  }
+}
