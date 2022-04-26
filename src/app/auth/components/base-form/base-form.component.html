@@ -5,12 +5,36 @@
     <mat-error *ngIf='name?.errors?.["required"]'>
       Please enter name
     </mat-error>
+    <mat-error *ngIf='name?.errors?.["minlength"]'>
+      The name is too short
+    </mat-error>
+    <mat-error *ngIf='name?.errors?.["maxlength"]'>
+      The name is too long
+    </mat-error>
+    <mat-error *ngIf='name?.errors?.["firstdigit"]'>
+      The name mustn't starts with digit
+    </mat-error>
+    <mat-error *ngIf='name?.errors?.["specChar"]'>
+      The name must contains only letters, digits and _
+    </mat-error>
   </mat-form-field>
   <mat-form-field appearance='outline'>
     <mat-label>User login</mat-label>
     <input matInput formControlName='login' type='text'>
     <mat-error *ngIf='login?.errors?.["required"]'>
       Please enter login
+    </mat-error>
+    <mat-error *ngIf='login?.errors?.["minlength"]'>
+      The login is too short
+    </mat-error>
+    <mat-error *ngIf='name?.errors?.["maxlength"]'>
+      The login is too long
+    </mat-error>
+    <mat-error *ngIf='login?.errors?.["firstdigit"]'>
+      The login mustn't starts with digit
+    </mat-error>
+    <mat-error *ngIf='login?.errors?.["specChar"]'>
+      The login must contains only letters, digits and _
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance='outline'>

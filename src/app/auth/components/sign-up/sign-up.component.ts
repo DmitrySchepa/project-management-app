@@ -22,8 +22,26 @@ export class SignUpComponent extends AuthDirective implements OnInit {
   ngOnInit(): void {
     this.formGroup = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
-        login: ['', [Validators.required]],
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(15),
+            this.validateFirstChar,
+            this.validateSpecChars,
+          ],
+        ],
+        login: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(15),
+            this.validateFirstChar,
+            this.validateSpecChars,
+          ],
+        ],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required]],
       },
@@ -31,6 +49,14 @@ export class SignUpComponent extends AuthDirective implements OnInit {
         validators: [this.validatePasswords()],
       },
     );
+  }
+
+  validateFirstChar(control: AbstractControl) {
+    return isNaN(parseInt(control.value[0])) ? null : { firstdigit: 'Entered value is not valid' };
+  }
+
+  validateSpecChars(control: AbstractControl) {
+    return /[!@#$%^&*]/g.test(control.value) ? { specChar: 'Special char is found!' } : null;
   }
 
   validatePasswords(): ValidatorFn {
