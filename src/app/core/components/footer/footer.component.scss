@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 @use './footer-theme.component' as footertheme;
 
-$xsmall: 600px;
+$xsmall: 700px;
 
 @include mat.core();
 
@@ -39,9 +39,15 @@ $my-theme: mat.define-light-theme((
   }  
 }
 
+.creation-year {
+  color: #fff;
+  font-size: medium;
+}
+
 .our-team {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   column-gap: 30px;
 
   @media screen and (max-width: $xsmall) {
