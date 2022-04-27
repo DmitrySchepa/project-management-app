@@ -10,6 +10,9 @@
 # dependencies
 /node_modules
 
+# pnpm lock file
+pnpm-lock.yaml
+
 # profiling files
 chrome-profiler-events*.json
 

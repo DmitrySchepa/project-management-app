@@ -1,1 +1,25 @@
-<p>footer works!</p>
+<footer class="footer">
+  <div class="footer-container">
+    <a 
+      href="https://rs.school/angular/"
+      target="_blank"
+    >
+      <img 
+        class="rsschool-logo" 
+        src="../../../../assets/icons/rs_school.svg" 
+        alt="RS Shool logo"
+      >
+    </a>
+    <div class="our-team" >
+      <div class="team-member" *ngFor="let member of team" >
+        <div class="github-icon"></div>
+        <a 
+          class="github-link" 
+          href="{{ githubUrl + member }}"
+          target="_blank"
+        >{{ member }}</a>
+      </div>      
+    </div>
+    <span class="creation-year">2022</span>
+  </div>
+</footer>

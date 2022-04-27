@@ -1,0 +1,87 @@
+@use '@angular/material' as mat;
+@use './footer-theme.component' as footertheme;
+
+$xsmall: 700px;
+
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+ ),
+));
+
+@include mat.all-component-themes($my-theme);
+@include footertheme.theme($my-theme);
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;
+  margin: 0 30px;
+  padding: 15px 0;
+
+  @media screen and (max-width: $xsmall) {
+    margin: 0 20px;
+    padding: 10px 0;
+  }   
+}
+
+.rsschool-logo {
+  width: 100px;
+
+  @media screen and (max-width: $xsmall) {
+    width: 70px;
+  }  
+}
+
+.creation-year {
+  color: #fff;
+  font-size: medium;
+}
+
+.our-team {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: 30px;
+
+  @media screen and (max-width: $xsmall) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .team-member {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+
+    .github-icon {
+      width: 32px;
+      height: 32px;
+      background-image: url('../../../../assets/icons/github.svg');
+      background-size: 27px;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      @media screen and (max-width: $xsmall) {
+        width: 25px;
+        height: 25px;
+        background-size: 20px;
+      }      
+    }
+
+    a {
+      font-size: medium;
+      color: white;
+      @media screen and (max-width: $xsmall) {
+        font-size: small;
+      }      
+    }
+  }
+}
