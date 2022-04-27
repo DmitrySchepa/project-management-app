@@ -1,24 +1,28 @@
 :host {
-  display: block;
-  min-width: 300px;
-  @media (max-width: 959px) {
-    width: 100%;
-  }
-}
-
-.mat-card-actions {
   display: flex;
-  justify-content: flex-end;
-  padding: 0;
-  .mat-focus-indicator {
-    padding: 0;
-  }
-  .mat-button {
-    min-width: 36px;
-    cursor: pointer;
-  }
+  cursor: pointer;
 }
 
-.mat-card-title {
-  padding-bottom: 10px;
+.mat-card {
+  width: 100%;
+  &-title {
+    padding-bottom: 10px;
+    pointer-events: none;
+  }
+  &-actions {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    .mat-focus-indicator {
+      padding: 0;
+    }
+    .mat-button {
+      position: absolute;
+      min-width: 36px;
+      .mat-icon {
+        pointer-events: none;
+      }
+    }
+  }
 }
