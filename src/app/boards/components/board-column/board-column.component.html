@@ -1,20 +1,28 @@
   <div class="column-container">
     <h2
+      *ngIf="!isAddTitleModeOn"
       class="column-title"
       (click)="isAddTitleModeOn = !isAddTitleModeOn">{{columnTitle}}</h2>
     <div class="change-title" *ngIf="isAddTitleModeOn">
       <mat-form-field >
+        <mat-label>Set column title</mat-label>
         <input
         type="text"
-        [(ngModel)]="columnTitle"
+        #columnTitle
         matInput
-        (keyup.enter)="isAddTitleModeOn = !isAddTitleModeOn">
+        (keyup.enter)="onChangeTitle(columnTitle.value)">
       </mat-form-field>
       <button
         mat-icon-button
         color="primary"
-        (click)="isAddTitleModeOn = !isAddTitleModeOn">
+        (click)="onChangeTitle(columnTitle.value)">
         <mat-icon>add</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="isAddTitleModeOn = !isAddTitleModeOn">
+        <mat-icon>cancel</mat-icon>
       </button>
     </div>
     <div

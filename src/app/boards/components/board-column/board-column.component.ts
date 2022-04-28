@@ -11,7 +11,7 @@ export class BoardColumnComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  columnTitle = 'todo';
+  columnTitle = 'Set column title';
 
   todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
 
@@ -43,6 +43,6 @@ export class BoardColumnComponent implements OnInit {
 
   onChangeTitle(value: string) {
     this.columnTitle = value;
-    this.isAddTitleModeOn = false;
+    this.isAddTitleModeOn = !this.isAddTitleModeOn;
   }
 }
