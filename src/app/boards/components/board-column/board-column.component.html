@@ -1,1 +1,43 @@
-<p>board-column works!</p>
+  <div class="column-container">
+    <h2
+      class="column-title"
+      (click)="isAddTitleModeOn = !isAddTitleModeOn">{{columnTitle}}</h2>
+    <div class="change-title" *ngIf="isAddTitleModeOn">
+      <mat-form-field >
+        <input
+        type="text"
+        [(ngModel)]="columnTitle"
+        matInput
+        (keyup.enter)="isAddTitleModeOn = !isAddTitleModeOn">
+      </mat-form-field>
+      <button
+        mat-icon-button
+        color="primary"
+        (click)="isAddTitleModeOn = !isAddTitleModeOn">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div
+      cdkDropList
+      [cdkDropListData]="todo"
+      class="task-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="task-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+    </div>
+    <form class="add-task-form" (submit)="$event.preventDefault()">
+      <mat-form-field class="add-task-form_field" appearance="fill">
+        <mat-label>Add new task</mat-label>
+        <input matInput #taskInput (keyup.enter)="onTaskAdded(taskInput.value)">
+      </mat-form-field>
+      <button
+        mat-mini-fab
+        color="primary"
+        type="button"
+        class="add-task-form_button"
+        (click)="onTaskAdded(taskInput.value)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </form>
+  </div>
+
+
