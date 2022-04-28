@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { baseGithub, ourTeam } from '../../../constants/our-team';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
 })
-export class FooterComponent implements OnInit {
-  constructor() {}
+export class FooterComponent {
+  team = ourTeam;
 
-  ngOnInit(): void {}
+  githubUrl = baseGithub;
 }
