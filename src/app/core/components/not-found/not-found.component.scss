@@ -1,0 +1,28 @@
+:host {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  font-size: 100px;
+}
+
+.mat-icon {
+  width: 100%;
+  height: 100%;
+  font-size: 100px;
+}
+
+.message {
+  font-size: 2rem;
+  text-align: center;
+  line-height: 40px;
+  color: #3f51b5;
+}
