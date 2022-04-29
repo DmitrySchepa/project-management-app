@@ -50,11 +50,14 @@ mat-button-toggle {
 .russian-selected {
   background-image: url("../../../../assets/images/ru.svg");
   background-size: cover;
+  background-position: center;
 }
 
 .english-selected {
   background-image: url("../../../../assets/images/en.svg");
   background-size: cover;
+  background-position: center;
+  margin-right: 3px;
 }
 
 .mat-button-toggle-checked {

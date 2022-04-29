@@ -42,7 +42,9 @@ export class BoardColumnComponent implements OnInit {
   }
 
   onChangeTitle(value: string) {
-    this.columnTitle = value;
-    this.isAddTitleModeOn = !this.isAddTitleModeOn;
+    if (value.length != 0) {
+      this.columnTitle = value;
+      this.isAddTitleModeOn = !this.isAddTitleModeOn;
+    }
   }
 }

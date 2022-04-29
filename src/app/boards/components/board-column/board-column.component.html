@@ -10,13 +10,14 @@
         type="text"
         #columnTitle
         matInput
-        (keyup.enter)="onChangeTitle(columnTitle.value)">
+        (keyup.enter)="onChangeTitle(columnTitle.value)"
+        required>
       </mat-form-field>
       <button
         mat-icon-button
         color="primary"
         (click)="onChangeTitle(columnTitle.value)">
-        <mat-icon>add</mat-icon>
+        <mat-icon>done</mat-icon>
       </button>
       <button
         mat-icon-button
@@ -35,7 +36,7 @@
     <form class="add-task-form" (submit)="$event.preventDefault()">
       <mat-form-field class="add-task-form_field" appearance="fill">
         <mat-label>Add new task</mat-label>
-        <input matInput #taskInput (keyup.enter)="onTaskAdded(taskInput.value)">
+        <input matInput #taskInput (keyup.enter)="onTaskAdded(taskInput.value)" required>
       </mat-form-field>
       <button
         mat-mini-fab
