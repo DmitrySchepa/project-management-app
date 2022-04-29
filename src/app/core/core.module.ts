@@ -4,9 +4,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { SharedModule } from '../shared/shared.module';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, HomePageComponent],
+  declarations: [HeaderComponent, FooterComponent, HomePageComponent, ConfirmationDialogComponent],
   imports: [CommonModule, SharedModule],
   exports: [HeaderComponent, FooterComponent],
 })
