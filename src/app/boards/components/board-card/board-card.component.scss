@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  cursor: pointer;
+}
+
+.mat-card {
+  width: 100%;
+  &-title {
+    padding-right: 20px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    pointer-events: none;
+  }
+  &-actions {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    .mat-icon-button {
+      position: absolute;
+      top: -10px;
+      .mat-icon {
+        pointer-events: none;
+      }
+    }
+  }
+}
