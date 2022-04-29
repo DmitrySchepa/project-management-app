@@ -16,13 +16,9 @@
     display: flex;
     justify-content: flex-end;
     padding: 0;
-    .mat-focus-indicator {
-      padding: 0;
-    }
-    .mat-button {
+    .mat-icon-button {
       position: absolute;
       top: -10px;
-      min-width: 36px;
       .mat-icon {
         pointer-events: none;
       }
