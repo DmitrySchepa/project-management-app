@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoginModel, UserModel } from '../models/auth.model';
 import { ApiService } from '../../core/services/api.service';
-import { concatAll, find, map, pluck, startWith, Subject } from 'rxjs';
+import { BehaviorSubject, concatAll, find, map, pluck, startWith, Subject, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -11,6 +11,8 @@ export class AuthService {
   constructor(private readonly apiService: ApiService, private readonly router: Router) {}
 
   public isAuth$ = new Subject<Boolean>();
+
+  public token = new BehaviorSubject<string>('');
 
   public userData!: UserModel;
 
@@ -22,16 +24,16 @@ export class AuthService {
   login(login: LoginModel) {
     this.apiService
       .login(login)
-      .pipe(pluck('token'))
-      .subscribe((token) => localStorage.setItem('pwa-token', token as string));
-    this.apiService
-      .getUsers()
       .pipe(
+        pluck('token'),
+        map((token) => this.token.next(token as string)),
+        switchMap(() => this.apiService.getUsers()),
         concatAll(),
         find((user) => user.login === login.login),
         map((user) => user?.id as string),
       )
       .subscribe((user) => {
+        localStorage.setItem('pwa-token', this.token.value);
         localStorage.setItem('pwa-user-id', user);
         this.router.navigate(['main', 'boards']);
       });
