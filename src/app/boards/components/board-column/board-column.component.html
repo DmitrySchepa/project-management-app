@@ -2,7 +2,7 @@
     <h2
       *ngIf="!isAddTitleModeOn"
       class="column-title"
-      (click)="isAddTitleModeOn = !isAddTitleModeOn">{{columnTitle}}</h2>
+      (click)="isAddTitleModeOn = !isAddTitleModeOn">{{column.columnTitle}}</h2>
     <div class="change-title" *ngIf="isAddTitleModeOn">
       <mat-form-field >
         <mat-label>Set column title</mat-label>
@@ -28,10 +28,10 @@
     </div>
     <div
       cdkDropList
-      [cdkDropListData]="todo"
+      [cdkDropListData]="column.tasks"
       class="task-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="task-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+      <div class="task-box" *ngFor="let task of column.tasks" cdkDrag>{{task}}</div>
     </div>
     <form class="add-task-form" (submit)="$event.preventDefault()">
       <mat-form-field class="add-task-form_field" appearance="fill">

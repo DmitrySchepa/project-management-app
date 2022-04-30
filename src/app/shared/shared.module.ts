@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 
 const MaterialModules = [
   MatToolbarModule,
@@ -15,7 +16,8 @@ const MaterialModules = [
   MatButtonModule,
   MatButtonToggleModule,
   DragDropModule,
-  MatCardModule
+  MatCardModule,
+  MatTabsModule,
 ];
 
 @NgModule({

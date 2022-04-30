@@ -12,6 +12,7 @@ import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FormsModule } from '@angular/forms';
+import { BoardParticipantsComponent } from './components/board-participants/board-participants.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     BoardPageComponent,
     BoardsPageComponent,
     FilterPipe,
+    BoardParticipantsComponent,
   ],
   imports: [CommonModule, BoardsRoutingModule, SharedModule, FormsModule],
 })

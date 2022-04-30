@@ -1,0 +1,17 @@
+<div class="participants">
+  <mat-card *ngFor="let participant of participants; let ind = index">
+    <div class="participants__info">
+      <mat-card-title>{{participant.name}}</mat-card-title>
+      <mat-card-subtitle>{{participant.email}}</mat-card-subtitle>
+    </div>
+      <button
+        mat-raised-button color="warn"
+        (click)="onDeleteParticipant(ind)">Delete</button>
+  </mat-card>
+  <!-- TODO: add form for adding participant -->
+  <button
+    class="add"
+    mat-raised-button
+    color="primary"
+    (click)="onAddParticipant(fakeParticipant)">Add participant</button>
+</div>
