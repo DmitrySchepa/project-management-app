@@ -54,6 +54,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('pwa-token');
     localStorage.removeItem('pwa-user-id');
+    this.token.next('');
     this.router.navigate(['']);
   }
 
