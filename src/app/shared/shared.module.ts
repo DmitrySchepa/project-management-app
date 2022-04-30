@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
 
 const MaterialModules = [
@@ -13,6 +14,7 @@ const MaterialModules = [
   MatIconModule,
   MatButtonModule,
   MatButtonToggleModule,
+  DragDropModule,
   MatCardModule
 ];
 
