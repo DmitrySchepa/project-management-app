@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BoardModel } from '../../models/board.model';
+import { BoardsService } from '../../services/boards.service';
 
 @Component({
   selector: 'app-boards-page',
   templateUrl: './boards-page.component.html',
   styleUrls: ['./boards-page.component.scss'],
 })
-export class BoardsPageComponent {
+export class BoardsPageComponent implements OnInit {
   public boards: BoardModel[] = [
     { id: '1', title: 'board 1' },
     { id: '2', title: 'board 2' },
@@ -19,4 +20,10 @@ export class BoardsPageComponent {
     { id: '9', title: 'board 9' },
     { id: '10', title: 'board 10' },
   ];
+
+  constructor(private readonly boardsService: BoardsService) {}
+
+  ngOnInit() {
+    this.boardsService.getBoards();
+  }
 }
