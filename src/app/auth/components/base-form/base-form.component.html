@@ -1,4 +1,4 @@
-<form [formGroup]='formGroup' class='form'>
+<form [formGroup]='formGroup' class='form' (submit)='submit()'>
   <mat-form-field appearance='outline'>
     <mat-label>User name</mat-label>
     <input matInput formControlName='name' type='text'>
@@ -40,7 +40,7 @@
   <mat-form-field appearance='outline'>
     <mat-label>Password</mat-label>
     <input matInput formControlName='password' [type]="hide ? 'password' : 'text'">
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+    <button mat-icon-button matSuffix type='button' (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
       <mat-icon color='primary'>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
     <mat-error *ngIf='password?.errors?.["required"]'>
@@ -56,7 +56,7 @@
   <mat-form-field appearance='outline'>
     <mat-label>Confirm password</mat-label>
     <input matInput formControlName='confirmPassword' [type]="hideConfirm ? 'password' : 'text'">
-    <button mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirm">
+    <button mat-icon-button matSuffix type='button' (click)="hideConfirm = !hideConfirm" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirm">
       <mat-icon color='primary'>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
     <mat-error *ngIf='confirmPassword?.errors?.["required"]'>
