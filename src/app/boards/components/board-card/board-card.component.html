@@ -1,1 +1,8 @@
-<p>board-card works!</p>
+<mat-card (click)='openBoard($event, board.id)'>
+  <mat-card-actions>
+    <button mat-icon-button type='button' (click)='deleteBoard(board.id)'>
+      <mat-icon color='warn'>clear</mat-icon>
+    </button>
+  </mat-card-actions>
+  <mat-card-title>{{board.title}}</mat-card-title>
+</mat-card>

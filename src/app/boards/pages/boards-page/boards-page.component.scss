@@ -1,0 +1,40 @@
+:host {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 0;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.boards {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__title {
+    font-size: 32px;
+  }
+  &__list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+
+    &-item {
+      width: 33%;
+      padding: 10px;
+      box-sizing: border-box;
+      @media (max-width: 900px) {
+        width: 50%;
+        justify-content: center;
+      }
+      @media (max-width: 500px) {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}
