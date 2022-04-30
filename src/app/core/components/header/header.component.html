@@ -17,17 +17,29 @@
             </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
-      <a class="navbar_item">
-        <mat-icon>add</mat-icon>
-        <span>New Board</span>
-      </a>
-      <a class="navbar_item">
-        <mat-icon>edit</mat-icon>
-        <span>Edit profile</span>
-      </a>
-      <a class="navbar_item">
-        <mat-icon>input</mat-icon>
-        <span>Log Out</span>
-      </a>
+      <div class='navbar__group' *ngIf='checkAuth() | async'>
+        <a class="navbar_item">
+          <mat-icon>add</mat-icon>
+          <span>New Board</span>
+        </a>
+        <a class="navbar_item" routerLink='auth/edit-profile'>
+          <mat-icon>edit</mat-icon>
+          <span>Edit profile</span>
+        </a>
+        <a class="navbar_item" (click)='logout()'>
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Log Out</span>
+        </a>
+      </div>
+      <div class='navbar__group' *ngIf='(checkAuth() | async) === false'>
+        <a class="navbar_item" routerLink='auth/log-in'>
+          <mat-icon>input</mat-icon>
+          <span>Log In</span>
+        </a>
+        <a class="navbar_item"  routerLink='auth/sign-up'>
+          <mat-icon>person_add</mat-icon>
+          <span>Sign Up</span>
+        </a>
+      </div>
     </div>
 </mat-toolbar>
