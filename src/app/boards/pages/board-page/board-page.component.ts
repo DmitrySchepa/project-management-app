@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-board-page',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./board-page.component.scss'],
 })
 export class BoardPageComponent implements OnInit {
-  constructor() {}
+  public boardId!: string;
 
-  ngOnInit(): void {}
+  constructor(private readonly route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.boardId = this.route.snapshot.params['id'];
+  }
 }
