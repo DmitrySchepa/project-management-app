@@ -8,6 +8,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from '../core/interceptors/api.interceptor';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MaterialModules = [
   MatToolbarModule,
@@ -16,6 +17,7 @@ const MaterialModules = [
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
+  MatTooltipModule,
 ];
 
 @NgModule({
