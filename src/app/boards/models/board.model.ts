@@ -1,8 +1,8 @@
 export interface BoardModel {
   id: string;
   title: string;
-  participants: Participant[];
-  columns: BoardColumn[];
+  participants?: Participant[];
+  columns?: BoardColumn[];
 }
 
 export interface BoardColumn {

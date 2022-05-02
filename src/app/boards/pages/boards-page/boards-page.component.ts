@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BoardModel } from '../../models/board.model';
 import { BoardsService } from '../../services/boards.service';
+import { boardsMock } from 'src/mocks/board-model.mock';
 
 @Component({
   selector: 'app-boards-page',
@@ -13,6 +14,6 @@ export class BoardsPageComponent implements OnInit {
   constructor(private boardsService: BoardsService) {}
 
   ngOnInit(): void {
-    this.boards = this.boardsService.boadrsMock;
+    this.boards = boardsMock;
   }
 }

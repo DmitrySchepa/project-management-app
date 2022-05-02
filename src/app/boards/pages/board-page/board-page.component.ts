@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BoardColumn, BoardModel } from '../../models/board.model';
-import { BoardsService } from '../../services/boards.service';
+import { boardsMock } from 'src/mocks/board-model.mock';
 
 @Component({
   selector: 'app-board-page',
@@ -11,18 +11,20 @@ import { BoardsService } from '../../services/boards.service';
 export class BoardPageComponent implements OnInit {
   public boardId!: string;
 
-  columns: BoardColumn[] = [];
+  columns?: BoardColumn[] = [];
 
-  constructor(private readonly route: ActivatedRoute, private boardsService: BoardsService) {}
+  boards: BoardModel[] = boardsMock;
+
+  constructor(private readonly route: ActivatedRoute) {}
 
   ngOnInit() {
     this.boardId = this.route.snapshot.params['id'];
-    this.boardsService.boadrsMock.forEach((elem: BoardModel) => {
+    this.boards.forEach((elem: BoardModel) => {
       this.columns = elem.columns;
     });
   }
 
   onAddColumn() {
-    this.columns.push({ columnTitle: 'New column', tasks: [] });
+    this.columns?.push({ columnTitle: 'New column', tasks: [] });
   }
 }
