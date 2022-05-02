@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoginModel, UserModel } from '../models/auth.model';
 import { ApiService } from '../../core/services/api.service';
-import { BehaviorSubject, concatAll, find, map, pluck, startWith, Subject, switchMap } from 'rxjs';
+import { startWith, Subject, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -12,8 +12,6 @@ export class AuthService {
 
   public isAuth$ = new Subject<Boolean>();
 
-  public token = new BehaviorSubject<string>('');
-
   public userData!: UserModel;
 
   checkAuth() {
@@ -22,25 +20,22 @@ export class AuthService {
   }
 
   login(login: LoginModel) {
-    this.apiService
-      .login(login)
-      .pipe(
-        pluck('token'),
-        map((token) => this.token.next(token as string)),
-        switchMap(() => this.apiService.getUsers()),
-        concatAll(),
-        find((user) => user.login === login.login),
-        map((user) => user?.id as string),
-      )
-      .subscribe((user) => {
-        localStorage.setItem('pwa-token', this.token.value);
-        localStorage.setItem('pwa-user-id', user);
-        this.router.navigate(['main', 'boards']);
-      });
+    this.apiService.login(login).subscribe((userId) => {
+      localStorage.setItem('pwa-token', this.apiService.token$.value);
+      localStorage.setItem('pwa-user-id', userId);
+      this.router.navigate(['main', 'boards']);
+    });
   }
 
   signup(user: UserModel) {
-    this.apiService.signup(user).subscribe(() => this.router.navigate(['auth', 'log-in']));
+    this.apiService
+      .signup(user)
+      .pipe(switchMap(() => this.apiService.login({ login: user.login, password: user.password })))
+      .subscribe((userId) => {
+        localStorage.setItem('pwa-token', this.apiService.token$.value);
+        localStorage.setItem('pwa-user-id', userId);
+        this.router.navigate(['main', 'boards']);
+      });
   }
 
   getUser() {
@@ -54,7 +49,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('pwa-token');
     localStorage.removeItem('pwa-user-id');
-    this.token.next('');
+    this.apiService.token$.next('');
     this.router.navigate(['']);
   }
 

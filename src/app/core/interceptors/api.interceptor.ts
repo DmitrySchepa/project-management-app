@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../../auth/services/auth.service';
+import { ApiService } from '../services/api.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly apiService: ApiService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(
@@ -14,7 +14,7 @@ export class ApiInterceptor implements HttpInterceptor {
         url: `${environment.BASE_URL}/${request.url}`,
         headers: request.headers.set(
           'Authorization',
-          `Bearer ${localStorage.getItem('pwa-token') || this.authService.token.value}`,
+          `Bearer ${localStorage.getItem('pwa-token') || this.apiService.token$.value}`,
         ),
       }),
     );
