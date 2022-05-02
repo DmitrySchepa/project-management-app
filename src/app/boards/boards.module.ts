@@ -11,6 +11,7 @@ import { BoardSearchComponent } from './components/board-search/board-search.com
 import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,6 @@ import { FilterPipe } from './pipes/filter.pipe';
     BoardsPageComponent,
     FilterPipe,
   ],
-  imports: [CommonModule, BoardsRoutingModule, SharedModule],
+  imports: [CommonModule, BoardsRoutingModule, SharedModule, FormsModule],
 })
 export class BoardsModule {}
