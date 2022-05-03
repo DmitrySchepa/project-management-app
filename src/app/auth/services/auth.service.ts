@@ -17,20 +17,20 @@ export class AuthService {
   public errorMessage!: string;
 
   checkAuth() {
-    const isAuth = !!localStorage.getItem('pwa-token');
+    const isAuth = !!localStorage.getItem('pma-token');
     return this.isAuth$.pipe(startWith(isAuth));
   }
 
   login(login: LoginModel) {
     this.apiService.login(login).subscribe({
       next: (userId) => {
-        localStorage.setItem('pwa-token', this.apiService.token$.value);
-        localStorage.setItem('pwa-user-id', userId as string);
+        localStorage.setItem('pma-token', this.apiService.token$.value);
+        localStorage.setItem('pma-user-id', userId as string);
         this.router.navigate(['main', 'boards']);
       },
       error: (error) => {
-        this.errorMessage = error.error.message
-      }
+        this.errorMessage = error.error.message;
+      },
     });
   }
 
@@ -40,13 +40,13 @@ export class AuthService {
       .pipe(switchMap(() => this.apiService.login({ login: user.login, password: user.password })))
       .subscribe({
         next: (userId) => {
-          localStorage.setItem('pwa-token', this.apiService.token$.value);
-          localStorage.setItem('pwa-user-id', userId);
+          localStorage.setItem('pma-token', this.apiService.token$.value);
+          localStorage.setItem('pma-user-id', userId);
           this.router.navigate(['main', 'boards']);
         },
         error: (error) => {
-          this.errorMessage = error.error.message
-        }
+          this.errorMessage = error.error.message;
+        },
       });
   }
 
@@ -57,13 +57,13 @@ export class AuthService {
   updateUser(user: UserModel) {
     this.apiService.updateUser(user).subscribe({
       next: () => this.router.navigate(['main', 'boards']),
-      error: (error) => this.errorMessage = error.error.message
+      error: (error) => (this.errorMessage = error.error.message),
     });
   }
 
   logout() {
-    localStorage.removeItem('pwa-token');
-    localStorage.removeItem('pwa-user-id');
+    localStorage.removeItem('pma-token');
+    localStorage.removeItem('pma-user-id');
     this.apiService.token$.next('');
     this.router.navigate(['']);
   }

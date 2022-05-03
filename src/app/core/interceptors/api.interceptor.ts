@@ -14,7 +14,7 @@ export class ApiInterceptor implements HttpInterceptor {
         url: `${environment.BASE_URL}/${request.url}`,
         headers: request.headers.set(
           'Authorization',
-          `Bearer ${localStorage.getItem('pwa-token') || this.apiService.token$.value}`,
+          `Bearer ${localStorage.getItem('pma-token') || this.apiService.token$.value}`,
         ),
       }),
     );
