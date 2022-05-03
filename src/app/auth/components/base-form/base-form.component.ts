@@ -78,6 +78,10 @@ export class BaseFormComponent extends AuthDirective implements OnInit {
     };
   }
 
+  getErrorMessage() {
+    return this.authService.errorMessage;
+  }
+
   submit() {
     if (this.formGroup.invalid) return;
     this.authService.userData = {

@@ -14,16 +14,23 @@ export class AuthService {
 
   public userData!: UserModel;
 
+  public errorMessage!: string;
+
   checkAuth() {
     const isAuth = !!localStorage.getItem('pwa-token');
     return this.isAuth$.pipe(startWith(isAuth));
   }
 
   login(login: LoginModel) {
-    this.apiService.login(login).subscribe((userId) => {
-      localStorage.setItem('pwa-token', this.apiService.token$.value);
-      localStorage.setItem('pwa-user-id', userId);
-      this.router.navigate(['main', 'boards']);
+    this.apiService.login(login).subscribe({
+      next: (userId) => {
+        localStorage.setItem('pwa-token', this.apiService.token$.value);
+        localStorage.setItem('pwa-user-id', userId as string);
+        this.router.navigate(['main', 'boards']);
+      },
+      error: (error) => {
+        this.errorMessage = error.error.message
+      }
     });
   }
 
@@ -31,10 +38,15 @@ export class AuthService {
     this.apiService
       .signup(user)
       .pipe(switchMap(() => this.apiService.login({ login: user.login, password: user.password })))
-      .subscribe((userId) => {
-        localStorage.setItem('pwa-token', this.apiService.token$.value);
-        localStorage.setItem('pwa-user-id', userId);
-        this.router.navigate(['main', 'boards']);
+      .subscribe({
+        next: (userId) => {
+          localStorage.setItem('pwa-token', this.apiService.token$.value);
+          localStorage.setItem('pwa-user-id', userId);
+          this.router.navigate(['main', 'boards']);
+        },
+        error: (error) => {
+          this.errorMessage = error.error.message
+        }
       });
   }
 
@@ -43,7 +55,10 @@ export class AuthService {
   }
 
   updateUser(user: UserModel) {
-    this.apiService.updateUser(user).subscribe(() => this.router.navigate(['main', 'boards']));
+    this.apiService.updateUser(user).subscribe({
+      next: () => this.router.navigate(['main', 'boards']),
+      error: (error) => this.errorMessage = error.error.message
+    });
   }
 
   logout() {

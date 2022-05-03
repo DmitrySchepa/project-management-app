@@ -6,6 +6,13 @@
   max-width: 450px;
   min-width: 300px;
 
+  &__error {
+    padding: 5px;
+    text-align: center;
+    color: #f44336;
+    font-weight: bold;
+  }
+
   &__submit {
     flex: 1;
     max-width: 450px;
