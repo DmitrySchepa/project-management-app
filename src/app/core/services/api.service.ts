@@ -76,7 +76,7 @@ export class ApiService {
   }
 
   getBoards() {
-    return this.http.get<BoardModel[]>('/boards');
+    return this.http.get<BoardModel[]>('boards');
   }
 
   createBoard(title: string) {
