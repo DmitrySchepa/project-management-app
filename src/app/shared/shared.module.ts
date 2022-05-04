@@ -15,7 +15,7 @@ const MaterialModules = [
   MatButtonModule,
   MatButtonToggleModule,
   DragDropModule,
-  MatCardModule
+  MatCardModule,
 ];
 
 @NgModule({

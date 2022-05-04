@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
+import { fromEvent, throttleTime } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -6,7 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
+  enableSticky: boolean = false;
 
-  ngOnInit(): void {}
+  constructor(@Inject(DOCUMENT) private document: Document) {}
+
+  ngOnInit(): void {
+    fromEvent(window, 'scroll')
+      .pipe(throttleTime(25))
+      .subscribe(() => {
+        if (this.document.defaultView!.scrollY > 0) {
+          this.enableSticky = true;
+        } else {
+          this.enableSticky = false;
+        }
+      });
+  }
 }

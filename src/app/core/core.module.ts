@@ -8,7 +8,13 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, HomePageComponent, NotFoundComponent, NotFoundPageComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    HomePageComponent,
+    NotFoundComponent,
+    NotFoundPageComponent,
+  ],
   imports: [CommonModule, SharedModule],
   exports: [HeaderComponent, FooterComponent],
 })
