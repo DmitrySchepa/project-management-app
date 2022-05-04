@@ -29,12 +29,20 @@ export class BoardColumnComponent implements OnInit {
 
   isAddTitleModeOn = false;
 
-  @ViewChild('taskInput') taskInput!: ElementRef;
+  isAddTaskModeOn = false;
+
+  @ViewChild('taskInput', { static: false })
+  set taskInput(element: ElementRef<HTMLInputElement>) {
+    if (element) {
+      element.nativeElement.focus();
+    }
+  }
 
   onTaskAdded(task: string) {
     if (task.length != 0) {
       this.column.tasks.push(task);
       this.taskInput.nativeElement.value = '';
+      this.isAddTaskModeOn = !this.isAddTaskModeOn;
     }
   }
 
