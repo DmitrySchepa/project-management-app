@@ -10,6 +10,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { RouterModule } from '@angular/router';
 
 @NgModule({
+  imports: [CommonModule, SharedModule],
   declarations: [HeaderComponent, FooterComponent, HomePageComponent, ConfirmationDialogComponent,
                  NotFoundComponent, NotFoundPageComponent],
   imports: [CommonModule, SharedModule, RouterModule],

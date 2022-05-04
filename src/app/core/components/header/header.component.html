@@ -1,4 +1,8 @@
-<mat-toolbar color="primary" class="header">
+<div class='container'>
+  <mat-toolbar
+    color="primary"
+    class="header"
+    [ngClass]="{'sticky-header': enableSticky}">
     <h1 class="logo">PMA</h1>
     <div class="navbar">
       <div class="navbar_item">
@@ -42,4 +46,6 @@
         </a>
       </div>
     </div>
-</mat-toolbar>
+  </mat-toolbar>
+</div>
+
