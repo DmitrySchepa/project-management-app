@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  BASE_URL: 'http://localhost:4200/api',
+  BASE_URL: 'https://pmaback.herokuapp.com',
 };
 
 /*
