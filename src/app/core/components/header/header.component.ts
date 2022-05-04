@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import { langs } from '../../../constants/langs';
 
 @Component({
   selector: 'app-header',
@@ -7,14 +8,19 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+
   constructor(public translate: TranslateService) {
-    this.translate.addLangs(['en', 'ru']);
-    this.translate.setDefaultLang('en');
-    const storedLang = localStorage.getItem('pma-lang');    
-    const browserLang = this.translate.getBrowserLang() ?? 'en';
-    const curLang = storedLang ?? browserLang;
-    this.translate.use(curLang);
-   }
+    this.translate.addLangs(langs);
+    const storedLang = localStorage.getItem('pma-lang');
+    const browserLang = this.translate.getBrowserLang() ?? '';
+    const curLang = storedLang ?? browserLang;    
+
+    if (curLang && langs.includes(curLang)) {
+      this.translate.use(curLang);
+    } else {
+      this.translate.use('en');
+    }
+  }
 
   ngOnInit(): void {}
 
@@ -29,7 +35,6 @@ export class HeaderComponent implements OnInit {
   }
 
   isChecked(lang: string): boolean {
-    console.log(this.translate.currentLang);
     return lang === this.translate.currentLang;
   }
 
