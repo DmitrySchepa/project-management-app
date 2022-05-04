@@ -24,4 +24,8 @@ export class LogInComponent extends AuthDirective implements OnInit {
     if (this.formGroup.invalid) return;
     this.authService.login(this.formGroup.value);
   }
+
+  getErrorMessage() {
+    return this.authService.errorMessage;
+  }
 }
