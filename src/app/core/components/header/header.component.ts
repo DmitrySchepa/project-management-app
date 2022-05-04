@@ -13,14 +13,12 @@ export class HeaderComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
   ngOnInit(): void {
-    fromEvent(window, 'scroll')
-      .pipe(throttleTime(25))
-      .subscribe(() => {
-        if (this.document.defaultView!.scrollY > 0) {
-          this.enableSticky = true;
-        } else {
-          this.enableSticky = false;
-        }
-      });
+    fromEvent(window, 'scroll').subscribe(() => {
+      if (this.document.defaultView!.scrollY > 0) {
+        this.enableSticky = true;
+      } else {
+        this.enableSticky = false;
+      }
+    });
   }
 }
