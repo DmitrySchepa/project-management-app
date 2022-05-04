@@ -26,6 +26,7 @@ export class AuthService {
       next: (userId) => {
         localStorage.setItem('pma-token', this.apiService.token$.value);
         localStorage.setItem('pma-user-id', userId as string);
+        this.errorMessage = '';
         this.router.navigate(['main', 'boards']);
       },
       error: (error) => {
@@ -42,6 +43,7 @@ export class AuthService {
         next: (userId) => {
           localStorage.setItem('pma-token', this.apiService.token$.value);
           localStorage.setItem('pma-user-id', userId);
+          this.errorMessage = '';
           this.router.navigate(['main', 'boards']);
         },
         error: (error) => {
