@@ -1,13 +1,33 @@
 .form {
-  margin: 0 auto;
+  position: relative;
+  margin: 20px auto 0;
   padding: 10px;
   display: flex;
   flex-direction: column;
   max-width: 450px;
   min-width: 300px;
 
+  &__error {
+    position: absolute;
+    top: -20px;
+    display: block;
+    padding: 5px;
+    align-self: center;
+    color: #f44336;
+    font-weight: bold;
+  }
+
   &__submit {
-    width: 300px;
+    flex: 1;
+    max-width: 450px;
     align-self: center;
   }
+  &__delete {
+    flex: 1;
+  }
+}
+
+.edit__buttons {
+  display: flex;
+  gap: 15px;
 }

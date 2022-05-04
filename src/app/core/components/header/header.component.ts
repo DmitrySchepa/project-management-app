@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { fromEvent, throttleTime } from 'rxjs';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import { fromEvent, throttleTime } from 'rxjs';
 export class HeaderComponent implements OnInit {
   enableSticky: boolean = false;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor(@Inject(DOCUMENT) private document: Document, private readonly authService: AuthService) {}
 
   ngOnInit(): void {
     fromEvent(window, 'scroll').subscribe(() => {
@@ -20,5 +21,12 @@ export class HeaderComponent implements OnInit {
         this.enableSticky = false;
       }
     });
+    
+  checkAuth() {
+    return this.authService.checkAuth();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

@@ -6,3 +6,9 @@ export interface LoginModel {
 export interface UserModel extends LoginModel {
   name: string;
 }
+
+export interface UserDB {
+  id: string;
+  name: string;
+  login: string;
+}
