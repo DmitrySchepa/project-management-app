@@ -8,6 +8,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from '../core/interceptors/api.interceptor';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -21,6 +22,7 @@ const MaterialModules = [
   MatDialogModule,
   DragDropModule,
   MatCardModule,
+  MatTabsModule,
   MatTooltipModule,
 ];
 

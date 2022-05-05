@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BoardModel } from '../models/board.model';
 import { ApiService } from '../../core/services/api.service';
 
 @Injectable({

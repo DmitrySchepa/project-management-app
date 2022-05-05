@@ -1,1 +1,16 @@
-<p>board</p>
+<mat-tab-group animationDuration="0ms" mat-align-tabs="center">
+  <mat-tab label="Current board">
+    <app-board-column *ngFor="let column of columns; let i = index" [column]="column"></app-board-column>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onAddColumn()"
+      class="add-column-btn">
+      <mat-icon>add</mat-icon>
+      Add column
+    </button>
+  </mat-tab>
+  <mat-tab label="Participants">
+    <app-board-participants></app-board-participants>
+  </mat-tab>
+</mat-tab-group>
