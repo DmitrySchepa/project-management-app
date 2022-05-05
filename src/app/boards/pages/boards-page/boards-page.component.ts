@@ -11,9 +11,10 @@ import { boardsMock } from 'src/mocks/board-model.mock';
 export class BoardsPageComponent implements OnInit {
   public boards: BoardModel[] = [];
 
-  constructor(private boardsService: BoardsService) {}
+  constructor(private readonly boardsService: BoardsService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.boards = boardsMock;
+    // this.boardsService.getBoards();
   }
 }

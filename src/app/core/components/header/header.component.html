@@ -1,4 +1,8 @@
-<mat-toolbar color="primary" class="header">
+<div class='container'>
+  <mat-toolbar
+    color="primary"
+    class="header"
+    [ngClass]="{'sticky-header': enableSticky}">
     <h1 class="logo">PMA</h1>
     <div class="navbar">
       <div class="navbar_item">
@@ -17,17 +21,31 @@
             </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
-      <a class="navbar_item">
-        <mat-icon>add</mat-icon>
-        <span>New Board</span>
-      </a>
-      <a class="navbar_item">
-        <mat-icon>edit</mat-icon>
-        <span>Edit profile</span>
-      </a>
-      <a class="navbar_item">
-        <mat-icon>input</mat-icon>
-        <span>Log Out</span>
-      </a>
+      <div class='navbar__group' *ngIf='checkAuth() | async'>
+        <a class="navbar_item">
+          <mat-icon matTooltip='New Board'>add</mat-icon>
+          <span>New Board</span>
+        </a>
+        <a class="navbar_item" routerLink='auth/edit-profile'>
+          <mat-icon matTooltip='Edit profile'>edit</mat-icon>
+          <span>Edit profile</span>
+        </a>
+        <a class="navbar_item" (click)='logout()'>
+          <mat-icon matTooltip='Log Out'>exit_to_app</mat-icon>
+          <span>Log Out</span>
+        </a>
+      </div>
+      <div class='navbar__group' *ngIf='(checkAuth() | async) === false'>
+        <a class="navbar_item" routerLink='auth/log-in'>
+          <mat-icon matTooltip='Log In'>input</mat-icon>
+          <span>Log In</span>
+        </a>
+        <a class="navbar_item"  routerLink='auth/sign-up'>
+          <mat-icon matTooltip='Sign Up'>person_add</mat-icon>
+          <span>Sign Up</span>
+        </a>
+      </div>
     </div>
-</mat-toolbar>
+  </mat-toolbar>
+</div>
+
