@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
-import { BoardModel } from '../models/board.model';
 import { ApiService } from '../../core/services/api.service';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardsService {
-  constructor(private readonly apiService: ApiService) {}
+  constructor(private readonly apiService: ApiService, private readonly authService: AuthService) {}
 
   getBoards() {
-    this.apiService.getBoards().subscribe((boards) => console.log(boards));
+    this.apiService.getBoards().subscribe({
+      next: (boards) => console.log(boards),
+      error: () => {
+        this.authService.logout();
+      },
+    });
   }
 
   createBoard(title: string) {

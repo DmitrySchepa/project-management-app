@@ -53,13 +53,22 @@ export class AuthService {
   }
 
   getUser() {
-    return this.apiService.getUser();
+    const user = this.apiService.getUser();
+    user.subscribe({
+      error: (error) => {
+        if (error.error.statusCode === 401) this.logout();
+      },
+    });
+    return user;
   }
 
   updateUser(user: UserModel) {
     this.apiService.updateUser(user).subscribe({
       next: () => this.router.navigate(['main', 'boards']),
-      error: (error) => (this.errorMessage = error.error.message),
+      error: (error) => {
+        if (error.error.statusCode === 401) this.logout();
+        this.errorMessage = error.error.message;
+      },
     });
   }
 

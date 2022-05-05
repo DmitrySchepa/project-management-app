@@ -72,11 +72,19 @@ export class ApiService {
   }
 
   deleteUser() {
-    return this.http.delete(`users/${this.userId()}`);
+    return this.http.delete(`users/${this.userId()}`).pipe(
+      catchError((err) => {
+        throw err;
+      }),
+    );
   }
 
   getBoards() {
-    return this.http.get<BoardModel[]>('boards');
+    return this.http.get<BoardModel[]>('boards').pipe(
+      catchError((err) => {
+        throw err;
+      }),
+    );
   }
 
   createBoard(title: string) {
