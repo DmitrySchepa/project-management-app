@@ -9,7 +9,9 @@ import { langs } from '../../../constants/langs';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public translate: TranslateService) {
+  constructor(public translate: TranslateService) { }
+
+  ngOnInit(): void {
     this.translate.addLangs(langs);
     const storedLang = localStorage.getItem('pma-lang');
     const browserLang = this.translate.getBrowserLang() ?? '';
@@ -21,8 +23,6 @@ export class HeaderComponent implements OnInit {
       this.translate.use('en');
     }
   }
-
-  ngOnInit(): void {}
 
   onClickEnglish(): void {
     this.translate.use('en');
