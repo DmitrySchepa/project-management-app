@@ -11,7 +11,10 @@ import { AuthService } from '../../../auth/services/auth.service';
 export class HeaderComponent implements OnInit {
   enableSticky: boolean = false;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private readonly authService: AuthService) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private readonly authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     fromEvent(window, 'scroll').subscribe(() => {
@@ -21,7 +24,8 @@ export class HeaderComponent implements OnInit {
         this.enableSticky = false;
       }
     });
-    
+  }
+
   checkAuth() {
     return this.authService.checkAuth();
   }

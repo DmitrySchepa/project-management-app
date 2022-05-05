@@ -11,9 +11,14 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [CommonModule, SharedModule],
-  declarations: [HeaderComponent, FooterComponent, HomePageComponent, ConfirmationDialogComponent,
-                 NotFoundComponent, NotFoundPageComponent],
-  imports: [CommonModule, SharedModule, RouterModule],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    HomePageComponent,
+    ConfirmationDialogComponent,
+    NotFoundComponent,
+    NotFoundPageComponent,
+  ],
   exports: [HeaderComponent, FooterComponent],
 })
 export class CoreModule {}
