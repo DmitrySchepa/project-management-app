@@ -1,0 +1,22 @@
+<section class='section description'>
+  <h2 class='section__title'>About App</h2>
+  <div class='section__content'>
+    Here will be placed PMA description
+  </div>
+</section>
+<section class='section features'>
+  <h2 class='section__title'>Features</h2>
+  <div class='section__content'>
+    Here will be placed list of PMA features
+  </div>
+</section>
+<section class='section team'>
+  <h2 class='section__title'>Our Team</h2>
+  <div class='section__content'>
+    <ul class='team__list'>
+      <li class='team__item' *ngFor='let participant of team'>
+        <app-participants [partisipant]='participant'></app-participants>
+      </li>
+    </ul>
+  </div>
+</section>
