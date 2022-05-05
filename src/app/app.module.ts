@@ -15,7 +15,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule,
+  imports: [
+    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,

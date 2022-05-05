@@ -1,18 +1,32 @@
+.container {
+  margin-top: 64px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
+  z-index: 10;
+  transition: 300ms ease;
+  top: 0;
+  position: fixed;
+  padding: 0 10px;
 }
 
 .logo {
   font-family: "Norican";
   font-size: 28px;
   margin-left: 15px;
-  text-shadow: 0px 4px 4px rgba(255, 255, 255, 0.25);
+  text-shadow: 0 4px 4px rgba(255, 255, 255, 0.25);
 }
 
 .navbar {
   display: flex;
   height: 70%;
+}
+
+.navbar__group {
+  display: flex;
+  align-items: center;
 }
 
 .navbar_item {
@@ -22,9 +36,15 @@
   margin-left: 10px;
   cursor: pointer;
   padding: 0 8px;
+  color: white;
+  text-decoration: none;
+  @media (max-width: 640px) {
+    margin: 0;
+    padding: 0 5px;
+  }
 }
 
-.navbar_item:hover:not(:first-child) {
+.navbar_item:hover:not(div.navbar_item) {
   background: rgba(0,0,0,.2);
   border-radius: 5px;
   transition: .3s;
@@ -32,6 +52,9 @@
 
 .navbar_item span {
   margin-bottom: 4px;
+  @media (max-width: 640px) {
+    display: none;
+  }
 }
 
 .mat-icon {
@@ -62,4 +85,13 @@ mat-button-toggle {
 
 .mat-button-toggle-checked {
   border: 1px solid white;
+}
+
+.sticky-header {
+  position: fixed;
+  transition: 300ms ease;
+  z-index: 10;
+  background-color: #ff4081;
+  height: 55px;
+  top: 0;
 }

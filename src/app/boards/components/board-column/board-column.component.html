@@ -1,52 +1,72 @@
-  <div class="column-container">
-    <h2
-      *ngIf="!isAddTitleModeOn"
-      class="column-title"
-      (click)="isAddTitleModeOn = !isAddTitleModeOn">{{columnTitle}}</h2>
-    <div class="change-title" *ngIf="isAddTitleModeOn">
-      <mat-form-field >
-        <mat-label>Set column title</mat-label>
-        <input
-        type="text"
-        #columnTitle
-        matInput
-        (keyup.enter)="onChangeTitle(columnTitle.value)"
-        required>
-      </mat-form-field>
-      <button
-        mat-icon-button
-        color="primary"
-        (click)="onChangeTitle(columnTitle.value)">
-        <mat-icon>done</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        color="warn"
-        (click)="isAddTitleModeOn = !isAddTitleModeOn">
-        <mat-icon>cancel</mat-icon>
-      </button>
-    </div>
-    <div
-      cdkDropList
-      [cdkDropListData]="todo"
-      class="task-list"
-      (cdkDropListDropped)="drop($event)">
-      <div class="task-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
-    </div>
-    <form class="add-task-form" (submit)="$event.preventDefault()">
-      <mat-form-field class="add-task-form_field" appearance="fill">
-        <mat-label>Add new task</mat-label>
-        <input matInput #taskInput (keyup.enter)="onTaskAdded(taskInput.value)" required>
-      </mat-form-field>
-      <button
-        mat-mini-fab
-        color="primary"
-        type="button"
-        class="add-task-form_button"
-        (click)="onTaskAdded(taskInput.value)">
-        <mat-icon>add</mat-icon>
-      </button>
-    </form>
+<div class="column-container">
+  <h2
+    *ngIf="!isAddTitleModeOn"
+    class="column-title"
+    (click)="isAddTitleModeOn = !isAddTitleModeOn">{{column.columnTitle}}</h2>
+  <div class="change-title" *ngIf="isAddTitleModeOn">
+    <mat-form-field >
+      <mat-label>Set column title</mat-label>
+      <input
+      type="text"
+      #columnTitle
+      matInput
+      (keyup.enter)="onChangeTitle(columnTitle.value)"
+      required>
+    </mat-form-field>
+    <button
+      mat-icon-button
+      color="primary"
+      (click)="onChangeTitle(columnTitle.value)">
+      <mat-icon>done</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="warn"
+      (click)="isAddTitleModeOn = !isAddTitleModeOn">
+      <mat-icon>cancel</mat-icon>
+    </button>
   </div>
+  <div
+    cdkDropList
+    [cdkDropListData]="column.tasks"
+    class="task-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="task-box" *ngFor="let task of column.tasks" cdkDrag>{{task}}</div>
+  </div>
+  <div class="add-task-container">
+    <button
+      mat-button
+      color="primary"
+      class="add-task_btn"
+      *ngIf="!isAddTaskModeOn"
+      (click)="isAddTaskModeOn = !isAddTaskModeOn">
+      <mat-icon>add</mat-icon>
+      Add new task
+    </button>
+  </div>
+  <div class="change-title" *ngIf="isAddTaskModeOn">
+    <mat-form-field >
+      <mat-label>Add new task</mat-label>
+      <input
+      type="text"
+      #taskInput
+      matInput
+      (keyup.enter)="onTaskAdded(taskInput.value)"
+      required>
+    </mat-form-field>
+    <button
+      mat-icon-button
+      color="primary"
+      (click)="onTaskAdded(taskInput.value)">
+      <mat-icon>done</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="warn"
+      (click)="isAddTaskModeOn = !isAddTaskModeOn">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+</div>
 
 

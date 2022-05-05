@@ -1,5 +1,6 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { BoardColumn } from '../../models/board.model';
 
 @Component({
   selector: 'app-board-column',
@@ -7,15 +8,11 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./board-column.component.scss'],
 })
 export class BoardColumnComponent implements OnInit {
+  @Input() column!: BoardColumn;
+
   constructor() {}
 
   ngOnInit(): void {}
-
-  columnTitle = 'Set column title';
-
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -32,18 +29,26 @@ export class BoardColumnComponent implements OnInit {
 
   isAddTitleModeOn = false;
 
-  @ViewChild('taskInput') taskInput!: ElementRef;
+  isAddTaskModeOn = false;
+
+  @ViewChild('taskInput', { static: false })
+  set taskInput(element: ElementRef<HTMLInputElement>) {
+    if (element) {
+      element.nativeElement.focus();
+    }
+  }
 
   onTaskAdded(task: string) {
     if (task.length != 0) {
-      this.todo.push(task);
+      this.column.tasks.push(task);
       this.taskInput.nativeElement.value = '';
+      this.isAddTaskModeOn = !this.isAddTaskModeOn;
     }
   }
 
   onChangeTitle(value: string) {
     if (value.length != 0) {
-      this.columnTitle = value;
+      this.column.columnTitle = value;
       this.isAddTitleModeOn = !this.isAddTitleModeOn;
     }
   }
