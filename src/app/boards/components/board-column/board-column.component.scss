@@ -10,18 +10,39 @@
   margin: 10px;
 }
 
-.column-title {
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color:#3f51b5;
+  cursor: pointer; 
+  border-radius: 5px 5px 0 0;
+}
+
+.column-title {
   height: 38px;
   color: white;
   text-align: center;
   padding: 5px;
   margin-bottom: 0px;
-  border-radius: 5px 5px 0 0;
-  cursor: pointer; 
+  margin-left: 35px;
+  flex-grow: 5;
 }
 
-.column-title:hover {
+.delete-icon {
+  color: rgb(243, 24, 24);
+  cursor: pointer;
+  flex-grow: 1;
+  margin-bottom: 5px;
+  justify-self: flex-end;
+}
+
+.delete-icon:hover {
+  transition: .3s;
+  color: rgb(195, 14, 14);
+}
+
+.title-container:hover {
   background: #2e3d94;
   transition: .3s;
 }
