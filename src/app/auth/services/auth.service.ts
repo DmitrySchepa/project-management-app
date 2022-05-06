@@ -1,14 +1,27 @@
 import { Injectable } from '@angular/core';
 import { LoginModel, UserModel } from '../models/auth.model';
 import { ApiService } from '../../core/services/api.service';
-import { startWith, Subject, switchMap } from 'rxjs';
+import { startWith, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import {
+  deleteUser,
+  getUserData,
+  loginUser,
+  logout,
+  signupUser,
+  updateUser,
+} from '../../state/actions/user.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private readonly apiService: ApiService, private readonly router: Router) {}
+  constructor(
+    private readonly apiService: ApiService,
+    private readonly router: Router,
+    private readonly store: Store,
+  ) {}
 
   public isAuth$ = new Subject<Boolean>();
 
@@ -22,55 +35,29 @@ export class AuthService {
   }
 
   login(login: LoginModel) {
-    this.apiService.login(login).subscribe({
-      next: (userId) => {
-        localStorage.setItem('pma-token', this.apiService.token$.value);
-        localStorage.setItem('pma-user-id', userId as string);
-        this.errorMessage = '';
-        this.router.navigate(['main', 'boards']);
-      },
-      error: (error) => {
-        this.errorMessage = error.error.message;
-      },
-    });
+    this.store.dispatch(loginUser({ login }));
   }
 
   signup(user: UserModel) {
-    this.apiService
-      .signup(user)
-      .pipe(switchMap(() => this.apiService.login({ login: user.login, password: user.password })))
-      .subscribe({
-        next: (userId) => {
-          localStorage.setItem('pma-token', this.apiService.token$.value);
-          localStorage.setItem('pma-user-id', userId);
-          this.errorMessage = '';
-          this.router.navigate(['main', 'boards']);
-        },
-        error: (error) => {
-          this.errorMessage = error.error.message;
-        },
-      });
+    this.store.dispatch(signupUser({ user }));
   }
 
-  getUser() {
-    return this.apiService.getUser();
+  getUsers() {
+    this.store.dispatch(getUserData());
   }
 
   updateUser(user: UserModel) {
-    this.apiService.updateUser(user).subscribe({
-      next: () => this.router.navigate(['main', 'boards']),
-      error: (error) => (this.errorMessage = error.error.message),
-    });
+    this.store.dispatch(updateUser({ user }));
   }
 
   logout() {
     localStorage.removeItem('pma-token');
     localStorage.removeItem('pma-user-id');
-    this.apiService.token$.next('');
+    this.store.dispatch(logout());
     this.router.navigate(['']);
   }
 
   deleteUser() {
-    this.apiService.deleteUser().subscribe(() => this.logout());
+    this.store.dispatch(deleteUser());
   }
 }

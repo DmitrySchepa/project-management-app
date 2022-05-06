@@ -2,6 +2,8 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { fromEvent, throttleTime } from 'rxjs';
 import { AuthService } from '../../../auth/services/auth.service';
+import { Store } from '@ngrx/store';
+import { selectToken } from '../../../state/selectors/user.selectors';
 
 @Component({
   selector: 'app-header',
@@ -11,9 +13,12 @@ import { AuthService } from '../../../auth/services/auth.service';
 export class HeaderComponent implements OnInit {
   enableSticky: boolean = false;
 
+  public hasToken$ = this.store.select(selectToken);
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private readonly authService: AuthService,
+    private readonly store: Store,
   ) {}
 
   ngOnInit(): void {

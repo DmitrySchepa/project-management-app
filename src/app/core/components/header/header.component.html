@@ -21,7 +21,7 @@
             </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
-      <div class='navbar__group' *ngIf='checkAuth() | async'>
+      <div class='navbar__group' *ngIf='hasToken$ | async'>
         <a class="navbar_item">
           <mat-icon matTooltip='New Board'>add</mat-icon>
           <span>New Board</span>
@@ -35,7 +35,7 @@
           <span>Log Out</span>
         </a>
       </div>
-      <div class='navbar__group' *ngIf='(checkAuth() | async) === false'>
+      <div class='navbar__group' *ngIf='(hasToken$ | async) === ""'>
         <a class="navbar_item" routerLink='auth/log-in'>
           <mat-icon matTooltip='Log In'>input</mat-icon>
           <span>Log In</span>
