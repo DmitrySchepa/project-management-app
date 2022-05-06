@@ -7,5 +7,5 @@ import { TeamModel } from '../../../../constants/our-team';
   styleUrls: ['./participants.component.scss'],
 })
 export class ParticipantsComponent {
-  @Input() partisipant!: TeamModel;
+  @Input() participant!: TeamModel;
 }
