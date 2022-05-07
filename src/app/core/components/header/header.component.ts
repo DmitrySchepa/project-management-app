@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document,
     private readonly authService: AuthService,
     private readonly store: Store,
-    public translate: TranslateService
+    public translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -62,5 +62,4 @@ export class HeaderComponent implements OnInit {
   isChecked(lang: string): boolean {
     return lang === this.translate.currentLang;
   }
-
 }
