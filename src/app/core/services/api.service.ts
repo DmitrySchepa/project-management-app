@@ -44,19 +44,11 @@ export class ApiService {
   }
 
   deleteUser() {
-    return this.http.delete(`users/${this.userId()}`).pipe(
-      catchError((err) => {
-        throw err;
-      }),
-    );
+    return this.http.delete(`users/${this.userId()}`);
   }
 
   getBoards() {
-    return this.http.get<BoardModel[]>('boards').pipe(
-      catchError((err) => {
-        throw err;
-      }),
-    );
+    return this.http.get<BoardModel[]>('boards');
   }
 
   createBoard(title: string) {
