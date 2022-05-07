@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { BoardModel } from '../../models/board.model';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-board-card',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 export class BoardCardComponent {
   @Input() board!: BoardModel;
 
-  constructor(private readonly router: Router) {}
+  constructor(private readonly router: Router, private readonly dialog: MatDialog) {}
 
   openBoard(event: Event, id: string) {
     const target = event.target as HTMLElement;
@@ -18,8 +20,21 @@ export class BoardCardComponent {
     this.router.navigate(['main', 'board', id]);
   }
 
-  deleteBoard(id: string) {
-    console.log('delete board', id);
-    // TODO call dialog, which gets type of elem (board, column, task), elem id
+  deleteBoard() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: `Are you sure want to delete board '${this.board.title}'?`,
+        buttonText: {
+          ok: 'Delete',
+          cancel: 'Cancel',
+        },
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        console.log('delete board', this.board.id);
+      }
+    });
   }
 }
