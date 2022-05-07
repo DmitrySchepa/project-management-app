@@ -15,12 +15,12 @@ const routes: Routes = [
     canLoad: [AuthGuard],
   },
   {
-    path: 'home',
+    path: 'welcome',
     component: HomePageComponent,
   },
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/welcome',
     pathMatch: 'full',
   },
   {

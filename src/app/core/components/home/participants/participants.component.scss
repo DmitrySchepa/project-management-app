@@ -1,0 +1,28 @@
+:host {
+  width: 100%;
+}
+
+.card {
+  max-width: 400px;
+  min-width: 300px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  @media (max-width: 640px) {
+    max-width: 600px;
+  }
+  &__title {
+    color: #3f51b5;
+  }
+  &__subtitle {
+    margin: 0;
+  }
+}
+
+.contributions__list {
+  margin-top: 10px;
+  list-style: none;
+}
+
+.mat-card-header {
+  margin-bottom: 10px;
+}

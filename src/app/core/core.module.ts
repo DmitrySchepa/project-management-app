@@ -8,6 +8,8 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { RouterModule } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+import { ParticipantsComponent } from './components/home/participants/participants.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule, RouterModule],
@@ -18,6 +20,8 @@ import { RouterModule } from '@angular/router';
     ConfirmationDialogComponent,
     NotFoundComponent,
     NotFoundPageComponent,
+    HomeComponent,
+    ParticipantsComponent,
   ],
   exports: [HeaderComponent, FooterComponent],
 })

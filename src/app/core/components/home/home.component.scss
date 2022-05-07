@@ -1,0 +1,32 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+
+  &__title {
+    color: #3f51b5;
+  }
+
+  &__content {
+    width: 100%;
+    max-width: 1200px;
+  }
+}
+
+.team {
+  &__list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  &__item {
+    flex: 1;
+  }
+}
