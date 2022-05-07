@@ -8,17 +8,21 @@
       <div class="navbar_item">
         <mat-button-toggle-group
           appearance="legacy"
-          name="languages"
-          aria-label="Available languages">
-            <mat-button-toggle
-              value="en"
-              class="english-selected"
-              checked="true">
-            </mat-button-toggle>
-            <mat-button-toggle
-              value="ru"
-              class="russian-selected">
-            </mat-button-toggle>
+          name="languages"  
+          aria-label="Available languages"
+        >
+          <mat-button-toggle
+            value="en"
+            class="english-selected"
+            (click)="onClickEnglish()"
+            [checked]="isChecked('en')"
+          ></mat-button-toggle>
+          <mat-button-toggle
+            value="ru"
+            (click)="onClickRussian()"
+            class="russian-selected"
+            [checked]="isChecked('ru')"
+          ></mat-button-toggle>
         </mat-button-toggle-group>
       </div>
       <div class='navbar__group' *ngIf='hasToken$ | async'>

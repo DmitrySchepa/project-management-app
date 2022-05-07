@@ -9,6 +9,12 @@ export class ApiInterceptor implements HttpInterceptor {
   constructor(private readonly apiService: ApiService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if (request.url.includes('assets'))
+      return next.handle(
+        request.clone({
+          url: request.url,
+        }),
+      );
     return next.handle(
       request.clone({
         url: `${environment.BASE_URL}/${request.url}`,
