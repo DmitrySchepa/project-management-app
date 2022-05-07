@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { LoginModel, UserModel } from '../models/auth.model';
 import { ApiService } from '../../core/services/api.service';
-import { startWith, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   deleteUser,
-  getUserData,
   loginUser,
   logout,
   signupUser,
@@ -23,16 +21,9 @@ export class AuthService {
     private readonly store: Store,
   ) {}
 
-  public isAuth$ = new Subject<Boolean>();
-
   public userData!: UserModel;
 
   public errorMessage!: string;
-
-  checkAuth() {
-    const isAuth = !!localStorage.getItem('pma-token');
-    return this.isAuth$.pipe(startWith(isAuth));
-  }
 
   login(login: LoginModel) {
     this.store.dispatch(loginUser({ login }));
@@ -40,10 +31,6 @@ export class AuthService {
 
   signup(user: UserModel) {
     this.store.dispatch(signupUser({ user }));
-  }
-
-  getUsers() {
-    this.store.dispatch(getUserData());
   }
 
   updateUser(user: UserModel) {

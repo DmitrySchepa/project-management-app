@@ -1,5 +1,5 @@
 <form [formGroup]='formGroup' (submit)='submit()' class='form'>
-  <span *ngIf="getErrorMessage()" class="form__error">{{getErrorMessage()}}</span>
+  <span *ngIf="(errorMessage$ | async) as errorMessage" class="form__error">{{errorMessage}}</span>
   <mat-form-field appearance='outline'>
     <mat-label>User login</mat-label>
     <input matInput formControlName='login' type='login'>

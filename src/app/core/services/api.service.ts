@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoginModel, UserDB, UserModel } from '../../auth/models/auth.model';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, pluck, catchError } from 'rxjs';
+import { BehaviorSubject, map, Observable, pluck } from 'rxjs';
 import { BoardModel } from '../../boards/models/board.model';
 
 @Injectable({
@@ -24,42 +24,23 @@ export class ApiService {
     return this.http.post<LoginModel>('signin', login).pipe(
       pluck('token'),
       map((token) => token as string),
-      catchError((err) => {
-        throw err;
-      }),
     );
   }
 
   signup(user: UserModel) {
-    return this.http.post<UserModel>('signup', user).pipe(
-      catchError((err) => {
-        throw err;
-      }),
-    );
+    return this.http.post<UserModel>('signup', user);
   }
 
   getUsers(): Observable<UserDB[]> {
-    return this.http.get<UserDB[]>('users').pipe(
-      catchError((err) => {
-        throw err;
-      }),
-    );
+    return this.http.get<UserDB[]>('users');
   }
 
   getUser() {
-    return this.http.get<UserDB>(`users/${this.userId()}`).pipe(
-      catchError((err) => {
-        throw err;
-      }),
-    );
+    return this.http.get<UserDB>(`users/${this.userId()}`);
   }
 
   updateUser(user: UserModel) {
-    return this.http.put<UserDB>(`users/${this.userId()}`, user).pipe(
-      catchError((err) => {
-        throw err;
-      }),
-    );
+    return this.http.put<UserDB>(`users/${this.userId()}`, user);
   }
 
   deleteUser() {

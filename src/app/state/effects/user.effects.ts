@@ -4,14 +4,16 @@ import { ApiService } from '../../core/services/api.service';
 import {
   addUserData,
   deleteUser,
-  getUserData,
+  getToken,
   loginSuccess,
   loginUser,
+  requestError,
   signupUser,
+  tokenOutdated,
   updateUser,
 } from '../actions/user.actions';
-import { concatAll, find, map, switchMap, switchMapTo, tap } from 'rxjs';
-import { UserDB } from '../../auth/models/auth.model';
+import { catchError, concatAll, find, map, of, switchMap, switchMapTo, tap } from 'rxjs';
+import { LoginModel, UserDB } from '../../auth/models/auth.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
 
@@ -27,39 +29,47 @@ export class UserEffects {
   signup$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(signupUser),
-      switchMap(({ user }) => {
+      map(({ user }) => {
         localStorage.setItem('pma-passw', user.password);
-        return this.apiService.signup(user);
+        return user;
       }),
-      map((user) => {
-        const { login } = user;
-        const password = localStorage.getItem('pma-passw') as string;
-        localStorage.removeItem('pma-passw');
-        return loginUser({
-          login: { login, password },
-        });
-      }),
+      switchMap((user) =>
+        this.apiService.signup(user).pipe(
+          map((userData) => {
+            const { login } = userData;
+            const password = localStorage.getItem('pma-passw') as string;
+            localStorage.removeItem('pma-passw');
+            return loginUser({
+              login: { login, password },
+            });
+          }),
+          catchError((err) => of(requestError({ errorMessage: err.error.message }))),
+        ),
+      ),
     );
   });
 
   login$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loginUser),
-      switchMap(({ login }) => {
+      map(({ login }) => {
         localStorage.setItem('pma-login', login.login);
-        return this.apiService.login(login);
+        return login;
       }),
-      map((token) => {
-        localStorage.setItem('pma-token', token);
-        this.authService.getUsers();
-        return loginSuccess({ token });
+      switchMap((login: LoginModel) => {
+        return this.apiService.login(login).pipe(
+          map((token) => {
+            return loginSuccess({ token });
+          }),
+          catchError((err) => of(requestError({ errorMessage: err.error.message }))),
+        );
       }),
     );
   });
 
   getUsers$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(getUserData),
+      ofType(loginSuccess),
       switchMapTo(this.apiService.getUsers()),
       concatAll(),
       find((user) => {
@@ -77,20 +87,34 @@ export class UserEffects {
 
   getUser$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(loginSuccess),
-      switchMapTo(this.apiService.getUser()),
-      map((user) => addUserData({ userData: user })),
+      ofType(getToken),
+      switchMapTo(
+        this.apiService.getUser().pipe(
+          map((user) => addUserData({ userData: user })),
+          catchError((err) => {
+            if (err.error.statusCode === 401) return of(tokenOutdated());
+            return of(err);
+          }),
+        ),
+      ),
     );
   });
 
   updateUser$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(updateUser),
-      switchMap(({ user }) => this.apiService.updateUser(user)),
-      map((userData) => {
-        const { login, name, id } = userData;
-        return addUserData({ userData: { login, name, id } });
-      }),
+      switchMap(({ user }) =>
+        this.apiService.updateUser(user).pipe(
+          map((userData) => {
+            const { login, name, id } = userData;
+            return addUserData({ userData: { login, name, id } });
+          }),
+          catchError((err) => {
+            if (err.error.statusCode === 401) return of(tokenOutdated());
+            return of(err);
+          }),
+        ),
+      ),
     );
   });
 
@@ -98,7 +122,14 @@ export class UserEffects {
     () => {
       return this.actions$.pipe(
         ofType(deleteUser),
-        switchMapTo(this.apiService.deleteUser()),
+        switchMapTo(
+          this.apiService.deleteUser().pipe(
+            catchError((err) => {
+              if (err.error.statusCode === 401) return of(tokenOutdated());
+              return of(err);
+            }),
+          ),
+        ),
         tap(() => this.authService.logout()),
       );
     },

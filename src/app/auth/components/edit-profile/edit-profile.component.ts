@@ -15,13 +15,8 @@ import { selectUser } from '../../../state/selectors/user.selectors';
 export class EditProfileComponent extends BaseFormComponent implements OnInit {
   public userData$ = this.store.select(selectUser);
 
-  constructor(
-    fb: FormBuilder,
-    authService: AuthService,
-    private dialog: MatDialog,
-    private readonly store: Store,
-  ) {
-    super(fb, authService);
+  constructor(fb: FormBuilder, authService: AuthService, store: Store, private dialog: MatDialog) {
+    super(fb, authService, store);
   }
 
   override submit() {

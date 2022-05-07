@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loginSuccess } from './state/actions/user.actions';
+import { getToken } from './state/actions/user.actions';
 import { BoardsService } from './boards/services/boards.service';
 import { Router } from '@angular/router';
 
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('pma-token')) {
-      this.store.dispatch(loginSuccess({ token: localStorage.getItem('pma-token') as string }));
+      this.store.dispatch(getToken({ token: localStorage.getItem('pma-token') as string }));
       this.boardService.getBoards();
       this.router.navigate(['main', 'boards']);
     }

@@ -31,10 +31,6 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  checkAuth() {
-    return this.authService.checkAuth();
-  }
-
   logout() {
     this.authService.logout();
   }
