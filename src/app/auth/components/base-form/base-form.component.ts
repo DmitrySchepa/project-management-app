@@ -64,6 +64,14 @@ export class BaseFormComponent extends AuthDirective implements OnInit {
     );
   }
 
+  isValidForm() {
+    this.authService.isValidForm = this.formGroup?.valid;
+  }
+
+  getIsValidForm() {
+    return this.authService.isValidForm;
+  }
+
   validateFirstChar(control: AbstractControl) {
     return isNaN(parseInt(control.value[0])) ? null : { firstdigit: 'Entered value is not valid' };
   }
@@ -78,8 +86,8 @@ export class BaseFormComponent extends AuthDirective implements OnInit {
       const confirmPassword = control.get('confirmPassword')?.value;
 
       if (enteredPassword !== confirmPassword) {
-        control.get('confirmPassword')?.setErrors({ validatePasswords: 'Passwords are mistmatch' });
-        return { validatePasswords: 'Passwords are mistmatch' };
+        control.get('confirmPassword')?.setErrors({ validatePasswords: 'Passwords are mismatch' });
+        return { validatePasswords: 'Passwords are mismatch' };
       } else {
         control.get('confirmPassword')?.setErrors(null);
       }

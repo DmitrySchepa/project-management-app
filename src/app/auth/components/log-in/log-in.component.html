@@ -17,5 +17,5 @@
       Please enter password
     </mat-error>
   </mat-form-field>
-  <button mat-raised-button type='submit' color='primary' class='form__submit'>Login</button>
+  <button mat-raised-button type='submit' color='primary' class='form__submit' [disabled]="formGroup.valid ? false : true">Login</button>
 </form>

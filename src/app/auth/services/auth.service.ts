@@ -23,6 +23,8 @@ export class AuthService {
 
   public userData!: UserModel;
 
+  public isValidForm = false;
+
   public errorMessage!: string;
 
   login(login: LoginModel) {
