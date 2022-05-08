@@ -59,6 +59,7 @@ export class UserEffects {
       switchMap((login: LoginModel) => {
         return this.apiService.login(login).pipe(
           map((token) => {
+            localStorage.setItem('pma-token', token);
             return loginSuccess({ token });
           }),
           catchError((err) => of(requestError({ errorMessage: err.error.message }))),
@@ -70,20 +71,32 @@ export class UserEffects {
   getUsers$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loginSuccess),
-      switchMapTo(this.apiService.getUsers()),
-      concatAll(),
-      find((user) => {
-        const login = localStorage.getItem('pma-login') as string;
-        return user.login === login;
-      }),
-      map((user) => {
-        localStorage.setItem('pma-user-id', user!.id);
-        localStorage.removeItem('pma-login');
-        this.router.navigate(['main', 'boards']);
-        return addUserData({ userData: user as UserDB });
-      }),
+      switchMapTo(
+        this.apiService.getUsers().pipe(
+          concatAll(),
+          find((user) => {
+            const login = localStorage.getItem('pma-login') as string;
+            return user.login === login;
+          }),
+          map((user) => addUserData({ userData: user as UserDB })),
+        ),
+      ),
     );
   });
+
+  redirect$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(addUserData),
+        tap(({ userData }) => {
+          localStorage.setItem('pma-user-id', userData!.id);
+          localStorage.removeItem('pma-login');
+          this.router.navigate(['main', 'boards']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
 
   getUser$ = createEffect(() => {
     return this.actions$.pipe(
@@ -93,7 +106,7 @@ export class UserEffects {
           map((user) => addUserData({ userData: user })),
           catchError((err) => {
             if (err.error.statusCode === 401) return of(tokenOutdated());
-            return of(err);
+            return of(err.error.message);
           }),
         ),
       ),
@@ -111,7 +124,7 @@ export class UserEffects {
           }),
           catchError((err) => {
             if (err.error.statusCode === 401) return of(tokenOutdated());
-            return of(err);
+            return of(requestError({ errorMessage: err.error.message }));
           }),
         ),
       ),

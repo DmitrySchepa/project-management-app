@@ -28,7 +28,6 @@ export const initialUserState: UserState = {
 export const userReducer = createReducer(
   initialUserState,
   on(loginSuccess, (state, { token }): UserState => {
-    localStorage.setItem('pma-token', token);
     return { ...state, token: token };
   }),
   on(getToken, (state, { token }): UserState => {
