@@ -4,6 +4,8 @@ import { fromEvent, throttleTime } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../auth/services/auth.service';
 import { langs } from '../../../constants/langs';
+import { Store } from '@ngrx/store';
+import { selectToken } from '../../../state/selectors/user.selectors';
 
 @Component({
   selector: 'app-header',
@@ -11,20 +13,22 @@ import { langs } from '../../../constants/langs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-
   enableSticky: boolean = false;
+
+  public hasToken$ = this.store.select(selectToken);
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private readonly authService: AuthService,
-    public translate: TranslateService
+    private readonly store: Store,
+    public translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
     this.translate.addLangs(langs);
     const storedLang = localStorage.getItem('pma-lang');
     const browserLang = this.translate.getBrowserLang() ?? '';
-    const curLang = storedLang ?? browserLang;    
+    const curLang = storedLang ?? browserLang;
 
     if (curLang && langs.includes(curLang)) {
       this.translate.use(curLang);
@@ -39,10 +43,6 @@ export class HeaderComponent implements OnInit {
         this.enableSticky = false;
       }
     });
-  }
-
-  checkAuth() {
-    return this.authService.checkAuth();
   }
 
   logout() {
@@ -62,5 +62,4 @@ export class HeaderComponent implements OnInit {
   isChecked(lang: string): boolean {
     return lang === this.translate.currentLang;
   }
-
 }

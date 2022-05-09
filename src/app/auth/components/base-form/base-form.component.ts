@@ -9,6 +9,9 @@ import {
 } from '@angular/forms';
 import { UserDB } from '../../models/auth.model';
 import { AuthService } from '../../services/auth.service';
+import { Store } from '@ngrx/store';
+import { selectError } from '../../../state/selectors/user.selectors';
+import { clearError } from '../../../state/actions/user.actions';
 
 @Component({
   selector: 'app-base-form',
@@ -16,13 +19,20 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['../form-styles.scss'],
 })
 export class BaseFormComponent extends AuthDirective implements OnInit {
-  constructor(private readonly fb: FormBuilder, protected readonly authService: AuthService) {
+  errorMessage$ = this.store.select(selectError);
+
+  constructor(
+    private readonly fb: FormBuilder,
+    protected readonly authService: AuthService,
+    protected readonly store: Store,
+  ) {
     super();
   }
 
   @Input() userData!: UserDB;
 
   ngOnInit(): void {
+    this.store.dispatch(clearError());
     this.formGroup = this.fb.group(
       {
         name: [
@@ -54,6 +64,14 @@ export class BaseFormComponent extends AuthDirective implements OnInit {
     );
   }
 
+  isValidForm() {
+    this.authService.isValidForm = this.formGroup?.valid;
+  }
+
+  getIsValidForm() {
+    return this.authService.isValidForm;
+  }
+
   validateFirstChar(control: AbstractControl) {
     return isNaN(parseInt(control.value[0])) ? null : { firstdigit: 'Entered value is not valid' };
   }
@@ -68,18 +86,14 @@ export class BaseFormComponent extends AuthDirective implements OnInit {
       const confirmPassword = control.get('confirmPassword')?.value;
 
       if (enteredPassword !== confirmPassword) {
-        control.get('confirmPassword')?.setErrors({ validatePasswords: 'Passwords are mistmatch' });
-        return { validatePasswords: 'Passwords are mistmatch' };
+        control.get('confirmPassword')?.setErrors({ validatePasswords: 'Passwords are mismatch' });
+        return { validatePasswords: 'Passwords are mismatch' };
       } else {
         control.get('confirmPassword')?.setErrors(null);
       }
 
       return null;
     };
-  }
-
-  getErrorMessage() {
-    return this.authService.errorMessage;
   }
 
   submit() {
