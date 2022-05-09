@@ -49,15 +49,15 @@ export class ApiService {
     return this.http.delete(`users/${this.userId()}`);
   }
 
-  getBoards() {
+  getBoards(): Observable<BoardModel[]> {
     return this.http.get<BoardModel[]>('boards');
   }
 
-  createBoard(title: string) {
+  createBoard(title: string): Observable<any> {
     return this.http.post('boards', { title });
   }
 
-  deleteBoard(boardId: string) {
-    return this.http.delete(`boards/${boardId}`);
+  deleteBoard(boardId: string): Observable<string> {
+    return this.http.delete(`boards/${boardId}`) as Observable<string>;
   }
 }

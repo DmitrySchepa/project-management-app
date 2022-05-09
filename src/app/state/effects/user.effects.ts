@@ -91,7 +91,7 @@ export class UserEffects {
         tap(({ userData }) => {
           localStorage.setItem('pma-user-id', userData!.id);
           localStorage.removeItem('pma-login');
-          this.router.navigate(['main', 'boards']);
+          this.router.navigate(['main']);
         }),
       );
     },

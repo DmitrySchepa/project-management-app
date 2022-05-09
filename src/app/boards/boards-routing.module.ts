@@ -5,7 +5,7 @@ import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 
 const routes: Routes = [
   {
-    path: 'boards',
+    path: '',
     component: BoardsPageComponent,
   },
   {

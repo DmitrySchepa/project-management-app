@@ -12,6 +12,8 @@ export const createBoardSuccess = createAction(
   props<{ board: BoardModel }>(),
 );
 export const deleteBoard = createAction('[Boards] Delete a board', props<{ id: string }>());
+export const deleteBoardSuccess = createAction('[Boards] Delete a board success');
+
 export const getCurrentBoard = createAction(
   '[Boards] Get current board',
   props<{ boardId: string }>(),
