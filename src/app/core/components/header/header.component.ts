@@ -1,11 +1,15 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { fromEvent, throttleTime } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../auth/services/auth.service';
 import { langs } from '../../../constants/langs';
 import { Store } from '@ngrx/store';
 import { selectToken } from '../../../state/selectors/user.selectors';
+import { BoardsService } from 'src/app/boards/services/boards.service';
+import { ApiService } from '../../services/api.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -22,6 +26,9 @@ export class HeaderComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly store: Store,
     public translate: TranslateService,
+    private readonly boardsService: BoardsService,
+    private readonly apiService: ApiService,
+    private readonly dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -61,5 +68,21 @@ export class HeaderComponent implements OnInit {
 
   isChecked(lang: string): boolean {
     return lang === this.translate.currentLang;
+  }
+
+  onCreateBoard() {
+    this.apiService.isInfoAddModeOn$.next(true);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: this.boardsService.boardTitle,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      this.apiService.isInfoAddModeOn$.next(false);
+      if (confirmed) {
+        this.boardsService.createBoard(this.boardsService.boardTitle);
+      }
+    });
   }
 }

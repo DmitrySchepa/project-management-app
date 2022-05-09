@@ -1,7 +1,7 @@
 <div class='boards'>
   <h2 class='boards__title'>Boards</h2>
   <ul class='boards__list'>
-    <li class='boards__list-item' *ngFor='let board of boards'>
+    <li class='boards__list-item' *ngFor='let board of boards$ | async'>
       <app-board-card [board]='board'></app-board-card>
     </li>
   </ul>

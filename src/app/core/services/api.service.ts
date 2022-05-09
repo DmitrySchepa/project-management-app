@@ -12,6 +12,8 @@ export class ApiService {
 
   public token$ = new BehaviorSubject<string>('');
 
+  public isInfoAddModeOn$ = new BehaviorSubject<boolean>(false);
+
   token() {
     return localStorage.getItem('pma-token');
   }
@@ -52,7 +54,7 @@ export class ApiService {
   }
 
   createBoard(title: string) {
-    return this.http.post('boards', title);
+    return this.http.post('boards', { title });
   }
 
   deleteBoard(boardId: string) {

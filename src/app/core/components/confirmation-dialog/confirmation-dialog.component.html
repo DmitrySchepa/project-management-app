@@ -1,7 +1,18 @@
 <mat-dialog-content>
-	<p>
-		{{message}}
-	</p>
+  <ng-template #deleteQuestion>
+    <p>
+      {{messages.delete}}
+    </p>
+  </ng-template>
+  <div class="add-title" *ngIf="isAddModeOn$ | async; else deleteQuestion">
+    <p>
+      {{messages.addTitle}}
+    </p>
+    <mat-form-field appearance="fill" >
+      <mat-label>Please provide board title</mat-label>
+      <input matInput [(ngModel)]="title">
+    </mat-form-field>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
   <button 
