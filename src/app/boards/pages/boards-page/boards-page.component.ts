@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BoardModel } from '../../models/board.model';
-import { BoardsService } from '../../services/boards.service';
-import { boardsMock } from 'src/mocks/board-model.mock';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectBoards } from '../../../state/selectors/boards.selectors';
 
 @Component({
   selector: 'app-boards-page',
@@ -11,10 +12,11 @@ import { boardsMock } from 'src/mocks/board-model.mock';
 export class BoardsPageComponent implements OnInit {
   public boards: BoardModel[] = [];
 
-  constructor(private readonly boardsService: BoardsService) {}
+  boards$!: Observable<BoardModel[]>;
+
+  constructor(private readonly store: Store) {}
 
   ngOnInit() {
-    this.boards = boardsMock;
-    // this.boardsService.getBoards();
+    this.boards$ = this.store.select(selectBoards);
   }
 }

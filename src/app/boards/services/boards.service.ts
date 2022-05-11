@@ -1,27 +1,25 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from '../../core/services/api.service';
-import { AuthService } from '../../auth/services/auth.service';
+import { Store } from '@ngrx/store';
+import { createBoardSuccess, deleteBoard, getBoards } from 'src/app/state/actions/boards.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardsService {
-  constructor(private readonly apiService: ApiService, private readonly authService: AuthService) {}
+  boardTitle: string = '';
+
+  constructor(private readonly store: Store) {}
 
   getBoards() {
-    this.apiService.getBoards().subscribe({
-      next: (boards) => console.log(boards),
-      error: () => {
-        this.authService.logout();
-      },
-    });
+    this.store.dispatch(getBoards());
   }
 
   createBoard(title: string) {
-    this.apiService.createBoard(title);
+    title = this.boardTitle;
+    this.store.dispatch(createBoardSuccess({ board: { id: '', title } }));
   }
 
   deleteBoard(boardId: string) {
-    this.apiService.deleteBoard(boardId);
+    this.store.dispatch(deleteBoard({ id: boardId }));
   }
 }

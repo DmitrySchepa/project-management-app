@@ -3,6 +3,8 @@ import { BoardModel } from '../../models/board.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
+import { Store } from '@ngrx/store';
+import { deleteBoard } from 'src/app/state/actions/boards.actions';
 
 @Component({
   selector: 'app-board-card',
@@ -12,7 +14,11 @@ import { ConfirmationDialogComponent } from '../../../core/components/confirmati
 export class BoardCardComponent {
   @Input() board!: BoardModel;
 
-  constructor(private readonly router: Router, private readonly dialog: MatDialog) {}
+  constructor(
+    private readonly router: Router,
+    private readonly dialog: MatDialog,
+    private readonly store: Store,
+  ) {}
 
   openBoard(event: Event, id: string) {
     const target = event.target as HTMLElement;
@@ -34,6 +40,7 @@ export class BoardCardComponent {
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
         console.log('delete board', this.board.id);
+        this.store.dispatch(deleteBoard({ id: this.board.id }));
       }
     });
   }

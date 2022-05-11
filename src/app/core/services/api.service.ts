@@ -12,6 +12,8 @@ export class ApiService {
 
   public token$ = new BehaviorSubject<string>('');
 
+  public isInfoAddModeOn$ = new BehaviorSubject<boolean>(false);
+
   token() {
     return localStorage.getItem('pma-token');
   }
@@ -47,15 +49,15 @@ export class ApiService {
     return this.http.delete(`users/${this.userId()}`);
   }
 
-  getBoards() {
+  getBoards(): Observable<BoardModel[]> {
     return this.http.get<BoardModel[]>('boards');
   }
 
-  createBoard(title: string) {
-    return this.http.post('boards', title);
+  createBoard(title: string): Observable<any> {
+    return this.http.post('boards', { title });
   }
 
-  deleteBoard(boardId: string) {
-    return this.http.delete(`boards/${boardId}`);
+  deleteBoard(boardId: string): Observable<string> {
+    return this.http.delete(`boards/${boardId}`) as Observable<string>;
   }
 }
