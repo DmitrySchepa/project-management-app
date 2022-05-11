@@ -7,7 +7,13 @@ export interface BoardModel {
 
 export interface BoardColumn {
   columnTitle: string;
-  tasks: string[];
+  tasks: BoardTask[];
+  id: string;
+}
+
+export interface BoardTask {
+  title: string;
+  id: string;
 }
 
 export interface Participant {

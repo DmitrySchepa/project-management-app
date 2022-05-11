@@ -12,11 +12,23 @@ export const boardsMock: BoardModel[] = [
     columns: [
       {
         columnTitle: 'Column 1',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '1',
       },
       {
         columnTitle: 'Column 2',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '2',
       },
     ],
   },
@@ -31,11 +43,23 @@ export const boardsMock: BoardModel[] = [
     columns: [
       {
         columnTitle: 'Column 1',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '1',
       },
       {
         columnTitle: 'Column 2',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '2',
       },
     ],
   },
@@ -50,11 +74,23 @@ export const boardsMock: BoardModel[] = [
     columns: [
       {
         columnTitle: 'Column 1',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '1',
       },
       {
         columnTitle: 'Column 2',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '2',
       },
     ],
   },
@@ -69,11 +105,23 @@ export const boardsMock: BoardModel[] = [
     columns: [
       {
         columnTitle: 'Column 1',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '1',
       },
       {
         columnTitle: 'Column 2',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '2',
       },
     ],
   },
@@ -88,11 +136,23 @@ export const boardsMock: BoardModel[] = [
     columns: [
       {
         columnTitle: 'Column 1',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '1',
       },
       {
         columnTitle: 'Column 2',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '2',
       },
     ],
   },
@@ -107,11 +167,23 @@ export const boardsMock: BoardModel[] = [
     columns: [
       {
         columnTitle: 'Column 1',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '1',
       },
       {
         columnTitle: 'Column 2',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '2',
       },
     ],
   },
@@ -126,11 +198,23 @@ export const boardsMock: BoardModel[] = [
     columns: [
       {
         columnTitle: 'Column 1',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '1',
       },
       {
         columnTitle: 'Column 2',
-        tasks: ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'],
+        tasks: [
+          { title: 'Get to work', id: '1' },
+          { title: 'Pick up groceries', id: '2' },
+          { title: 'Go home', id: '3' },
+          { title: 'Fall asleep', id: '4' },
+        ],
+        id: '2',
       },
     ],
   },

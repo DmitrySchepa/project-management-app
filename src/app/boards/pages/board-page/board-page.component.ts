@@ -30,6 +30,6 @@ export class BoardPageComponent implements OnInit {
   }
 
   onAddColumn() {
-    this.columns?.push({ columnTitle: 'New column', tasks: [] });
+    this.columns?.push({ columnTitle: 'New column', tasks: [], id: '3' });
   }
 }
