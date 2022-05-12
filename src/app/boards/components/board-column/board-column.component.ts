@@ -36,7 +36,6 @@ export class BoardColumnComponent implements OnInit {
       (elem) => elem.element.nativeElement.closest<HTMLElement>('app-board-column')?.dataset['id'],
     );
     if (transfer) {
-      //action: removeTask
       console.log('prev:');
       Array.from(previousContainer.element.nativeElement.children)
         .filter((child) => !child.classList.contains('cdk-drag-dragging'))
@@ -46,7 +45,7 @@ export class BoardColumnComponent implements OnInit {
             console.log(index + 1, id, child.textContent); //Reorder task in prevColumn
           }
         });
-      //action: addTask (colId, taskId, order = currentIdx + 1)
+      //action: move task to column (colId, taskId, order = currentIdx + 1)
       console.log('curr:');
       Array.from(container.element.nativeElement.children).forEach((child, index) => {
         const id = (child as HTMLElement).dataset['id'];
@@ -60,11 +59,11 @@ export class BoardColumnComponent implements OnInit {
       console.log(tasks[previousIndex].textContent, currentIndex + 1);
       if (previousIndex < currentIndex) {
         for (let i = previousIndex + 1; i <= currentIndex; i += 1) {
-          console.log(tasks[i].textContent, i) //tasks[i] order = i
+          console.log(tasks[i].textContent, i); //tasks[i] order = i
         }
       } else {
         for (let i = currentIndex; i < previousIndex; i += 1) {
-          console.log(tasks[i].textContent, i + 2) // tasks[i] order = i + 2
+          console.log(tasks[i].textContent, i + 2); // tasks[i] order = i + 2
         }
       }
     }
