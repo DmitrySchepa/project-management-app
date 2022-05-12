@@ -10,9 +10,10 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ParticipantsComponent } from './components/home/participants/participants.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, RouterModule],
+  imports: [CommonModule, SharedModule, RouterModule, FormsModule],
   declarations: [
     HeaderComponent,
     FooterComponent,
