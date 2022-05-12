@@ -1,0 +1,17 @@
+.task {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__delete {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    .mat-icon {
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+      line-height: 20px;
+    }
+  }
+}

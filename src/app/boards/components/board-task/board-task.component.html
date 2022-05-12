@@ -1,1 +1,10 @@
-<p>board-task works!</p>
+<div class='task'>
+  <span class='task__title'>{{task.title}}</span>
+  <button
+    class='task__delete'
+    type='button'
+    mat-icon-button
+    (click)='deleteTask()'>
+    <mat-icon color='warn'>clear</mat-icon>
+  </button>
+</div>
