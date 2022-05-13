@@ -1,0 +1,40 @@
+<h2 mat-dialog-title >{{ 'TASKEDIT.header' | translate }}</h2>
+<mat-dialog-content [formGroup]="taskEditform" >
+  <mat-form-field appearance='outline'>
+    <mat-label>{{ 'TASKEDIT.title' | translate }}</mat-label>
+    <input matInput formControlName='title' type='text'>
+    <mat-error *ngIf='_title?.errors?.["required"]'>
+      {{ 'TASKEDIT.titleError' | translate }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance='outline'>
+    <mat-label>{{ 'TASKEDIT.description' | translate }}</mat-label>
+    <input matInput formControlName='description' type='text'>
+    <mat-error *ngIf='_description?.errors?.["required"]'>
+      {{ 'TASKEDIT.descriptionError' | translate }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>{{ 'TASKEDIT.user' | translate }}</mat-label>
+    <mat-select 
+      [(value)]="selected"
+      formControlName='userId'
+    >
+      <mat-option value="null">{{ 'TASKEDIT.none' | translate }}</mat-option>
+      <mat-option *ngFor="let user of users" [value]="user.id">{{ user.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button 
+    mat-raised-button 
+    mat-dialog-close
+    (click)="onCancelClick()"
+  >{{ 'TASKEDIT.btnCancel' | translate }}</button>
+	<button 
+    mat-raised-button 
+    color="primary" 
+    (click)="onOkClick()"
+    [disabled]="taskEditform.invalid"
+  >{{ 'TASKEDIT.btnok' | translate }}</button>	
+</mat-dialog-actions>

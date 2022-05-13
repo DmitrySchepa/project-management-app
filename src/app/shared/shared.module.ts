@@ -13,6 +13,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from '../core/interceptors/api.interceptor';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 const MaterialModules = [
   MatToolbarModule,
@@ -25,6 +26,7 @@ const MaterialModules = [
   MatCardModule,
   MatTabsModule,
   MatTooltipModule,
+  MatSelectModule
 ];
 
 @NgModule({
