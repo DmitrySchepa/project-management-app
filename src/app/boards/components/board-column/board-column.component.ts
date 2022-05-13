@@ -1,6 +1,8 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { BoardColumn, BoardTask } from '../../models/board.model';
+import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-board-column',
@@ -10,7 +12,7 @@ import { BoardColumn, BoardTask } from '../../models/board.model';
 export class BoardColumnComponent implements OnInit {
   @Input() column!: BoardColumn;
 
-  constructor() {}
+  constructor( public dialog: MatDialog ) {}
 
   ngOnInit(): void {}
 
@@ -93,5 +95,28 @@ export class BoardColumnComponent implements OnInit {
       this.column.columnTitle = value;
       this.isAddTitleModeOn = !this.isAddTitleModeOn;
     }
+  }
+
+  onTaskEdit() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+
+    // здесь получаем данные из store для кликнутой задачи и
+    // заполняем их в data
+
+    dialogConfig.data = {
+      title: 'Default task',
+      description: 'Default description',
+      userId: 'null'
+    };
+
+    const dialogRef = this.dialog.open(EditTaskComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Здесь сохраняем данные
+        console.log('new task data', result);
+      }
+    });
   }
 }

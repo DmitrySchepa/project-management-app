@@ -11,8 +11,9 @@ import { BoardSearchComponent } from './components/board-search/board-search.com
 import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 import { FilterPipe } from './pipes/filter.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BoardParticipantsComponent } from './components/board-participants/board-participants.component';
+import { EditTaskComponent } from './components/edit-task/edit-task.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { BoardParticipantsComponent } from './components/board-participants/boar
     BoardsPageComponent,
     FilterPipe,
     BoardParticipantsComponent,
+    EditTaskComponent,
   ],
-  imports: [CommonModule, BoardsRoutingModule, SharedModule, FormsModule],
+  imports: [CommonModule, BoardsRoutingModule, SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class BoardsModule {}
