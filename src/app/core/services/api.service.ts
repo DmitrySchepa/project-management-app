@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoginModel, UserDB, UserModel } from '../../auth/models/auth.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, pluck } from 'rxjs';
-import { BoardModel } from '../../boards/models/board.model';
+import { BoardColumn, BoardModel } from '../../boards/models/board.model';
 
 @Injectable({
   providedIn: 'root',
@@ -60,4 +60,44 @@ export class ApiService {
   deleteBoard(boardId: string): Observable<string> {
     return this.http.delete(`boards/${boardId}`) as Observable<string>;
   }
+
+  getColumns(boardId: string): Observable<BoardColumn[]> {
+    return this.http.get(`boards/${boardId}/columns`) as Observable<BoardColumn[]>;
+  }
+
+  getColumn(boardId: string, columnId: string) {
+    return this.http.get(`boards/${boardId}/columns/${columnId}`);
+  }
+
+  createColumn(boardId: string, column: { title: string; order: number }) {
+    return this.http.post(`boards/${boardId}/columns`, column) as Observable<BoardColumn>;
+  }
+
+  deleteColumn(boardId: string, columnId: string) {
+    return this.http.delete(`boards/${boardId}/columns/${columnId}`);
+  }
+
+  // updateColumn(boardId: string, columnId: string, data: string) {
+  //   return this.http.put(`boards/${boardId}/columns/${columnId}`, data);
+  // }
+
+  // getTasks(boardId: string, columnId: string) {
+  //   return this.http.get(`boards/${boardId}/columns/${columnId}/tasks`);
+  // }
+
+  // getTask(boardId: string, columnId: string, taskId: string) {
+  //   return this.http.get(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
+  // }
+
+  // updateTask(boardId: string, columnId: string, taskId: string, task: string) {
+  //   return this.http.put(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`, task);
+  // }
+
+  // createTask(boardId: string, columnId: string, taskId: string, title: string) {
+  //   return this.http.post(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`, title);
+  // }
+
+  // deleteTask(boardId: string, columnId: string, taskId: string) {
+  //   return this.http.delete(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
+  // }
 }

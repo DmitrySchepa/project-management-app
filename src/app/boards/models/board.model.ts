@@ -2,11 +2,13 @@ export interface BoardModel {
   id: string;
   title: string;
   participants?: Participant[];
-  columns?: BoardColumn[];
+  columns: BoardColumn[];
 }
 
 export interface BoardColumn {
-  columnTitle: string;
+  id: string;
+  title: string;
+  order: number;
   tasks: string[];
 }
 
