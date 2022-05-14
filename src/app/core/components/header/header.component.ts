@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.boardsService.openDialogEvent.subscribe(() => this.onCreateBoard());
     this.translate.addLangs(langs);
     const storedLang = localStorage.getItem('pma-lang');
     const browserLang = this.translate.getBrowserLang() ?? '';

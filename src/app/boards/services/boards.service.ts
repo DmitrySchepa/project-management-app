@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { createBoardSuccess, deleteBoard, getBoards } from 'src/app/state/actions/boards.actions';
+import { createBoardSuccess, getBoards } from 'src/app/state/actions/boards.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardsService {
   boardTitle: string = '';
+
+  @Output() openDialogEvent = new EventEmitter();
 
   constructor(private readonly store: Store) {}
 
@@ -19,7 +21,7 @@ export class BoardsService {
     this.store.dispatch(createBoardSuccess({ board: { id: '', title } }));
   }
 
-  deleteBoard(boardId: string) {
-    this.store.dispatch(deleteBoard({ id: boardId }));
+  openCreateBoardDialog() {
+    this.openDialogEvent.emit('');
   }
 }
