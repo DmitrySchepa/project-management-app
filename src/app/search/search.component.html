@@ -5,4 +5,6 @@
       <app-task [task]='task'></app-task>
     </li>
   </ul>
+  <div *ngIf="foundedTasks.length === 0">{{ 'SEARCH_RESULTS.empty_result' | translate }}</div>
 </div>
+
