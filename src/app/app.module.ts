@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
+import { SearchModule } from './search/search.module';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './state/reducers';
 import { EffectsModule } from '@ngrx/effects';
@@ -27,6 +28,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,
+    SearchModule,
     HttpClientModule,
     SharedModule,
     TranslateModule.forRoot({

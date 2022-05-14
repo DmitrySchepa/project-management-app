@@ -13,5 +13,16 @@
     "titleError": "Введите название задачи",
     "descriptionError": "Введите описание задачи",
     "none": "Нет"
-  }
+  },
+  "BOARDS": {
+    "title": "Доски",
+    "searchLabel": "Поиск по задачам",
+    "buttonText": "Искать!"
+  },
+  "SEARCH_RESULTS": {
+    "title": "Результаты поиска"
+  },
+  "SEARCH_ITEM": {
+    "user": "Назначенный пользователь: "
+  } 
 }

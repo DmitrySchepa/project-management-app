@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     if (localStorage.getItem('pma-token') && localStorage.getItem('pma-user-id')) {
       this.store.dispatch(getToken({ token: localStorage.getItem('pma-token') as string }));
       this.boardService.getBoards();
-      this.router.navigate(['main', 'boards']);
+      this.router.navigate(['main']);
     } else {
       this.authService.logout();
     }

@@ -1,0 +1,7 @@
+<mat-card>
+  <mat-card-title class="searchitem__title">{{ task.title }}</mat-card-title>
+  <mat-card-content>
+    <p class="searchitem__description">{{ task.description }}</p>
+    <p *ngIf="task.user?.name">{{ 'SEARCH_ITEM.user' | translate }}<span>{{ task.user?.name }}</span></p>
+  </mat-card-content>
+</mat-card>

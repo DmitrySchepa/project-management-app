@@ -6,7 +6,7 @@
   max-width: 1200px;
 }
 
-.boards {
+.search {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -14,17 +14,11 @@
   .search-form {
     margin-bottom: 50px;
   }
-  .search-input {
-    height: 35px;
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-    padding-left: 10px;
-  }
   &__title {
     font-size: 32px;
+    margin-bottom: 50px;
   }
-  &__list {
+  .tasks__list {
     width: 100%;
     margin: 0;
     padding: 0;
