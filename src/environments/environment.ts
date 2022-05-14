@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  BASE_URL: 'https://pmaback.herokuapp.com',
+//  BASE_URL: 'https://pmaback.herokuapp.com',
+  BASE_URL: 'https://pmasearch.herokuapp.com',
 };
 
 /*

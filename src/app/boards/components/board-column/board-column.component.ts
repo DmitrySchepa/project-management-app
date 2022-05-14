@@ -3,6 +3,8 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BoardColumn } from '../../models/board.model';
 import { BoardsService } from '../../services/boards.service';
+import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-board-column',
@@ -17,6 +19,7 @@ export class BoardColumnComponent implements OnInit {
   columnId: string = '';
 
   constructor(
+    public dialog: MatDialog,
     private readonly route: ActivatedRoute,
     private readonly boardsService: BoardsService,
   ) {}
@@ -58,6 +61,29 @@ export class BoardColumnComponent implements OnInit {
       this.column.title = value;
       this.isAddTitleModeOn = !this.isAddTitleModeOn;
     }
+  }
+
+  onTaskEdit() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+
+    // здесь получаем данные из store для кликнутой задачи и
+    // заполняем их в data
+
+    dialogConfig.data = {
+      title: 'Default task',
+      description: 'Default description',
+      userId: 'null'
+    };
+
+    const dialogRef = this.dialog.open(EditTaskComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Здесь сохраняем данные
+        console.log('new task data', result);
+      }
+    });
   }
 
   onDeleteColumn() {

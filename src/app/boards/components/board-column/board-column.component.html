@@ -33,7 +33,12 @@
     [cdkDropListData]="column.tasks"
     class="task-list"
     (cdkDropListDropped)="drop($event)">
-    <div class="task-box" *ngFor="let task of column.tasks" cdkDrag>{{task}}</div>
+    <div 
+      (click)="onTaskEdit()"
+      class="task-box" 
+      *ngFor="let task of column.tasks" 
+      cdkDrag>{{task}}      
+    </div>
   </div>
   <div class="add-task-container">
     <button

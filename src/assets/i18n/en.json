@@ -2,5 +2,16 @@
   "NOTFOUNDPAGE": {
     "message": "Sorry, the page is not found :(",
     "btnTitle": "Redirect to home"
+  },
+  "TASKEDIT": {
+    "header": "Edit task",
+    "title": "Task Title",
+    "description": "Task Description",
+    "user": "Assigned user",
+    "btnok": "Ok",
+    "btnCancel": "Cancel",
+    "titleError": "Please enter task title",
+    "descriptionError": "Please enter task description",
+    "none": "None"
   }
 }
