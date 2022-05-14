@@ -24,12 +24,12 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: '404',
-    component: NotFoundPageComponent,
-  },
-  {
     path: '**',
     redirectTo: '/404',
+  },
+  {
+    path: '404',
+    component: NotFoundPageComponent,
   },
 ];
 
