@@ -1,6 +1,10 @@
-export interface BoardModel {
-  id: string;
+export interface BoardData {
   title: string;
+  description: string;
+}
+
+export interface BoardModel extends BoardData {
+  id: string;
   participants?: Participant[];
   columns: BoardColumn[];
 }

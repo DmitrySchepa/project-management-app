@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoginModel, UserDB, UserModel } from '../../auth/models/auth.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, pluck } from 'rxjs';
-import { BoardColumn, BoardModel } from '../../boards/models/board.model';
+import { BoardColumn, BoardModel, BoardData } from '../../boards/models/board.model';
 
 @Injectable({
   providedIn: 'root',
@@ -53,8 +53,8 @@ export class ApiService {
     return this.http.get<BoardModel[]>('boards');
   }
 
-  createBoard(title: string): Observable<any> {
-    return this.http.post('boards', { title });
+  createBoard(data: BoardData): Observable<any> {
+    return this.http.post('boards', data);
   }
 
   deleteBoard(boardId: string): Observable<string> {

@@ -4,24 +4,30 @@
       {{messages.delete}}
     </p>
   </ng-template>
-  <div class="add-title" *ngIf="isAddModeOn$ | async; else deleteQuestion">
+  <div class="add-data" *ngIf="isAddModeOn$ | async; else deleteQuestion" [formGroup]='formGroup'>
     <p>
       {{messages.addTitle}}
     </p>
-    <mat-form-field appearance="fill" >
+    <mat-form-field appearance="fill">
       <mat-label>Please provide board title</mat-label>
-      <input matInput [(ngModel)]="title">
+      <input matInput formControlName='title'>
+      <mat-error *ngIf='title?.errors?.["required"]'>Please enter title</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Please provide board desctiption</mat-label>
+      <textarea matInput formControlName='description'></textarea>
+      <mat-error *ngIf='description?.errors?.["maxlength"]'>Description can not exceed 255 characters</mat-error>
     </mat-form-field>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-  <button 
-    mat-raised-button 
+  <button
+    mat-raised-button
     mat-dialog-close
   >{{ cancelButtonText }}</button>
-	<button 
-    mat-raised-button 
-    color="primary" 
+	<button [disabled]='(isAddModeOn$ | async) ? !formGroup.valid : false'
+    mat-raised-button
+    color="primary"
     (click)="onConfirmClick()"
-  >{{ confirmButtonText }}</button>	
+  >{{ confirmButtonText }}</button>
 </mat-dialog-actions>

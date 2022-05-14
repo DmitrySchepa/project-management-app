@@ -73,15 +73,13 @@ export class HeaderComponent implements OnInit {
   onCreateBoard() {
     this.apiService.isInfoAddModeOn$.next(true);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: {
-        title: this.boardsService.boardTitle,
-      },
+      data: this.boardsService.boardData,
     });
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       this.apiService.isInfoAddModeOn$.next(false);
       if (confirmed) {
-        this.boardsService.createBoard(this.boardsService.boardTitle);
+        this.boardsService.createBoard(this.boardsService.boardData);
       }
     });
   }

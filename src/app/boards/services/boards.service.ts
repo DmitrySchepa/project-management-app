@@ -8,12 +8,13 @@ import {
   getBoards,
   getColumns,
 } from 'src/app/state/actions/boards.actions';
+import { BoardData } from '../models/board.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardsService {
-  boardTitle: string = '';
+  boardData!: BoardData;
 
   constructor(private readonly store: Store) {}
 
@@ -21,9 +22,8 @@ export class BoardsService {
     this.store.dispatch(getBoards());
   }
 
-  createBoard(title: string) {
-    title = this.boardTitle;
-    this.store.dispatch(createBoard({ title }));
+  createBoard(data: BoardData) {
+    this.store.dispatch(createBoard({ data }));
   }
 
   deleteBoard(boardId: string) {

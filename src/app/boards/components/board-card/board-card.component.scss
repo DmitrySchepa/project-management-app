@@ -11,6 +11,9 @@
     font-size: 20px;
     pointer-events: none;
   }
+  &-content {
+    pointer-events: none;
+  }
   &-actions {
     position: relative;
     display: flex;

@@ -1,12 +1,12 @@
 import { createAction, props } from '@ngrx/store';
-import { BoardColumn, BoardModel } from '../../boards/models/board.model';
+import { BoardColumn, BoardModel, BoardData } from '../../boards/models/board.model';
 
 export const getBoards = createAction('[Boards] Get boards');
 export const getBoardsSuccess = createAction(
   '[Boards] Get boards successfully',
   props<{ boards: BoardModel[] }>(),
 );
-export const createBoard = createAction('[Boards] Create a board', props<{ title: string }>());
+export const createBoard = createAction('[Boards] Create a board', props<{ data: BoardData }>());
 export const createBoardSuccess = createAction(
   '[Boards] Create a board successfully',
   props<{ board: BoardModel }>(),

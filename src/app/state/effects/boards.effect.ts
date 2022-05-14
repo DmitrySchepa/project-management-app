@@ -31,8 +31,7 @@ export class BoardsEffects {
         this.apiService.getBoards().pipe(
           map((boards) =>
             boards.map((item) => {
-              const obj = { ...item, columns: [] };
-              return obj;
+              return { ...item, columns: [] };
             }),
           ),
           map((boards: BoardModel[]) => getBoardsSuccess({ boards })),
@@ -48,9 +47,9 @@ export class BoardsEffects {
   createBoard$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(createBoard),
-      switchMap(({ title }) => {
+      switchMap(({ data }) => {
         return this.apiService
-          .createBoard(title)
+          .createBoard(data)
           .pipe(map((board) => createBoardSuccess({ board: { ...board, columns: [] } })));
       }),
     );
