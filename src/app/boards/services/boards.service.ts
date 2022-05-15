@@ -8,7 +8,7 @@ import { createBoardSuccess, getBoards } from 'src/app/state/actions/boards.acti
 export class BoardsService {
   boardTitle: string = '';
 
-  @Output() openDialogEvent = new EventEmitter();
+  @Output() openDialogEvent = new EventEmitter<string>();
 
   constructor(private readonly store: Store) {}
 
@@ -21,7 +21,7 @@ export class BoardsService {
     this.store.dispatch(createBoardSuccess({ board: { id: '', title } }));
   }
 
-  openCreateBoardDialog() {
-    this.openDialogEvent.emit('');
+  openBoardDialog(type: string) {
+    this.openDialogEvent.emit(type);
   }
 }

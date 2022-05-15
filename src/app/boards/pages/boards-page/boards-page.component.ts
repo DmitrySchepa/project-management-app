@@ -21,7 +21,7 @@ export class BoardsPageComponent implements OnInit {
     this.boards$ = this.store.select(selectBoards);
   }
 
-  openDialog() {
-    this.boardsService.openCreateBoardDialog();
+  createDialog() {
+    this.boardsService.openBoardDialog('create');
   }
 }

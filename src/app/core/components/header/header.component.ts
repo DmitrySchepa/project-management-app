@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.boardsService.openDialogEvent.subscribe(() => this.onCreateBoard());
+    this.boardsService.openDialogEvent.subscribe((type) => this.onBoardDialog(type));
     this.translate.addLangs(langs);
     const storedLang = localStorage.getItem('pma-lang');
     const browserLang = this.translate.getBrowserLang() ?? '';
@@ -71,7 +71,7 @@ export class HeaderComponent implements OnInit {
     return lang === this.translate.currentLang;
   }
 
-  onCreateBoard() {
+  onBoardDialog(type: string) {
     this.apiService.isInfoAddModeOn$.next(true);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {

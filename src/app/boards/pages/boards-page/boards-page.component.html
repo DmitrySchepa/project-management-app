@@ -2,7 +2,7 @@
   <h2 class='boards__title'>Boards</h2>
   <ul class='boards__list'>
     <p *ngIf='(boards$ | async)?.length === 0' class='boards__message'>
-      No boards created yet. You can <b class='boards__click' (click)='openDialog()'>create</b> first board.
+      No boards created yet. You can <b class='boards__click' (click)='createDialog()'>create</b> first board.
     </p>
     <li class='boards__list-item' *ngFor='let board of boards$ | async'>
       <app-board-card [board]='board'></app-board-card>

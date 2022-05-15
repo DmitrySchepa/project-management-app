@@ -26,7 +26,7 @@
         </mat-button-toggle-group>
       </div>
       <div class='navbar__group' *ngIf='hasToken$ | async'>
-        <a class="navbar_item" (click)="onCreateBoard()">
+        <a class="navbar_item" (click)="onBoardDialog('create')">
           <mat-icon matTooltip='New Board'>add</mat-icon>
           <span>New Board</span>
         </a>
