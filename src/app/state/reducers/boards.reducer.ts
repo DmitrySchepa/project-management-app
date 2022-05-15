@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { createReducer, on } from '@ngrx/store';
 import { BoardColumn, BoardModel } from '../../boards/models/board.model';
 import {
