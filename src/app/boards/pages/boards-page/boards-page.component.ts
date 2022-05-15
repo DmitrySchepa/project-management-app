@@ -22,10 +22,11 @@ export class BoardsPageComponent implements OnInit {
   constructor(
     private readonly store: Store,
     private readonly fb: FormBuilder,
-    private readonly router: Router
-    ) {
+    private readonly router: Router,
+    private readonly boardsService: BoardsService,
+  ) {
     this.formSearch = this.fb.group({
-      search: ['', [Validators.required]]
+      search: ['', [Validators.required]],
     });
   }
 
@@ -41,5 +42,4 @@ export class BoardsPageComponent implements OnInit {
     const searchString = this.formSearch.value.search;
     this.router.navigateByUrl(`/search?str=${searchString}`);
   }
-
 }

@@ -13,7 +13,7 @@ export interface BoardColumn {
   id: string;
   title: string;
   order: number;
-  tasks: string[];
+  tasks: BoardTask[];
 }
 
 export interface BoardTask {

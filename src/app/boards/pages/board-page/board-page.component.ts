@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BoardColumn, BoardModel } from '../../models/board.model';
-import { boardsMock } from '../../../../mocks/board-model.mock';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { BoardColumn } from '../../models/board.model';
 import { Store } from '@ngrx/store';
 import { selectBoards } from 'src/app/state/selectors/boards.selectors';
 import { BoardsService } from '../../services/boards.service';

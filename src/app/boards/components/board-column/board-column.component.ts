@@ -92,7 +92,7 @@ export class BoardColumnComponent implements OnInit {
 
   onTaskAdded(task: string) {
     if (task.length != 0) {
-      this.column.tasks?.push(task);
+      this.column.tasks?.push({ title: task, id: '5' });
       this.taskInput.nativeElement.value = '';
       this.isAddTaskModeOn = !this.isAddTaskModeOn;
     }
@@ -115,12 +115,12 @@ export class BoardColumnComponent implements OnInit {
     dialogConfig.data = {
       title: 'Default task',
       description: 'Default description',
-      userId: 'null'
+      userId: 'null',
     };
 
     const dialogRef = this.dialog.open(EditTaskComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // Здесь сохраняем данные
         console.log('new task data', result);

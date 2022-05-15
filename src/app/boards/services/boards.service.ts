@@ -14,7 +14,7 @@ import { BoardData } from '../models/board.model';
   providedIn: 'root',
 })
 export class BoardsService {
-  boardTitle: string = '';
+  boardData!: BoardData;
 
   @Output() openDialogEvent = new EventEmitter<string>();
 
