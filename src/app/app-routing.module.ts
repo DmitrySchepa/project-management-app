@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { HomePageComponent } from './core/pages/home-page/home-page.component';
 import { NotFoundPageComponent } from './core/pages/not-found-page/not-found-page.component';
+import  { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,11 @@ const routes: Routes = [
   {
     path: 'main',
     loadChildren: () => import('./boards/boards.module').then((m) => m.BoardsModule),
+    canLoad: [AuthGuard],
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
     canLoad: [AuthGuard],
   },
   {

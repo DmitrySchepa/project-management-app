@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BoardModel, Participant } from '../../models/board.model';
 import { BoardsService } from '../../services/boards.service';
-import { boardsMock } from 'src/mocks/board-model.mock';
+// import { boardsMock } from 'src/mocks/board-model.mock';
 
 @Component({
   selector: 'app-board-participants',
@@ -11,12 +11,12 @@ import { boardsMock } from 'src/mocks/board-model.mock';
 export class BoardParticipantsComponent implements OnInit {
   participants?: Participant[] = [];
 
-  boards: BoardModel[] = boardsMock;
+  // boards: BoardModel[] = boardsMock;
 
   constructor(private boardsService: BoardsService) {}
 
   ngOnInit(): void {
-    this.boards.forEach((elem: BoardModel) => (this.participants = elem.participants));
+    // this.boards.forEach((elem: BoardModel) => (this.participants = elem.participants));
   }
 
   fakeParticipant = { name: 'John', email: '@joejohn' };

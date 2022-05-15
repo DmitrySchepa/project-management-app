@@ -2,8 +2,8 @@
   <div class="title-container" *ngIf="!isAddTitleModeOn">
     <h2
     class="column-title"
-    (click)="isAddTitleModeOn = !isAddTitleModeOn">{{column.columnTitle}}</h2>
-    <mat-icon class="delete-icon">delete</mat-icon>
+    (click)="isAddTitleModeOn = !isAddTitleModeOn">{{column.title}}</h2>
+    <mat-icon class="delete-icon" (click)="onDeleteColumn()">delete</mat-icon>
   </div>
   <div class="change-title" *ngIf="isAddTitleModeOn">
     <mat-form-field >

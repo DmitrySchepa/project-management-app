@@ -1,0 +1,10 @@
+<div class='search'>
+  <h2 class='search__title'>{{ 'SEARCH_RESULTS.title' | translate }}</h2>
+  <ul class='tasks__list'>
+    <li class='tasks__list-item' *ngFor='let task of foundedTasks'>
+      <app-task [task]='task'></app-task>
+    </li>
+  </ul>
+  <div *ngIf="foundedTasks.length === 0">{{ 'SEARCH_RESULTS.empty_result' | translate }}</div>
+</div>
+

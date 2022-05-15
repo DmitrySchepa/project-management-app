@@ -13,5 +13,17 @@
     "titleError": "Please enter task title",
     "descriptionError": "Please enter task description",
     "none": "None"
-  }
+  },
+  "BOARDS": {
+    "title": "Boards",
+    "searchLabel": "Serch tasks",
+    "buttonText": "Search"
+  },
+  "SEARCH_RESULTS": {
+    "title": "Search results",
+    "empty_result": "Tasks with the specified text not found."
+  },
+  "SEARCH_ITEM": {
+    "user": "Assigned user: "
+  }  
 }

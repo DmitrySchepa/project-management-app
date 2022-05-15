@@ -1,6 +1,8 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { BoardColumn, BoardTask } from '../../models/board.model';
+import { ActivatedRoute } from '@angular/router';
+import { BoardsService } from '../../services/boards.service';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
@@ -12,9 +14,20 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 export class BoardColumnComponent implements OnInit {
   @Input() column!: BoardColumn;
 
-  constructor( public dialog: MatDialog ) {}
+  boardId: string = '';
 
-  ngOnInit(): void {}
+  columnId: string = '';
+
+  constructor(
+    public dialog: MatDialog,
+    private readonly route: ActivatedRoute,
+    private readonly boardsService: BoardsService,
+  ) {}
+
+  ngOnInit(): void {
+    this.boardId = this.route.snapshot.params['id'];
+    this.columnId = this.column.id;
+  }
 
   drop(event: CdkDragDrop<BoardTask[]>) {
     if (event.previousContainer === event.container) {
@@ -75,16 +88,11 @@ export class BoardColumnComponent implements OnInit {
 
   isAddTaskModeOn = false;
 
-  @ViewChild('taskInput', { static: false })
-  set taskInput(element: ElementRef<HTMLInputElement>) {
-    if (element) {
-      element.nativeElement.focus();
-    }
-  }
+  @ViewChild('taskInput', { static: false }) taskInput!: ElementRef;
 
   onTaskAdded(task: string) {
     if (task.length != 0) {
-      this.column.tasks.push({ title: task, id: '5' });
+      this.column.tasks?.push(task);
       this.taskInput.nativeElement.value = '';
       this.isAddTaskModeOn = !this.isAddTaskModeOn;
     }
@@ -92,7 +100,7 @@ export class BoardColumnComponent implements OnInit {
 
   onChangeTitle(value: string) {
     if (value.length != 0) {
-      this.column.columnTitle = value;
+      this.column.title = value;
       this.isAddTitleModeOn = !this.isAddTitleModeOn;
     }
   }
@@ -118,5 +126,10 @@ export class BoardColumnComponent implements OnInit {
         console.log('new task data', result);
       }
     });
+  }
+
+  onDeleteColumn() {
+    console.log(this.columnId, this.boardId);
+    this.boardsService.deleteColumn(this.boardId, this.columnId);
   }
 }

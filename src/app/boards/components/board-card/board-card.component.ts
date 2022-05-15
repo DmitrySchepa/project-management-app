@@ -41,7 +41,6 @@ export class BoardCardComponent {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        console.log('delete board', this.board.id);
         this.store.dispatch(deleteBoard({ id: this.board.id }));
       }
     });
