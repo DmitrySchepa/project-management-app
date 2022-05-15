@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
 import { Store } from '@ngrx/store';
 import { deleteBoard } from 'src/app/state/actions/boards.actions';
+import { BoardsService } from '../../services/boards.service';
 
 @Component({
   selector: 'app-board-card',
@@ -18,6 +19,7 @@ export class BoardCardComponent {
     private readonly router: Router,
     private readonly dialog: MatDialog,
     private readonly store: Store,
+    private readonly boardsService: BoardsService,
   ) {}
 
   openBoard(event: Event, id: string) {
@@ -43,5 +45,9 @@ export class BoardCardComponent {
         this.store.dispatch(deleteBoard({ id: this.board.id }));
       }
     });
+  }
+
+  editBoard() {
+    this.boardsService.openBoardDialog('edit');
   }
 }

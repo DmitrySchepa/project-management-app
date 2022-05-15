@@ -19,6 +19,9 @@
     .mat-icon-button {
       position: absolute;
       top: -10px;
+      &.edit {
+        margin-right: 30px;
+      }
       .mat-icon {
         pointer-events: none;
       }
