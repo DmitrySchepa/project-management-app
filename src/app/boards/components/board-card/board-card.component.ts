@@ -47,6 +47,7 @@ export class BoardCardComponent {
   }
 
   editBoard() {
-    this.boardsService.openBoardDialog('edit');
+    this.boardsService.boardData = this.board;
+    this.boardsService.openBoardDialog('edit', this.board.id);
   }
 }

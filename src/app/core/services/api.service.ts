@@ -57,6 +57,10 @@ export class ApiService {
     return this.http.post('boards', data);
   }
 
+  editBoard(data: BoardData, boardId: string): Observable<BoardModel> {
+    return this.http.put(`boards/${boardId}`, data) as Observable<BoardModel>;
+  }
+
   deleteBoard(boardId: string): Observable<string> {
     return this.http.delete(`boards/${boardId}`) as Observable<string>;
   }

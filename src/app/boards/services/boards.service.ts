@@ -5,6 +5,7 @@ import {
   createColumn,
   deleteBoard,
   deleteColumn,
+  editBoard,
   getBoards,
   getColumns,
 } from 'src/app/state/actions/boards.actions';
@@ -16,12 +17,12 @@ import { BoardData } from '../models/board.model';
 export class BoardsService {
   boardData!: BoardData;
 
-  @Output() openDialogEvent = new EventEmitter<string>();
+  @Output() openDialogEvent = new EventEmitter<string[]>();
 
   constructor(private readonly store: Store) {}
 
-  openBoardDialog(type: string) {
-    this.openDialogEvent.emit(type);
+  openBoardDialog(type: string, id: string = '') {
+    this.openDialogEvent.emit([type, id]);
   }
 
   getBoards() {
@@ -30,6 +31,10 @@ export class BoardsService {
 
   createBoard(data: BoardData) {
     this.store.dispatch(createBoard({ data }));
+  }
+
+  editBoard(boardId: string) {
+    this.store.dispatch(editBoard({ data: this.boardData, boardId }));
   }
 
   deleteBoard(boardId: string) {

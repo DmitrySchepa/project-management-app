@@ -17,6 +17,8 @@ import {
   getColumnsSuccess,
   deleteColumn,
   deleteColumnSuccess,
+  editBoard,
+  editBoardSuccess,
 } from '../actions/boards.actions';
 import { tokenOutdated } from '../actions/user.actions';
 
@@ -52,6 +54,15 @@ export class BoardsEffects {
           .createBoard(data)
           .pipe(map((board) => createBoardSuccess({ board: { ...board, columns: [] } })));
       }),
+    );
+  });
+
+  editBoard$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editBoard),
+      switchMap(({ data, boardId }) =>
+        this.apiService.editBoard(data, boardId).pipe(map((board) => editBoardSuccess({ board }))),
+      ),
     );
   });
 

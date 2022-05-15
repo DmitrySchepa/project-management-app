@@ -6,6 +6,7 @@ import {
   createColumnSuccess,
   deleteBoard,
   deleteColumn,
+  editBoardSuccess,
   getBoardsSuccess,
   getColumnsSuccess,
 } from '../actions/boards.actions';
@@ -31,6 +32,13 @@ export const BoardsReducer = createReducer(
     return {
       ...state,
       boards: newBoards,
+    };
+  }),
+  on(editBoardSuccess, (state, { board }): BoardsState => {
+    const boardIndex = state.boards.findIndex((item) => item.id === board.id);
+    return {
+      ...state,
+      boards: [...state.boards.slice(0, boardIndex), board, ...state.boards.slice(boardIndex + 1)],
     };
   }),
   on(deleteBoard, (state, { id }): BoardsState => {

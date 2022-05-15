@@ -11,6 +11,14 @@ export const createBoardSuccess = createAction(
   '[Boards] Create a board successfully',
   props<{ board: BoardModel }>(),
 );
+export const editBoard = createAction(
+  '[Boards] Edit a board',
+  props<{ data: BoardData; boardId: string }>(),
+);
+export const editBoardSuccess = createAction(
+  '[Boards] Edit a board success',
+  props<{ board: BoardModel }>(),
+);
 export const deleteBoard = createAction('[Boards] Delete a board', props<{ id: string }>());
 export const deleteBoardSuccess = createAction('[Boards] Delete a board success');
 // columns

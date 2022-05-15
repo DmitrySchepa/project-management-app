@@ -32,7 +32,10 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.boardsService.openDialogEvent.subscribe((type) => this.onBoardDialog(type));
+    this.boardsService.openDialogEvent.subscribe((data) => {
+      const [type, boardId] = data;
+      this.onBoardDialog(type, boardId);
+    });
     this.translate.addLangs(langs);
     const storedLang = localStorage.getItem('pma-lang');
     const browserLang = this.translate.getBrowserLang() ?? '';
@@ -71,7 +74,8 @@ export class HeaderComponent implements OnInit {
     return lang === this.translate.currentLang;
   }
 
-  onBoardDialog(type: string) {
+  onBoardDialog(type: string, boardId: string = '') {
+    if (type === 'create') this.boardsService.boardData = { title: '', description: ' ' };
     this.apiService.isInfoAddModeOn$.next(true);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: this.boardsService.boardData,
@@ -80,7 +84,12 @@ export class HeaderComponent implements OnInit {
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       this.apiService.isInfoAddModeOn$.next(false);
       if (confirmed) {
-        this.boardsService.createBoard(this.boardsService.boardData);
+        if (type === 'create') {
+          this.boardsService.createBoard(this.boardsService.boardData);
+        }
+        if (type === 'edit') {
+          this.boardsService.editBoard(boardId);
+        }
       }
     });
   }
