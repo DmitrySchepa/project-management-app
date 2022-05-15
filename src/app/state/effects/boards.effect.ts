@@ -61,7 +61,9 @@ export class BoardsEffects {
     return this.actions$.pipe(
       ofType(editBoard),
       switchMap(({ data, boardId }) =>
-        this.apiService.editBoard(data, boardId).pipe(map((board) => editBoardSuccess({ board }))),
+        this.apiService
+          .editBoard(data, boardId)
+          .pipe(map((board) => editBoardSuccess({ board: { ...board, columns: [] } }))),
       ),
     );
   });
