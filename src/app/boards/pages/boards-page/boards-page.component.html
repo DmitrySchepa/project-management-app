@@ -1,5 +1,21 @@
 <div class='boards'>
-  <h2 class='boards__title'>Boards</h2>
+  <form [formGroup]='formSearch' class='search-form' (submit)='onSubmit()' (input)="formSearch.valid">    
+    <input
+      class='search-input'
+      matInput
+      formControlName='search' 
+      type='search'
+      placeholder="{{ 'BOARDS.searchLabel' | translate }}"
+    >
+    <button 
+      mat-raised-button 
+      class='search-button'
+      type='submit' 
+      color='primary' 
+      [disabled]="formSearch.invalid"
+    >{{ 'BOARDS.buttonText' | translate }}</button>
+  </form>
+  <h2 class='boards__title'>{{ 'BOARDS.title' | translate }}</h2>
   <ul class='boards__list'>
     <li class='boards__list-item' *ngFor='let board of boards$ | async'>
       <app-board-card [board]='board'></app-board-card>
