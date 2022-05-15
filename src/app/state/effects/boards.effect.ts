@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap, switchMapTo } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap, switchMapTo } from 'rxjs/operators';
 import { BoardModel } from 'src/app/boards/models/board.model';
 import { ApiService } from 'src/app/core/services/api.service';
 import {
@@ -11,6 +11,12 @@ import {
   deleteBoardSuccess,
   getBoards,
   getBoardsSuccess,
+  createColumn,
+  createColumnSuccess,
+  getColumns,
+  getColumnsSuccess,
+  deleteColumn,
+  deleteColumnSuccess,
 } from '../actions/boards.actions';
 import { tokenOutdated } from '../actions/user.actions';
 
@@ -23,6 +29,11 @@ export class BoardsEffects {
       ofType(getBoards),
       switchMapTo(
         this.apiService.getBoards().pipe(
+          map((boards) =>
+            boards.map((item) => {
+              return { ...item, columns: [] };
+            }),
+          ),
           map((boards: BoardModel[]) => getBoardsSuccess({ boards })),
           catchError((err) => {
             if (err.error.statusCode === 401) return of(tokenOutdated());
@@ -35,9 +46,11 @@ export class BoardsEffects {
 
   createBoard$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(createBoardSuccess),
-      switchMap(({ board }) => {
-        return this.apiService.createBoard(board.title).pipe(map(() => createBoard()));
+      ofType(createBoard),
+      switchMap(({ data }) => {
+        return this.apiService
+          .createBoard(data)
+          .pipe(map((board) => createBoardSuccess({ board: { ...board, columns: [] } })));
       }),
     );
   });
@@ -47,6 +60,44 @@ export class BoardsEffects {
       ofType(deleteBoard),
       switchMap(({ id }) => {
         return this.apiService.deleteBoard(id).pipe(map(() => deleteBoardSuccess()));
+      }),
+    );
+  });
+
+  getColumns$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getColumns),
+      switchMap(({ boardId }) => {
+        return this.apiService.getColumns(boardId).pipe(
+          map((columns) => {
+            console.log(columns, boardId);
+            return getColumnsSuccess({ columns, boardId });
+          }),
+        );
+      }),
+    );
+  });
+
+  createColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(createColumn),
+      mergeMap(({ title, order, boardId }) => {
+        return this.apiService.createColumn(boardId, { title, order }).pipe(
+          map((column) => {
+            return createColumnSuccess({ column, boardId });
+          }),
+        );
+      }),
+    );
+  });
+
+  deleteColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteColumn),
+      switchMap(({ boardId, columnId }) => {
+        return this.apiService
+          .deleteColumn(boardId, columnId)
+          .pipe(map(() => deleteColumnSuccess()));
       }),
     );
   });

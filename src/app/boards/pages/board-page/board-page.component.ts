@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BoardColumn, BoardModel } from '../../models/board.model';
-import { boardsMock } from 'src/mocks/board-model.mock';
+import { BoardColumn } from '../../models/board.model';
+import { Store } from '@ngrx/store';
+import { selectBoards } from 'src/app/state/selectors/boards.selectors';
+import { BoardsService } from '../../services/boards.service';
+import { getColumns } from 'src/app/state/actions/boards.actions';
 
 @Component({
   selector: 'app-board-page',
@@ -11,20 +14,34 @@ import { boardsMock } from 'src/mocks/board-model.mock';
 export class BoardPageComponent implements OnInit {
   public boardId!: string;
 
-  columns?: BoardColumn[] = [];
+  columsLength: number = 0;
 
-  boards: BoardModel[] = boardsMock;
+  columns: BoardColumn[] = [];
 
-  constructor(private readonly route: ActivatedRoute) {}
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly store: Store,
+    private readonly boardsService: BoardsService,
+  ) {}
 
   ngOnInit() {
     this.boardId = this.route.snapshot.params['id'];
-    this.boards.forEach((elem: BoardModel) => {
-      this.columns = elem.columns;
+    this.store.dispatch(getColumns({ boardId: this.boardId }));
+    this.store.select(selectBoards).subscribe((boards) => {
+      const columns = boards.find((board) => board.id === this.boardId)?.columns as BoardColumn[];
+      this.columns = [...columns];
     });
   }
 
   onAddColumn() {
-    this.columns?.push({ columnTitle: 'New column', tasks: [] });
+    const column = {
+      title: 'New column',
+      order: this.columns.length + 1,
+    };
+    this.boardsService.createColumn(column.title, column.order, this.boardId);
+  }
+
+  onDeleteColumn() {
+    this.boardsService.deleteColumn(this.boardId, '');
   }
 }
