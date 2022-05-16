@@ -63,7 +63,7 @@ export class BoardsEffects {
       switchMap(({ data, boardId }) =>
         this.apiService
           .editBoard(data, boardId)
-          .pipe(map((board) => editBoardSuccess({ board: { ...board, columns: [] } }))),
+          .pipe(map((board) => editBoardSuccess({ board }))),
       ),
     );
   });

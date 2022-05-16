@@ -37,7 +37,7 @@ export const BoardsReducer = createReducer(
     const boardIndex = state.boards.findIndex((item) => item.id === board.id);
     return {
       ...state,
-      boards: [...state.boards.slice(0, boardIndex), board, ...state.boards.slice(boardIndex + 1)],
+      boards: [...state.boards.slice(0, boardIndex), {...state.boards[boardIndex], title: board.title, description: board.description}, ...state.boards.slice(boardIndex + 1)],
     };
   }),
   on(deleteBoard, (state, { id }): BoardsState => {
