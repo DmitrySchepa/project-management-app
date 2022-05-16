@@ -100,7 +100,7 @@ export class BoardColumnComponent implements OnInit {
 
   onChangeTitle(value: string) {
     if (value.length != 0) {
-      this.column.title = value;
+      this.boardsService.editColumn({ ...this.column, title: value }, this.boardId);
       this.isAddTitleModeOn = !this.isAddTitleModeOn;
     }
   }

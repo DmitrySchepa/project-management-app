@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { concatMap, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, switchMapTo } from 'rxjs/operators';
 import { BoardModel } from 'src/app/boards/models/board.model';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -19,6 +19,8 @@ import {
   deleteColumnSuccess,
   editBoard,
   editBoardSuccess,
+  editColumn,
+  editColumnSuccess,
 } from '../actions/boards.actions';
 import { tokenOutdated } from '../actions/user.actions';
 
@@ -61,9 +63,7 @@ export class BoardsEffects {
     return this.actions$.pipe(
       ofType(editBoard),
       switchMap(({ data, boardId }) =>
-        this.apiService
-          .editBoard(data, boardId)
-          .pipe(map((board) => editBoardSuccess({ board }))),
+        this.apiService.editBoard(data, boardId).pipe(map((board) => editBoardSuccess({ board }))),
       ),
     );
   });
@@ -101,6 +101,19 @@ export class BoardsEffects {
           }),
         );
       }),
+    );
+  });
+
+  editColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editColumn),
+      concatMap(({ boardId, column }) =>
+        this.apiService.editColumn(boardId, column).pipe(
+          map((editedColumn) => {
+            return editColumnSuccess({ column: editedColumn, boardId });
+          }),
+        ),
+      ),
     );
   });
 

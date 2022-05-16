@@ -6,6 +6,7 @@ import {
   deleteBoard,
   deleteColumn,
   editBoardSuccess,
+  editColumnSuccess,
   getBoardsSuccess,
   getColumnsSuccess,
 } from '../actions/boards.actions';
@@ -37,7 +38,11 @@ export const BoardsReducer = createReducer(
     const boardIndex = state.boards.findIndex((item) => item.id === board.id);
     return {
       ...state,
-      boards: [...state.boards.slice(0, boardIndex), {...state.boards[boardIndex], title: board.title, description: board.description}, ...state.boards.slice(boardIndex + 1)],
+      boards: [
+        ...state.boards.slice(0, boardIndex),
+        { ...state.boards[boardIndex], title: board.title, description: board.description },
+        ...state.boards.slice(boardIndex + 1),
+      ],
     };
   }),
   on(deleteBoard, (state, { id }): BoardsState => {
@@ -72,6 +77,33 @@ export const BoardsReducer = createReducer(
       boards: [
         ...state.boards.slice(0, currentBoardIdx),
         { ...currentBoard, columns: [...currentBoard.columns, column] },
+        ...state.boards.slice(currentBoardIdx + 1),
+      ],
+    };
+  }),
+  on(editColumnSuccess, (state, { column, boardId }) => {
+    const currentBoard = state.boards.find(
+      (board: BoardModel) => board.id === boardId,
+    ) as BoardModel;
+    const currentBoardIdx = state.boards.findIndex((board) => board.id === boardId);
+    const currentColumn = currentBoard.columns.find((col) => col.id === column.id) as BoardColumn;
+    const currentColumnIdx = currentBoard.columns.findIndex((col) => col.id === column.id);
+    return {
+      ...state,
+      boards: [
+        ...state.boards.slice(0, currentBoardIdx),
+        {
+          ...currentBoard,
+          columns: [
+            ...currentBoard.columns.slice(0, currentColumnIdx),
+            {
+              ...currentColumn,
+              title: column.title,
+              order: column.order,
+            },
+            ...currentBoard.columns.slice(currentBoardIdx + 1),
+          ],
+        },
         ...state.boards.slice(currentBoardIdx + 1),
       ],
     };

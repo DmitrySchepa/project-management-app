@@ -77,6 +77,13 @@ export class ApiService {
     return this.http.post(`boards/${boardId}/columns`, column) as Observable<BoardColumn>;
   }
 
+  editColumn(boardId: string, column: { id: string; title: string; order: number }) {
+    return this.http.put(`boards/${boardId}/columns/${column.id}`, {
+      title: column.title,
+      order: column.order,
+    }) as Observable<BoardColumn>;
+  }
+
   deleteColumn(boardId: string, columnId: string) {
     return this.http.delete(`boards/${boardId}/columns/${columnId}`);
   }

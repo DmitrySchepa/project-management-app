@@ -6,10 +6,11 @@ import {
   deleteBoard,
   deleteColumn,
   editBoard,
+  editColumn,
   getBoards,
   getColumns,
 } from 'src/app/state/actions/boards.actions';
-import { BoardData } from '../models/board.model';
+import { BoardColumn, BoardData } from '../models/board.model';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +50,10 @@ export class BoardsService {
 
   createColumn(title: string, order: number, boardId: string) {
     this.store.dispatch(createColumn({ title, order, boardId }));
+  }
+
+  editColumn(column: BoardColumn, boardId: string) {
+    this.store.dispatch(editColumn({ column, boardId }));
   }
 
   deleteColumn(boardId: string, columnId: string) {

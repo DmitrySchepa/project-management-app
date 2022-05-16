@@ -27,6 +27,14 @@ export const getColumnsSuccess = createAction(
   '[Boards] Get columns success',
   props<{ columns: BoardColumn[]; boardId: string }>(),
 );
+export const editColumn = createAction(
+  '[Boards] Edit column',
+  props<{ column: BoardColumn; boardId: string }>(),
+);
+export const editColumnSuccess = createAction(
+  '[Boards] Edit column success',
+  props<{ column: BoardColumn; boardId: string }>(),
+);
 export const getColumn = createAction(
   '[Boards] Get column',
   props<{ boardId: string; columnId: string }>(),
