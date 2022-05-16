@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BoardColumn, BoardModel } from '../../models/board.model';
+import { BoardColumn } from '../../models/board.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
-import { selectBoards } from 'src/app/state/selectors/boards.selectors';
+import { selectBoardColumns } from 'src/app/state/selectors/boards.selectors';
 import { BoardsService } from '../../services/boards.service';
 import { getColumns } from 'src/app/state/actions/boards.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-board-page',
@@ -15,9 +16,9 @@ import { getColumns } from 'src/app/state/actions/boards.actions';
 export class BoardPageComponent implements OnInit {
   public boardId!: string;
 
-  columsLength: number = 0;
+  columns!: BoardColumn[];
 
-  columns: BoardColumn[] = [];
+  columns$!: Observable<BoardColumn[]>;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -28,10 +29,10 @@ export class BoardPageComponent implements OnInit {
   ngOnInit() {
     this.boardId = this.route.snapshot.params['id'];
     this.store.dispatch(getColumns({ boardId: this.boardId }));
-    this.store.select(selectBoards).subscribe((boards) => {
-      const columns = boards.find((board) => board.id === this.boardId)?.columns as BoardColumn[];
-      this.columns = [...columns];
-    });
+    this.columns$ = this.store.select(selectBoardColumns(this.boardId)) as Observable<
+      BoardColumn[]
+    >;
+    this.columns$.subscribe((array) => (this.columns = [...array]));
   }
 
   drop(event: CdkDragDrop<string[]>) {

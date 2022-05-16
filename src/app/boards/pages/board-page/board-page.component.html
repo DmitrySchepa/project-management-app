@@ -1,15 +1,21 @@
 <mat-tab-group animationDuration="0ms" mat-align-tabs="center" >
   <mat-tab class='board' label="Current board">
     <div class='board__columns' cdkDropList cdkDropListGroup cdkDropListOrientation='horizontal' (cdkDropListDropped)="drop($event)">
-      <app-board-column *ngFor="let column of columns; let i = index" [column]="column" [attr.data-id]='column.id' cdkDrag></app-board-column>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="onAddColumn()"
-        class="add-column-btn">
-        <mat-icon>add</mat-icon>
-        Add column
-      </button>
+      <div *ngIf='(columns$ | async) as columns'>
+        <app-board-column
+          *ngFor="let column of columns; let i = index"
+          [column]="column"
+          [attr.data-id]='column.id'
+          cdkDrag></app-board-column>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onAddColumn()"
+          class="add-column-btn">
+          <mat-icon>add</mat-icon>
+          Add column
+        </button>
+      </div>
     </div>
   </mat-tab>
   <mat-tab label="Participants">

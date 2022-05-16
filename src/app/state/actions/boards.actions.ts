@@ -35,6 +35,10 @@ export const editColumnSuccess = createAction(
   '[Boards] Edit column success',
   props<{ column: BoardColumn; boardId: string }>(),
 );
+export const setColumnToTemp = createAction(
+  '[Boards] Set column to temp',
+  props<{ column: BoardColumn; boardId: string }>(),
+);
 export const getColumn = createAction(
   '[Boards] Get column',
   props<{ boardId: string; columnId: string }>(),
