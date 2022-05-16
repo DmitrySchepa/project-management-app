@@ -101,7 +101,7 @@ export const BoardsReducer = createReducer(
               title: column.title,
               order: column.order,
             },
-            ...currentBoard.columns.slice(currentBoardIdx + 1),
+            ...currentBoard.columns.slice(currentColumnIdx + 1),
           ],
         },
         ...state.boards.slice(currentBoardIdx + 1),
