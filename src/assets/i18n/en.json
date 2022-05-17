@@ -65,6 +65,7 @@
     "passwordmismatch": "Passwords are mismatch"
   },
   "EDITPROFILE": {
+    "title": "Edit Profile",
     "deleteuser": "Delete User",
     "updateprofile": "Update Profile",
     "wantdeleteuser": "Are you sure want to delete user?",
@@ -86,5 +87,26 @@
     "addtitle": "Please enter a title",
     "confirmbtntext": "Yes",
     "cancelbtntext": "Cancel"
+  },
+  "SIGNUP": {
+    "title": "Sign Up"
+  },
+  "LOGIN": {
+    "title": "Login",
+    "btntext": "Login"
+  },
+  "NEW_BOARD": {
+    "provideboard": "Please provide board title",
+    "providedescr": "Please provide board desctiption",
+    "descrtoolong": "Description can not exceed 255 characters"
+  },
+  "OUR_TEAM": {
+    "aboutapp": "About App",
+    "features": "Features",
+    "ourteam": "Our Team"
+  },
+  "CONTRIBUTIONS": {
+    "title": "Contributions:",
+    "teamlead": "Teamlead"
   }
 }

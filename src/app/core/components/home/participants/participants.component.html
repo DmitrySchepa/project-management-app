@@ -2,10 +2,10 @@
   <mat-card-header>
     <img [src]='participant.img' mat-card-avatar class='card__avatar' [alt]='participant.git'>
     <mat-card-title class='card__title'>{{participant.name}}</mat-card-title>
-    <mat-card-subtitle class='card__subtitle' *ngIf='participant.isTeamLead'>Teamlead</mat-card-subtitle>
+    <mat-card-subtitle class='card__subtitle' *ngIf='participant.isTeamLead'>{{ 'CONTRIBUTIONS.teamlead' | translate }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <h3 class='card__content-title'>Contributions:</h3>
+    <h3 class='card__content-title'>{{ 'CONTRIBUTIONS.title' | translate }}</h3>
     <ul class='contributions__list'>
       <li class='contributions__item' *ngFor='let contribution of participant.contribution'>{{contribution}}</li>
     </ul>

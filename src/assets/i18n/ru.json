@@ -65,11 +65,12 @@
     "passwordmismatch": "Пароли не совпадают"   
   },
   "EDITPROFILE": {
+    "title": "Редактирование профиля",
     "deleteuser": "Удалить пользователя",
     "updateprofile": "Обновить профиль",
     "wantdeleteuser": "Вы уверены, что хотите удалить пользователя?",
     "okbtntext": "Удалить",
-    "cancelbtntext": "Отменить"    
+    "cancelbtntext": "Отменить"
   },
   "REGISTRY": {
     "title": "Регистрация"
@@ -86,5 +87,26 @@
     "addtitle": "Введите заголовок",
     "confirmbtntext": "Да",
     "cancelbtntext": "Отменить"
+  },
+  "SIGNUP": {
+    "title": "Регистрация"
+  },
+  "LOGIN": {
+    "title": "Вход",
+    "btntext": "Войти!"
+  },
+  "NEW_BOARD": {
+    "provideboard": "Укажите заголовок доски",
+    "providedescr": "Укажите описание доски",
+    "descrtoolong": "Описание не может достигать 255 символов"
+  },
+  "OUR_TEAM": {
+    "aboutapp": "О приложении",
+    "features": "Функциональность",
+    "ourteam": "Наша команда"
+  },
+  "CONTRIBUTIONS": {
+    "title": "Вклад в разработку:",
+    "teamlead": "Тимлид"
   }
 }
