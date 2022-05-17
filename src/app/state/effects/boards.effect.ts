@@ -21,6 +21,8 @@ import {
   editBoardSuccess,
   editColumn,
   editColumnSuccess,
+  reorderColumn,
+  reorderColumnSuccess,
 } from '../actions/boards.actions';
 import { tokenOutdated } from '../actions/user.actions';
 
@@ -83,7 +85,7 @@ export class BoardsEffects {
       switchMap(({ boardId }) => {
         return this.apiService.getColumns(boardId).pipe(
           map((columns) => {
-            console.log(columns, boardId);
+            columns.sort((a, b) => a.order - b.order);
             return getColumnsSuccess({ columns, boardId });
           }),
         );
@@ -117,10 +119,23 @@ export class BoardsEffects {
     );
   });
 
+  reorderColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(reorderColumn),
+      concatMap(({ boardId, column, last }) =>
+        this.apiService
+          .editColumn(boardId, column)
+          .pipe(
+            map((editedColumn) => reorderColumnSuccess({ column: editedColumn, boardId, last })),
+          ),
+      ),
+    );
+  });
+
   deleteColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(deleteColumn),
-      switchMap(({ boardId, columnId }) => {
+      concatMap(({ boardId, columnId }) => {
         return this.apiService
           .deleteColumn(boardId, columnId)
           .pipe(map(() => deleteColumnSuccess()));

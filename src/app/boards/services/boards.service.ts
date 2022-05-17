@@ -9,6 +9,7 @@ import {
   editColumn,
   getBoards,
   getColumns,
+  reorderColumn,
 } from 'src/app/state/actions/boards.actions';
 import { BoardColumn, BoardData } from '../models/board.model';
 
@@ -54,6 +55,10 @@ export class BoardsService {
 
   editColumn(column: BoardColumn, boardId: string) {
     this.store.dispatch(editColumn({ column, boardId }));
+  }
+
+  reorderColumn(column: BoardColumn, boardId: string, last: boolean = false) {
+    this.store.dispatch(reorderColumn({ column, boardId, last }));
   }
 
   deleteColumn(boardId: string, columnId: string) {

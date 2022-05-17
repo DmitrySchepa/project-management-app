@@ -44,16 +44,30 @@ export class BoardPageComponent implements OnInit {
     const { previousIndex, currentIndex, item, container } = event;
     const columnId = item.element.nativeElement.dataset['id'];
     const columns = (Array.from(container.element.nativeElement.children) as HTMLElement[]).filter(
-      (item) => item.tagName !== 'BUTTON',
+      (element) => element.tagName !== 'BUTTON',
     );
+    const eventColumn = this.columns.find((column) => column.id === columnId) as BoardColumn;
+    this.boardsService.reorderColumn({ ...eventColumn, order: 0 }, this.boardId);
     if (previousIndex < currentIndex) {
       for (let i = previousIndex + 1; i <= currentIndex; i += 1) {
-        console.log(columns[i], i); //tasks[i] order = i
+        const editColumn = this.columns.find(
+          (column) => column.id === (columns[i].dataset['id'] as string),
+        ) as BoardColumn;
+        this.boardsService.reorderColumn({ ...editColumn, order: i }, this.boardId);
       }
+      this.boardsService.reorderColumn(
+        { ...eventColumn, order: currentIndex + 1 },
+        this.boardId,
+        true,
+      );
     } else {
-      for (let i = currentIndex; i < previousIndex; i += 1) {
-        console.log(columns[i], i + 2); // tasks[i] order = i + 2
+      for (let i = previousIndex - 1; i >= currentIndex; i -= 1) {
+        const editColumn = this.columns.find(
+          (column) => column.id === (columns[i].dataset['id'] as string),
+        ) as BoardColumn;
+        this.boardsService.reorderColumn({ ...editColumn, order: i + 2 }, this.boardId);
       }
+      this.boardsService.reorderColumn({ ...eventColumn, order: currentIndex + 1 }, this.boardId);
     }
   }
 

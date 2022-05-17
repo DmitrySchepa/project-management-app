@@ -9,6 +9,7 @@ import {
   editColumnSuccess,
   getBoardsSuccess,
   getColumnsSuccess,
+  reorderColumnSuccess,
 } from '../actions/boards.actions';
 
 export interface BoardsState {
@@ -102,6 +103,73 @@ export const BoardsReducer = createReducer(
               order: column.order,
             },
             ...currentBoard.columns.slice(currentColumnIdx + 1),
+          ],
+        },
+        ...state.boards.slice(currentBoardIdx + 1),
+      ],
+    };
+  }),
+  on(reorderColumnSuccess, (state, { column, boardId, last }) => {
+    const currentBoard = state.boards.find(
+      (board: BoardModel) => board.id === boardId,
+    ) as BoardModel;
+    const currentBoardIdx = state.boards.findIndex((board) => board.id === boardId);
+    const currentColumn = currentBoard.columns.find((col) => col.id === column.id) as BoardColumn;
+    const currentColumnIdx = currentBoard.columns.findIndex((col) => col.id === column.id);
+    if (column.order === 0) {
+      return {
+        ...state,
+        boards: [
+          ...state.boards.slice(0, currentBoardIdx),
+          {
+            ...currentBoard,
+            columns: [
+              ...currentBoard.columns.slice(0, currentColumnIdx),
+              ...currentBoard.columns.slice(currentColumnIdx + 1),
+              {
+                ...currentColumn,
+                order: column.order,
+              },
+            ],
+          },
+          ...state.boards.slice(currentBoardIdx + 1),
+        ],
+      };
+    }
+    if (last) {
+      const right = currentBoard.columns.slice(column.order - 1, -1);
+      return {
+        ...state,
+        boards: [
+          ...state.boards.slice(0, currentBoardIdx),
+          {
+            ...currentBoard,
+            columns: [
+              ...currentBoard.columns.slice(0, column.order - 1),
+              {
+                ...column,
+                order: column.order,
+              },
+              ...right,
+            ],
+          },
+          ...state.boards.slice(currentBoardIdx + 1),
+        ],
+      };
+    }
+    return {
+      ...state,
+      boards: [
+        ...state.boards.slice(0, currentBoardIdx),
+        {
+          ...currentBoard,
+          columns: [
+            ...currentBoard.columns.slice(0, column.order - 1),
+            {
+              ...column,
+              order: column.order,
+            },
+            ...currentBoard.columns.slice(column.order),
           ],
         },
         ...state.boards.slice(currentBoardIdx + 1),

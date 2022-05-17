@@ -35,9 +35,13 @@ export const editColumnSuccess = createAction(
   '[Boards] Edit column success',
   props<{ column: BoardColumn; boardId: string }>(),
 );
-export const setColumnToTemp = createAction(
-  '[Boards] Set column to temp',
-  props<{ column: BoardColumn; boardId: string }>(),
+export const reorderColumn = createAction(
+  '[Boards] Change column order',
+  props<{ column: BoardColumn; boardId: string; last: boolean }>(),
+);
+export const reorderColumnSuccess = createAction(
+  '[Boards] Change column order success',
+  props<{ column: BoardColumn; boardId: string; last: boolean }>(),
 );
 export const getColumn = createAction(
   '[Boards] Get column',
