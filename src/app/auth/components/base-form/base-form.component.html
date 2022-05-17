@@ -1,67 +1,67 @@
 <form [formGroup]='formGroup' class='form' (submit)='submit()' (input)="isValidForm()">
   <span *ngIf="(errorMessage$ | async) as errorMessage" class="form__error">{{errorMessage}}</span>
   <mat-form-field appearance='outline'>
-    <mat-label>User name</mat-label>
+    <mat-label>{{ 'BASE_FORM.username' | translate }}</mat-label>
     <input matInput formControlName='name' type='text'>
     <mat-error *ngIf='name?.errors?.["required"]'>
-      Please enter name
+      {{ 'BASE_FORM.enterusername' | translate }}
     </mat-error>
     <mat-error *ngIf='name?.errors?.["minlength"]'>
-      The name is too short
+      {{ 'BASE_FORM.nametooshort"' | translate }}
     </mat-error>
     <mat-error *ngIf='name?.errors?.["maxlength"]'>
-      The name is too long
+      {{ 'BASE_FORM.nametoolong' | translate }}
     </mat-error>
     <mat-error *ngIf='name?.errors?.["firstdigit"]'>
-      The name mustn't starts with digit
+      {{ 'BASE_FORM.namestart' | translate }}
     </mat-error>
     <mat-error *ngIf='name?.errors?.["specChar"]'>
-      The name must contains only letters, digits and _
+      {{ 'BASE_FORM.namemustcontain' | translate }}
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance='outline'>
-    <mat-label>User login</mat-label>
+    <mat-label>{{ 'BASE_FORM.userlogin' | translate }}</mat-label>
     <input matInput formControlName='login' type='text'>
     <mat-error *ngIf='login?.errors?.["required"]'>
-      Please enter login
+      {{ 'BASE_FORM.enterlogin' | translate }}
     </mat-error>
     <mat-error *ngIf='login?.errors?.["minlength"]'>
-      The login is too short
+      {{ 'BASE_FORM.logintooshort"' | translate }}
     </mat-error>
     <mat-error *ngIf='name?.errors?.["maxlength"]'>
-      The login is too long
+      {{ 'BASE_FORM.logintoolong' | translate }}
     </mat-error>
     <mat-error *ngIf='login?.errors?.["firstdigit"]'>
-      The login mustn't starts with digit
+      {{ 'BASE_FORM.loginstart' | translate }}
     </mat-error>
     <mat-error *ngIf='login?.errors?.["specChar"]'>
-      The login must contains only letters, digits and _
+      {{ 'BASE_FORM.loginmustcontain' | translate }}
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance='outline'>
-    <mat-label>Password</mat-label>
+    <mat-label>{{ 'BASE_FORM.password' | translate }}</mat-label>
     <input matInput formControlName='password' [type]="hide ? 'password' : 'text'">
     <button mat-icon-button matSuffix type='button' (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
       <mat-icon color='primary'>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
     <mat-error *ngIf='password?.errors?.["required"]'>
-      Please enter password
+      {{ 'BASE_FORM.enterpassword' | translate }}
     </mat-error>
     <mat-error *ngIf='password?.errors?.["minlength"]'>
-      Password must contains at least 8 characters
+      {{ 'BASE_FORM.passwordminlength' | translate }}
     </mat-error>
     <mat-error *ngIf='password?.errors?.["validatePasswords"]'>
       {{password?.errors?.["validatePasswords"]}}
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance='outline'>
-    <mat-label>Confirm password</mat-label>
+    <mat-label>{{ 'BASE_FORM.confirmpassword' | translate }}</mat-label>
     <input matInput formControlName='confirmPassword' [type]="hideConfirm ? 'password' : 'text'">
     <button mat-icon-button matSuffix type='button' (click)="hideConfirm = !hideConfirm" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirm">
       <mat-icon color='primary'>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
     <mat-error *ngIf='confirmPassword?.errors?.["required"]'>
-      Please enter password
+      {{ 'BASE_FORM.enterpassword' | translate }}
     </mat-error>
     <mat-error *ngIf='confirmPassword?.errors?.["validatePasswords"]'>
       {{confirmPassword?.errors?.["validatePasswords"]}}

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TranslateService } from "@ngx-translate/core";
 import { AuthDirective } from '../../directives/auth.directive';
 import {
   AbstractControl,
@@ -12,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 import { Store } from '@ngrx/store';
 import { selectError } from '../../../state/selectors/user.selectors';
 import { clearError } from '../../../state/actions/user.actions';
+import { translateText } from 'src/app/core/helpers/translate.function';
 
 @Component({
   selector: 'app-base-form',
@@ -22,9 +24,11 @@ export class BaseFormComponent extends AuthDirective implements OnInit {
   errorMessage$ = this.store.select(selectError);
 
   constructor(
+    protected readonly translate: TranslateService,
     private readonly fb: FormBuilder,
     protected readonly authService: AuthService,
     protected readonly store: Store,
+    
   ) {
     super();
   }
@@ -62,6 +66,7 @@ export class BaseFormComponent extends AuthDirective implements OnInit {
         validators: [this.validatePasswords()],
       },
     );
+
   }
 
   isValidForm() {
@@ -73,11 +78,13 @@ export class BaseFormComponent extends AuthDirective implements OnInit {
   }
 
   validateFirstChar(control: AbstractControl) {
-    return isNaN(parseInt(control.value[0])) ? null : { firstdigit: 'Entered value is not valid' };
+    return isNaN(parseInt(control.value[0])) ? null 
+    : { firstdigit: translateText('BASE_FORM.valuenotvalid', this.translate) };
   }
 
   validateSpecChars(control: AbstractControl) {
-    return /[!@#$%^&*]/g.test(control.value) ? { specChar: 'Special char is found!' } : null;
+    return /[!@#$%^&*]/g.test(control.value) 
+      ? { specChar: translateText('BASE_FORM.valuenotvalid', this.translate) } : null;
   }
 
   validatePasswords(): ValidatorFn {
@@ -86,8 +93,9 @@ export class BaseFormComponent extends AuthDirective implements OnInit {
       const confirmPassword = control.get('confirmPassword')?.value;
 
       if (enteredPassword !== confirmPassword) {
-        control.get('confirmPassword')?.setErrors({ validatePasswords: 'Passwords are mismatch' });
-        return { validatePasswords: 'Passwords are mismatch' };
+        const transl = translateText('BASE_FORM.passwordmismatch', this.translate);
+        control.get('confirmPassword')?.setErrors({ validatePasswords: transl });
+        return { validatePasswords: transl };
       } else {
         control.get('confirmPassword')?.setErrors(null);
       }

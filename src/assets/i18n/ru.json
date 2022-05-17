@@ -19,11 +19,72 @@
     "searchLabel": "Поиск по задачам",
     "buttonText": "Искать!"
   },
+  "BOARD": {
+    "currentboard": "Активная доска",
+    "participants": "Участники",
+    "addcolumn": "Добавить колонку"
+  },
+  "BOARD_COLUMN": {
+    "settitle": "Введите заголовок",
+    "addnewtask": "Добавить задачу"
+  },
+  "BOARD_CARD": {
+    "wantdeleteboard": "Вы уверены, что хотите удалить доску {{param}}?",
+    "okbtntext": "Удалить",
+    "cancelbtntext": "Отменить"
+  },
+  "BOARD_PARTICIPANTS": {
+    "addparticipant": "Добавить участника"
+  },
   "SEARCH_RESULTS": {
     "title": "Результаты поиска",
     "empty_result": "Задач с указанным текстом не найдено."
   },
   "SEARCH_ITEM": {
     "user": "Назначенный пользователь: "
-  } 
+  },
+  "BASE_FORM": {
+    "username": "Имя пользователя",
+    "enterusername": "Введите имя",
+    "nametooshort": "Имя слишком короткое",
+    "nametoolong": "Имя слишком длинное",
+    "namestart": "Имя не должно начинаться с цифры",
+    "namemustcontain": "Имя должно содержать только буквы, цифры и _",
+    "userlogin": "Логин",
+    "enterlogin": "Введите логин",
+    "logintooshort": "Логин слишком короткий",
+    "logintoolong": "Логин слишком длинный",
+    "logintart": "Логин не должен начинаться с цифры",
+    "loginmustcontain": "Логин должен содержать только буквы, цифры и _",
+    "password": "Пароль",
+    "enterpassword": "Введите пароль",
+    "passwordminlength": "Пароль должен содержать не меньше 8 символов",
+    "confirmpassword": "Подтвердите пароль",
+    "valuenotvalid": "Введённая величина некорректна",
+    "specialcharfound": "Найден специальный символ!",
+    "passwordmismatch": "Пароли не совпадают"   
+  },
+  "EDITPROFILE": {
+    "deleteuser": "Удалить пользователя",
+    "updateprofile": "Обновить профиль",
+    "wantdeleteuser": "Вы уверены, что хотите удалить пользователя?",
+    "okbtntext": "Удалить",
+    "cancelbtntext": "Отменить"    
+  },
+  "REGISTRY": {
+    "title": "Регистрация"
+  },
+  "HEADER": {
+    "newboard": "Новая доска",
+    "editprofile": "Редактировать профиль",
+    "logout": "Выйти",
+    "login": "Войти",
+    "signup": "Регистрация"
+  },
+  "CONFIRMATION_DIALOG": {
+    "wantdelete": "Вы уверены, что хотите удалить?",
+    "addtitle": "Введите заголовок",
+    "confirmbtntext": "Да",
+    "cancelbtntext": "Отменить"
+  }
 }
