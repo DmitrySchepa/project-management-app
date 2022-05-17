@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { TranslateService } from "@ngx-translate/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BoardsService } from 'src/app/boards/services/boards.service';
 import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { translateText } from 'src/app/core/helpers/translate.function';
 
 @Component({
   selector: 'app-confirmation-dialog',
@@ -11,13 +13,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ConfirmationDialogComponent implements OnInit {
   messages = {
-    delete: 'Are you sure want to delete?',
-    addTitle: 'Please enter a title',
+    delete: translateText('CONFIRMATION_DIALOG.wantdelete', this.translate),
+    addTitle: translateText('CONFIRMATION_DIALOG.addtitle', this.translate),
   };
 
-  confirmButtonText = 'Yes';
+  confirmButtonText = translateText('CONFIRMATION_DIALOG.confirmbtntext', this.translate);
 
-  cancelButtonText = 'Cancel';
+  cancelButtonText = translateText('CONFIRMATION_DIALOG.cancelbtntext', this.translate);
 
   isAddModeOn$ = this.apiService.isInfoAddModeOn$;
 
@@ -29,6 +31,7 @@ export class ConfirmationDialogComponent implements OnInit {
     private readonly apiService: ApiService,
     private readonly boardsService: BoardsService,
     private readonly fb: FormBuilder,
+    private readonly translate: TranslateService,
   ) {
     if (data) {
       this.messages.delete = data.message || this.messages;

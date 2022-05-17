@@ -27,26 +27,26 @@
       </div>
       <div class='navbar__group' *ngIf='hasToken$ | async'>
         <a class="navbar_item" (click)="onCreateBoard()">
-          <mat-icon matTooltip='New Board'>add</mat-icon>
-          <span>New Board</span>
+          <mat-icon matTooltip="{{ 'HEADER.newboard' | translate }}">add</mat-icon>
+          <span>{{ 'HEADER.newboard' | translate }}</span>
         </a>
         <a class="navbar_item" routerLink='auth/edit-profile'>
-          <mat-icon matTooltip='Edit profile'>edit</mat-icon>
-          <span>Edit profile</span>
+          <mat-icon matTooltip="{{ 'HEADER.editprofile' | translate }}">edit</mat-icon>
+          <span>{{ 'HEADER.editprofile' | translate }}</span>
         </a>
         <a class="navbar_item" (click)='logout()'>
-          <mat-icon matTooltip='Log Out'>exit_to_app</mat-icon>
-          <span>Log Out</span>
+          <mat-icon matTooltip="{{ 'HEADER.logout' | translate }}">exit_to_app</mat-icon>
+          <span>{{ 'HEADER.logout' | translate }}</span>
         </a>
       </div>
       <div class='navbar__group' *ngIf='(hasToken$ | async) === ""'>
         <a class="navbar_item" routerLink='auth/log-in'>
-          <mat-icon matTooltip='Log In'>input</mat-icon>
-          <span>Log In</span>
+          <mat-icon matTooltip="{{ 'HEADER.login' | translate }}">input</mat-icon>
+          <span>{{ 'HEADER.login' | translate }}</span>
         </a>
         <a class="navbar_item"  routerLink='auth/sign-up'>
-          <mat-icon matTooltip='Sign Up'>person_add</mat-icon>
-          <span>Sign Up</span>
+          <mat-icon matTooltip="{{ 'HEADER.signup' | translate }}">person_add</mat-icon>
+          <span>{{ 'HEADER.signup' | translate }}</span>
         </a>
       </div>
     </div>

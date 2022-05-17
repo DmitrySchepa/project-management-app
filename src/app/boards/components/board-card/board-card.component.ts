@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
+import { TranslateService } from "@ngx-translate/core";
 import { BoardModel } from '../../models/board.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
 import { Store } from '@ngrx/store';
 import { deleteBoard } from 'src/app/state/actions/boards.actions';
+import { translateText, translateParamText  } from 'src/app/core/helpers/translate.function';
 
 @Component({
   selector: 'app-board-card',
@@ -18,6 +20,7 @@ export class BoardCardComponent {
     private readonly router: Router,
     private readonly dialog: MatDialog,
     private readonly store: Store,
+    protected readonly translate: TranslateService,
   ) {}
 
   openBoard(event: Event, id: string) {
@@ -29,10 +32,10 @@ export class BoardCardComponent {
   deleteBoard() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
-        message: `Are you sure want to delete board '${this.board.title}'?`,
+        message: translateParamText('BOARD_CARD.wantdeleteboard', this.translate, this.board.title),
         buttonText: {
-          ok: 'Delete',
-          cancel: 'Cancel',
+          ok: translateText('BOARD_CARD.okbtntext', this.translate),
+          cancel: translateText('BOARD_CARD.cancelbtntext', this.translate),
         },
       },
     });

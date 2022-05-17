@@ -19,11 +19,94 @@
     "searchLabel": "Serch tasks",
     "buttonText": "Search"
   },
+  "BOARD": {
+    "currentboard": "Current board",
+    "participants": "Participants",
+    "addcolumn": "Add column"
+  },
+  "BOARD_COLUMN": {
+    "settitle": "Set column title",
+    "addnewtask": "Add new task"
+  },
+  "BOARD_CARD": {
+    "wantdeleteboard": "Are you sure want to delete board {{param}}?",
+    "okbtntext": "Delete",
+    "cancelbtntext": "Cancel"
+  },
+  "BOARD_PARTICIPANTS": {
+    "addparticipant": "Add participant"
+  },  
   "SEARCH_RESULTS": {
     "title": "Search results",
     "empty_result": "Tasks with the specified text not found."
   },
   "SEARCH_ITEM": {
     "user": "Assigned user: "
-  }  
+  },
+  "BASE_FORM": {
+    "username": "User name",
+    "enterusername": "Please enter name",
+    "nametooshort": "The name is too short",
+    "nametoolong": "The name is too long",
+    "namestart": "The name mustn't starts with digit",
+    "namemustcontain": "The name must contains only letters, digits and _",
+    "userlogin": "User login",
+    "enterlogin": "Please enter login",
+    "logintooshort": "The login is too short",
+    "logintoolong": "The login is too long",
+    "logintart": "The login mustn't starts with digit",
+    "loginmustcontain": "The login must contains only letters, digits and _",
+    "password": "Password",
+    "enterpassword": "Please enter password",
+    "passwordminlength": "Password must contains at least 8 characters",
+    "confirmpassword": "Confirm password",
+    "valuenotvalid": "Entered value is not valid",
+    "specialcharfound": "Special char is found!",
+    "passwordmismatch": "Passwords are mismatch"
+  },
+  "EDITPROFILE": {
+    "title": "Edit Profile",
+    "deleteuser": "Delete User",
+    "updateprofile": "Update Profile",
+    "wantdeleteuser": "Are you sure want to delete user?",
+    "okbtntext": "Delete",
+    "cancelbtntext": "Cancel"
+  },
+  "REGISTRY": {
+    "title": "Registry"
+  },
+  "HEADER": {
+    "newboard": "New Board",
+    "editprofile": "Edit profile",
+    "logout": "Log Out",
+    "login": "Log In",
+    "signup": "Sign Up"
+  },
+  "CONFIRMATION_DIALOG": {
+    "wantdelete": "Are you sure want to delete?",
+    "addtitle": "Please enter a title",
+    "confirmbtntext": "Yes",
+    "cancelbtntext": "Cancel"
+  },
+  "SIGNUP": {
+    "title": "Sign Up"
+  },
+  "LOGIN": {
+    "title": "Login",
+    "btntext": "Login"
+  },
+  "NEW_BOARD": {
+    "provideboard": "Please provide board title",
+    "providedescr": "Please provide board desctiption",
+    "descrtoolong": "Description can not exceed 255 characters"
+  },
+  "OUR_TEAM": {
+    "aboutapp": "About App",
+    "features": "Features",
+    "ourteam": "Our Team"
+  },
+  "CONTRIBUTIONS": {
+    "title": "Contributions:",
+    "teamlead": "Teamlead"
+  }
 }
