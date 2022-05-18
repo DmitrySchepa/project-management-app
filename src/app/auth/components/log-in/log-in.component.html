@@ -1,21 +1,27 @@
 <form [formGroup]='formGroup' (submit)='submit()' class='form'>
   <span *ngIf="(errorMessage$ | async) as errorMessage" class="form__error">{{errorMessage}}</span>
   <mat-form-field appearance='outline'>
-    <mat-label>User login</mat-label>
+    <mat-label>{{ 'BASE_FORM.userlogin' | translate }}</mat-label>
     <input matInput formControlName='login' type='login'>
     <mat-error *ngIf='login?.errors?.["required"]'>
-      Please enter login
+      {{ 'BASE_FORM.enterlogin' | translate }}
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance='outline'>
-    <mat-label>Password</mat-label>
+    <mat-label>{{ 'BASE_FORM.password' | translate }}</mat-label>
     <input matInput formControlName='password' [type]="hide ? 'password' : 'text'">
     <button mat-icon-button matSuffix type='button' (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
       <mat-icon color='primary'>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
     <mat-error *ngIf='password?.errors?.["required"]'>
-      Please enter password
+      {{ 'BASE_FORM.enterpassword' | translate }}
     </mat-error>
   </mat-form-field>
-  <button mat-raised-button type='submit' color='primary' class='form__submit' [disabled]="formGroup.valid ? false : true">Login</button>
+  <button 
+    mat-raised-button 
+    type='submit' 
+    color='primary' 
+    class='form__submit' 
+    [disabled]="formGroup.valid ? false : true"
+  >{{ 'LOGIN.btntext' | translate }}</button>
 </form>

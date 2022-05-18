@@ -7,7 +7,7 @@
   </div>
   <div class="change-title" *ngIf="isAddTitleModeOn">
     <mat-form-field >
-      <mat-label>Set column title</mat-label>
+      <mat-label>{{ 'BOARD_COLUMN.settitle"' | translate }}</mat-label>
       <input
       type="text"
       #columnTitle
@@ -49,12 +49,12 @@
       *ngIf="!isAddTaskModeOn"
       (click)="isAddTaskModeOn = !isAddTaskModeOn">
       <mat-icon>add</mat-icon>
-      Add new task
+      {{ 'BOARD_COLUMN.addnewtask' | translate }}
     </button>
   </div>
   <div class="change-title" *ngIf="isAddTaskModeOn">
     <mat-form-field >
-      <mat-label>Add new task</mat-label>
+      <mat-label>{{ 'BOARD_COLUMN.addnewtask' | translate }}</mat-label>
       <input
       type="text"
       #taskInput

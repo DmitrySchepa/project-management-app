@@ -1,5 +1,5 @@
 <mat-tab-group animationDuration="0ms" mat-align-tabs="center" >
-  <mat-tab class='board' label="Current board">
+  <mat-tab class='board' label="{{ 'BOARD.currentboard' | translate }}">
     <div class='board__columns'
          *ngIf='(columns$ | async) as columns'
          cdkDropList
@@ -17,11 +17,11 @@
           (click)="onAddColumn()"
           class="add-column-btn">
           <mat-icon>add</mat-icon>
-          Add column
+          {{ 'BOARD.addcolumn' | translate }}
         </button>
     </div>
   </mat-tab>
-  <mat-tab label="Participants">
+  <mat-tab label="{{ 'BOARD.participants' | translate }}">
     <app-board-participants></app-board-participants>
   </mat-tab>
 </mat-tab-group>

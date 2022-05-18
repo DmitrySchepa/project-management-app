@@ -9,14 +9,14 @@
       {{messages.addTitle}}
     </p>
     <mat-form-field appearance="fill">
-      <mat-label>Please provide board title</mat-label>
+      <mat-label>{{ 'NEW_BOARD.provideboard' | translate }}</mat-label>
       <input matInput formControlName='title'>
-      <mat-error *ngIf='title?.errors?.["required"]'>Please enter title</mat-error>
+      <mat-error *ngIf='title?.errors?.["required"]'>{{ 'NEW_BOARD.provideboard' | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Please provide board desctiption</mat-label>
+      <mat-label>{{ 'NEW_BOARD.providedescr' | translate }}</mat-label>
       <textarea matInput formControlName='description'></textarea>
-      <mat-error *ngIf='description?.errors?.["maxlength"]'>Description can not exceed 255 characters</mat-error>
+      <mat-error *ngIf='description?.errors?.["maxlength"]'>{{ 'NEW_BOARD.descrtoolong' | translate }}</mat-error>
     </mat-form-field>
   </div>
 </mat-dialog-content>
