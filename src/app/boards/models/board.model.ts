@@ -19,6 +19,12 @@ export interface BoardColumn {
 export interface BoardTask {
   title: string;
   id: string;
+  done: boolean;
+  order: number;
+  description: string;
+  userId: string;
+  boardId: string;
+  columnId: string;
 }
 
 export interface Participant {

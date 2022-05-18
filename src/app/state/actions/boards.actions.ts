@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { BoardColumn, BoardModel, BoardData } from '../../boards/models/board.model';
+import { BoardColumn, BoardModel, BoardData, BoardTask } from '../../boards/models/board.model';
 
 export const getBoards = createAction('[Boards] Get boards');
 export const getBoardsSuccess = createAction(
@@ -75,7 +75,10 @@ export const getTasks = createAction(
   '[Boards] Get tasks',
   props<{ boardId: string; columnId: string }>(),
 );
-export const getTasksSuccess = createAction('[Boards] Get tasks success');
+export const getTasksSuccess = createAction(
+  '[Boards] Get tasks success',
+  props<{ boardId: string; columnId: string; tasks: BoardTask[] }>(),
+);
 export const getTask = createAction(
   '[Boards] Get task',
   props<{ boardId: string; columnId: string; taskId: string }>(),

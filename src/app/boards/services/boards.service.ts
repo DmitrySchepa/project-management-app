@@ -67,8 +67,6 @@ export class BoardsService {
 
   updateColumn() {}
 
-  getTasks() {}
-
   getTask() {}
 
   updateTask() {}

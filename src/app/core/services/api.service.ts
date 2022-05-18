@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoginModel, UserDB, UserModel } from '../../auth/models/auth.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, pluck } from 'rxjs';
-import { BoardColumn, BoardModel, BoardData } from '../../boards/models/board.model';
+import { BoardColumn, BoardModel, BoardData, BoardTask } from '../../boards/models/board.model';
 
 @Injectable({
   providedIn: 'root',
@@ -92,9 +92,9 @@ export class ApiService {
   //   return this.http.put(`boards/${boardId}/columns/${columnId}`, data);
   // }
 
-  // getTasks(boardId: string, columnId: string) {
-  //   return this.http.get(`boards/${boardId}/columns/${columnId}/tasks`);
-  // }
+  getTasks(boardId: string, columnId: string): Observable<BoardTask[]> {
+    return this.http.get(`boards/${boardId}/columns/${columnId}/tasks`) as Observable<BoardTask[]>;
+  }
 
   // getTask(boardId: string, columnId: string, taskId: string) {
   //   return this.http.get(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`);

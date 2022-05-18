@@ -23,6 +23,7 @@ import {
   editColumnSuccess,
   reorderColumn,
   reorderColumnSuccess,
+  getTasksSuccess,
 } from '../actions/boards.actions';
 import { tokenOutdated } from '../actions/user.actions';
 import { Store } from '@ngrx/store';
@@ -162,6 +163,23 @@ export class BoardsEffects {
             return this.apiService
               .editColumn(boardId, { ...column, order: column.order - 1 })
               .pipe(map((editedColumn) => editColumnSuccess({ column: editedColumn, boardId })));
+          }),
+        ),
+      ),
+    );
+  });
+
+  getTasks$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getColumnsSuccess),
+      concatMap(({ boardId, columns }) =>
+        of(columns).pipe(
+          take(1),
+          concatAll(),
+          concatMap((column) => {
+            return this.apiService
+              .getTasks(boardId, column.id)
+              .pipe(map((tasks) => getTasksSuccess({ boardId, columnId: column.id, tasks })));
           }),
         ),
       ),

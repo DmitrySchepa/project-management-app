@@ -5,6 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { BoardsService } from '../../services/boards.service';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { selectTasks } from '../../../state/selectors/boards.selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-board-column',
@@ -18,15 +21,19 @@ export class BoardColumnComponent implements OnInit {
 
   columnId: string = '';
 
+  public tasks$!: Observable<BoardTask[]>;
+
   constructor(
     public dialog: MatDialog,
     private readonly route: ActivatedRoute,
     private readonly boardsService: BoardsService,
+    private readonly store: Store,
   ) {}
 
   ngOnInit(): void {
     this.boardId = this.route.snapshot.params['id'];
     this.columnId = this.column.id;
+    this.tasks$ = this.store.select(selectTasks(this.boardId, this.columnId));
   }
 
   drop(event: CdkDragDrop<BoardTask[]>) {
@@ -92,7 +99,7 @@ export class BoardColumnComponent implements OnInit {
 
   onTaskAdded(task: string) {
     if (task.length != 0) {
-      this.column.tasks?.push({ title: task, id: '5' });
+      // this.column.tasks?.push({ title: task, id: '5' });
       this.taskInput.nativeElement.value = '';
       this.isAddTaskModeOn = !this.isAddTaskModeOn;
     }

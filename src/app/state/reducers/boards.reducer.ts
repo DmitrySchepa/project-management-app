@@ -9,6 +9,7 @@ import {
   editColumnSuccess,
   getBoardsSuccess,
   getColumnsSuccess,
+  getTasksSuccess,
   reorderColumnSuccess,
 } from '../actions/boards.actions';
 
@@ -192,6 +193,32 @@ export const BoardsReducer = createReducer(
           ...currentBoard,
           columns: [
             ...currentBoard.columns.slice(0, currentColumnIdx),
+            ...currentBoard.columns.slice(currentColumnIdx + 1),
+          ],
+        },
+        ...state.boards.slice(currentBoardIdx + 1),
+      ],
+    };
+  }),
+  on(getTasksSuccess, (state, { boardId, columnId, tasks }) => {
+    const currentBoard = state.boards.find((board) => board.id === boardId) as BoardModel;
+    const currentBoardIdx = state.boards.findIndex((board) => board.id === boardId);
+    const currentColumn = currentBoard.columns.find(
+      (column) => column.id === columnId,
+    ) as BoardColumn;
+    const currentColumnIdx = currentColumn.order - 1;
+    return {
+      ...state,
+      boards: [
+        ...state.boards.slice(0, currentBoardIdx),
+        {
+          ...currentBoard,
+          columns: [
+            ...currentBoard.columns.slice(0, currentColumnIdx),
+            {
+              ...currentColumn,
+              tasks: [...tasks],
+            },
             ...currentBoard.columns.slice(currentColumnIdx + 1),
           ],
         },
