@@ -53,7 +53,6 @@ export class BoardColumnComponent implements OnInit {
 
   updateTasks(event: CdkDragDrop<BoardTask[]>, transfer: boolean = false) {
     const { previousIndex, currentIndex, previousContainer, container, item } = event;
-    console.log(container);
     const taskId = item.element.nativeElement.dataset['id'];
     const [prevColId, colId] = [previousContainer, container].map(
       (elem) => elem.element.nativeElement.closest<HTMLElement>('app-board-column')?.dataset['id'],
@@ -79,15 +78,26 @@ export class BoardColumnComponent implements OnInit {
     } else {
       const tasks = Array.from(container.element.nativeElement.children) as HTMLElement[];
       //tasks[previousIndex] = currentIndex + 1
-      console.log(tasks[previousIndex].textContent, currentIndex + 1);
+      const eventTask = this.tasks.find((task) => task.id === taskId) as BoardTask;
+      this.boardsService.reorderTask({ ...eventTask, order: 0 });
       if (previousIndex < currentIndex) {
         for (let i = previousIndex + 1; i <= currentIndex; i += 1) {
-          console.log(tasks[i].textContent, i); //tasks[i] order = i
+          //tasks[i] order = i
+          const editTask = this.tasks.find(
+            (task) => task.id === (tasks[i].dataset['id'] as string),
+          ) as BoardTask;
+          this.boardsService.reorderTask({ ...editTask, order: i });
         }
+        this.boardsService.reorderTask({ ...eventTask, order: currentIndex + 1 }, true);
       } else {
         for (let i = currentIndex; i < previousIndex; i += 1) {
-          console.log(tasks[i].textContent, i + 2); // tasks[i] order = i + 2
+          // tasks[i] order = i + 2
+          const editTask = this.tasks.find(
+            (task) => task.id === (tasks[i].dataset['id'] as string),
+          ) as BoardTask;
+          this.boardsService.reorderTask({ ...editTask, order: i + 2 });
         }
+        this.boardsService.reorderTask({ ...eventTask, order: currentIndex + 1 });
       }
     }
   }

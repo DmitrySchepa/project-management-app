@@ -12,6 +12,7 @@ import {
   getBoards,
   getColumns,
   reorderColumn,
+  reorderTask,
 } from 'src/app/state/actions/boards.actions';
 import { BoardColumn, BoardData, BoardTask, CreateTask } from '../models/board.model';
 
@@ -82,4 +83,8 @@ export class BoardsService {
   updateTask() {}
 
   deleteTask() {}
+
+  reorderTask(task: BoardTask, last: boolean = false) {
+    this.store.dispatch(reorderTask({ task, last }));
+  }
 }

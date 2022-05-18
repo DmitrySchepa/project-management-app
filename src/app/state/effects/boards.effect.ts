@@ -30,6 +30,8 @@ import {
   deleteTaskSuccess,
   editTask,
   editTaskSuccess,
+  reorderTaskSuccess,
+  reorderTask,
 } from '../actions/boards.actions';
 import { tokenOutdated } from '../actions/user.actions';
 import { Store } from '@ngrx/store';
@@ -232,6 +234,17 @@ export class BoardsEffects {
           }),
         ),
       ),
+    );
+  });
+
+  reorderTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(reorderTask),
+      concatMap(({ task, last }) => {
+        return this.apiService
+          .editTask(task)
+          .pipe(map((reorderedTask) => reorderTaskSuccess({ task: reorderedTask, last })));
+      }),
     );
   });
 

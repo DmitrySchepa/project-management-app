@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { BoardColumn, BoardModel } from '../../boards/models/board.model';
+import { BoardColumn, BoardModel, BoardTask } from '../../boards/models/board.model';
 import {
   createBoardSuccess,
   createColumnSuccess,
@@ -14,6 +14,7 @@ import {
   getColumnsSuccess,
   getTasksSuccess,
   reorderColumnSuccess,
+  reorderTaskSuccess,
 } from '../actions/boards.actions';
 
 export interface BoardsState {
@@ -277,6 +278,96 @@ export const BoardsReducer = createReducer(
                 {
                   ...currentColumn.tasks[task.order - 1],
                   ...task,
+                },
+                ...currentColumn.tasks.slice(task.order),
+              ],
+            },
+            ...currentBoard.columns.slice(currentColumnIdx + 1),
+          ],
+        },
+        ...state.boards.slice(currentBoardIdx + 1),
+      ],
+    };
+  }),
+  on(reorderTaskSuccess, (state, { task, last }) => {
+    const currentBoard = state.boards.find((board) => board.id === task.boardId) as BoardModel;
+    const currentBoardIdx = state.boards.findIndex((board) => board.id === task.boardId);
+    const currentColumn = currentBoard.columns.find(
+      (column) => column.id === task.columnId,
+    ) as BoardColumn;
+    const currentColumnIdx = currentColumn.order - 1;
+    const currentTask = currentColumn.tasks.find((taskS) => taskS.id === task.id) as BoardTask;
+    const currentTaskIdx = currentColumn.tasks.findIndex((taskS) => taskS.id === task.id);
+    if (task.order === 0) {
+      return {
+        ...state,
+        boards: [
+          ...state.boards.slice(0, currentBoardIdx),
+          {
+            ...currentBoard,
+            columns: [
+              ...currentBoard.columns.slice(0, currentColumnIdx),
+              {
+                ...currentColumn,
+                tasks: [
+                  ...currentColumn.tasks.slice(0, currentTaskIdx),
+                  ...currentColumn.tasks.slice(currentTaskIdx + 1),
+                  {
+                    ...currentTask,
+                    order: task.order,
+                  },
+                ],
+              },
+              ...currentBoard.columns.slice(currentColumnIdx + 1),
+            ],
+          },
+          ...state.boards.slice(currentBoardIdx + 1),
+        ],
+      };
+    }
+    if (last) {
+      const right = currentColumn.tasks.slice(task.order - 1, -1);
+      return {
+        ...state,
+        boards: [
+          ...state.boards.slice(0, currentBoardIdx),
+          {
+            ...currentBoard,
+            columns: [
+              ...currentBoard.columns.slice(0, currentColumnIdx),
+              {
+                ...currentColumn,
+                tasks: [
+                  ...currentColumn.tasks.slice(0, task.order - 1),
+                  {
+                    ...currentTask,
+                    order: task.order,
+                  },
+                  ...right,
+                ],
+              },
+              ...currentBoard.columns.slice(currentColumnIdx + 1),
+            ],
+          },
+          ...state.boards.slice(currentBoardIdx + 1),
+        ],
+      };
+    }
+    return {
+      ...state,
+      boards: [
+        ...state.boards.slice(0, currentBoardIdx),
+        {
+          ...currentBoard,
+          columns: [
+            ...currentBoard.columns.slice(0, currentColumnIdx),
+            {
+              ...currentColumn,
+              tasks: [
+                ...currentColumn.tasks.slice(0, task.order - 1),
+                {
+                  ...task,
+                  order: task.order,
                 },
                 ...currentColumn.tasks.slice(task.order),
               ],

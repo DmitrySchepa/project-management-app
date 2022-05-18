@@ -108,4 +108,11 @@ export const editTaskSuccess = createAction(
   '[Boards] Edit task success',
   props<{ task: BoardTask }>(),
 );
-export const updateTaskSuccess = createAction('[Boards] Update task success');
+export const reorderTask = createAction(
+  '[Boards] Reorder task',
+  props<{ task: BoardTask; last: boolean }>(),
+);
+export const reorderTaskSuccess = createAction(
+  '[Boards] Reorder task success',
+  props<{ task: BoardTask; last: boolean }>(),
+);
