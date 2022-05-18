@@ -92,6 +92,7 @@ export class BoardsEffects {
         return this.apiService.getColumns(boardId).pipe(
           map((columns) => {
             columns.sort((a, b) => a.order - b.order);
+            columns = columns.map((column) => ({ ...column, tasks: [] }));
             return getColumnsSuccess({ columns, boardId });
           }),
         );
@@ -105,7 +106,7 @@ export class BoardsEffects {
       mergeMap(({ title, order, boardId }) => {
         return this.apiService.createColumn(boardId, { title, order }).pipe(
           map((column) => {
-            return createColumnSuccess({ column, boardId });
+            return createColumnSuccess({ column: { ...column, tasks: [] }, boardId });
           }),
         );
       }),
