@@ -148,7 +148,7 @@ export const BoardsReducer = createReducer(
             columns: [
               ...currentBoard.columns.slice(0, column.order - 1),
               {
-                ...column,
+                ...currentColumn,
                 order: column.order,
               },
               ...right,
@@ -167,7 +167,7 @@ export const BoardsReducer = createReducer(
           columns: [
             ...currentBoard.columns.slice(0, column.order - 1),
             {
-              ...column,
+              ...currentColumn,
               order: column.order,
             },
             ...currentBoard.columns.slice(column.order),
