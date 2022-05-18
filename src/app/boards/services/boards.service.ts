@@ -3,15 +3,17 @@ import { Store } from '@ngrx/store';
 import {
   createBoard,
   createColumn,
+  createTask,
   deleteBoard,
   deleteColumn,
   editBoard,
   editColumn,
+  editTask,
   getBoards,
   getColumns,
   reorderColumn,
 } from 'src/app/state/actions/boards.actions';
-import { BoardColumn, BoardData } from '../models/board.model';
+import { BoardColumn, BoardData, BoardTask, CreateTask } from '../models/board.model';
 
 @Injectable({
   providedIn: 'root',
@@ -63,6 +65,14 @@ export class BoardsService {
 
   deleteColumn(boardId: string, columnId: string, order: number) {
     this.store.dispatch(deleteColumn({ boardId, columnId, order }));
+  }
+
+  createTask(boardId: string, columnId: string, task: CreateTask) {
+    this.store.dispatch(createTask({ boardId, columnId, task }));
+  }
+
+  editTask(task: BoardTask) {
+    this.store.dispatch(editTask({ task }));
   }
 
   updateColumn() {}

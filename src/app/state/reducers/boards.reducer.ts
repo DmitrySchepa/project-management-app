@@ -3,10 +3,13 @@ import { BoardColumn, BoardModel } from '../../boards/models/board.model';
 import {
   createBoardSuccess,
   createColumnSuccess,
+  createTaskSuccess,
   deleteBoard,
   deleteColumn,
+  deleteTaskSuccess,
   editBoardSuccess,
   editColumnSuccess,
+  editTaskSuccess,
   getBoardsSuccess,
   getColumnsSuccess,
   getTasksSuccess,
@@ -218,6 +221,94 @@ export const BoardsReducer = createReducer(
             {
               ...currentColumn,
               tasks: [...tasks],
+            },
+            ...currentBoard.columns.slice(currentColumnIdx + 1),
+          ],
+        },
+        ...state.boards.slice(currentBoardIdx + 1),
+      ],
+    };
+  }),
+  on(createTaskSuccess, (state, { task }) => {
+    const currentBoard = state.boards.find((board) => board.id === task.boardId) as BoardModel;
+    const currentBoardIdx = state.boards.findIndex((board) => board.id === task.boardId);
+    const currentColumn = currentBoard.columns.find(
+      (column) => column.id === task.columnId,
+    ) as BoardColumn;
+    const currentColumnIdx = currentColumn.order - 1;
+    return {
+      ...state,
+      boards: [
+        ...state.boards.slice(0, currentBoardIdx),
+        {
+          ...currentBoard,
+          columns: [
+            ...currentBoard.columns.slice(0, currentColumnIdx),
+            {
+              ...currentColumn,
+              tasks: [...currentColumn.tasks, task],
+            },
+            ...currentBoard.columns.slice(currentColumnIdx + 1),
+          ],
+        },
+        ...state.boards.slice(currentBoardIdx + 1),
+      ],
+    };
+  }),
+  on(editTaskSuccess, (state, { task }) => {
+    const currentBoard = state.boards.find((board) => board.id === task.boardId) as BoardModel;
+    const currentBoardIdx = state.boards.findIndex((board) => board.id === task.boardId);
+    const currentColumn = currentBoard.columns.find(
+      (column) => column.id === task.columnId,
+    ) as BoardColumn;
+    const currentColumnIdx = currentColumn.order - 1;
+    return {
+      ...state,
+      boards: [
+        ...state.boards.slice(0, currentBoardIdx),
+        {
+          ...currentBoard,
+          columns: [
+            ...currentBoard.columns.slice(0, currentColumnIdx),
+            {
+              ...currentColumn,
+              tasks: [
+                ...currentColumn.tasks.slice(0, task.order - 1),
+                {
+                  ...currentColumn.tasks[task.order - 1],
+                  ...task,
+                },
+                ...currentColumn.tasks.slice(task.order),
+              ],
+            },
+            ...currentBoard.columns.slice(currentColumnIdx + 1),
+          ],
+        },
+        ...state.boards.slice(currentBoardIdx + 1),
+      ],
+    };
+  }),
+  on(deleteTaskSuccess, (state, { task }) => {
+    const currentBoard = state.boards.find((board) => board.id === task.boardId) as BoardModel;
+    const currentBoardIdx = state.boards.findIndex((board) => board.id === task.boardId);
+    const currentColumn = currentBoard.columns.find(
+      (column) => column.id === task.columnId,
+    ) as BoardColumn;
+    const currentColumnIdx = currentColumn.order - 1;
+    return {
+      ...state,
+      boards: [
+        ...state.boards.slice(0, currentBoardIdx),
+        {
+          ...currentBoard,
+          columns: [
+            ...currentBoard.columns.slice(0, currentColumnIdx),
+            {
+              ...currentColumn,
+              tasks: [
+                ...currentColumn.tasks.slice(0, task.order - 1),
+                ...currentColumn.tasks.slice(task.order),
+              ],
             },
             ...currentBoard.columns.slice(currentColumnIdx + 1),
           ],

@@ -27,6 +27,14 @@ export interface BoardTask {
   columnId: string;
 }
 
+export interface CreateTask {
+  title: string;
+  description: string;
+  done: boolean;
+  order: number;
+  userId: string;
+}
+
 export interface Participant {
   name: string;
   email: string;

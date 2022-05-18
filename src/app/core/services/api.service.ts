@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import { LoginModel, UserDB, UserModel } from '../../auth/models/auth.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, pluck } from 'rxjs';
-import { BoardColumn, BoardModel, BoardData, BoardTask } from '../../boards/models/board.model';
+import {
+  BoardColumn,
+  BoardModel,
+  BoardData,
+  BoardTask,
+  CreateTask,
+} from '../../boards/models/board.model';
 
 @Injectable({
   providedIn: 'root',
@@ -88,10 +94,6 @@ export class ApiService {
     return this.http.delete(`boards/${boardId}/columns/${columnId}`);
   }
 
-  // updateColumn(boardId: string, columnId: string, data: string) {
-  //   return this.http.put(`boards/${boardId}/columns/${columnId}`, data);
-  // }
-
   getTasks(boardId: string, columnId: string): Observable<BoardTask[]> {
     return this.http.get(`boards/${boardId}/columns/${columnId}/tasks`) as Observable<BoardTask[]>;
   }
@@ -100,15 +102,27 @@ export class ApiService {
   //   return this.http.get(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
   // }
 
-  // updateTask(boardId: string, columnId: string, taskId: string, task: string) {
-  //   return this.http.put(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`, task);
-  // }
+  editTask(task: BoardTask): Observable<BoardTask> {
+    const { title, description, order, done, userId, columnId, boardId } = task;
+    return this.http.put(`boards/${task.boardId}/columns/${task.columnId}/tasks/${task.id}`, {
+      title,
+      description,
+      order,
+      done,
+      userId,
+      columnId,
+      boardId,
+    }) as Observable<BoardTask>;
+  }
 
-  // createTask(boardId: string, columnId: string, taskId: string, title: string) {
-  //   return this.http.post(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`, title);
-  // }
+  createTask(boardId: string, columnId: string, task: CreateTask): Observable<BoardTask> {
+    return this.http.post(
+      `boards/${boardId}/columns/${columnId}/tasks`,
+      task,
+    ) as Observable<BoardTask>;
+  }
 
-  // deleteTask(boardId: string, columnId: string, taskId: string) {
-  //   return this.http.delete(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
-  // }
+  deleteTask(task: BoardTask) {
+    return this.http.delete(`boards/${task.boardId}/columns/${task.columnId}/tasks/${task.id}`);
+  }
 }

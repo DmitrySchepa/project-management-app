@@ -29,13 +29,11 @@
     </button>
   </div>
   <div
-    *ngIf='(tasks$ | async) as tasks'
+    class="task-list"
     cdkDropList
     [cdkDropListData]="tasks"
-    class="task-list"
     (cdkDropListDropped)="drop($event)">
     <app-board-task
-      (click)="onTaskEdit()"
       class="task-box"
       *ngFor="let task of tasks"
       [attr.data-id]='task.id'

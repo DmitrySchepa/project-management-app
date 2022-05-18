@@ -1,5 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { BoardColumn, BoardModel, BoardData, BoardTask } from '../../boards/models/board.model';
+import {
+  BoardColumn,
+  BoardModel,
+  BoardData,
+  BoardTask,
+  CreateTask,
+} from '../../boards/models/board.model';
 
 export const getBoards = createAction('[Boards] Get boards');
 export const getBoardsSuccess = createAction(
@@ -86,16 +92,20 @@ export const getTask = createAction(
 export const getTaskSuccess = createAction('[Boards] Get task success');
 export const createTask = createAction(
   '[Boards] Create task',
-  props<{ boardId: string; columnId: string; taskId: string }>(),
+  props<{ boardId: string; columnId: string; task: CreateTask }>(),
 );
-export const createTaskSuccess = createAction('[Boards] Create task success');
-export const deleteTask = createAction(
-  '[Boards] Delete task',
-  props<{ boardId: string; columnId: string; taskId: string }>(),
+export const createTaskSuccess = createAction(
+  '[Boards] Create task success',
+  props<{ task: BoardTask }>(),
 );
-export const deleteTaskSuccess = createAction('[Boards] Delete task success');
-export const updateTask = createAction(
-  '[Boards] Update task',
-  props<{ boardId: string; columnId: string; taskId: string }>(),
+export const deleteTask = createAction('[Boards] Delete task', props<{ task: BoardTask }>());
+export const deleteTaskSuccess = createAction(
+  '[Boards] Delete task success',
+  props<{ task: BoardTask }>(),
+);
+export const editTask = createAction('[Boards] Edit task', props<{ task: BoardTask }>());
+export const editTaskSuccess = createAction(
+  '[Boards] Edit task success',
+  props<{ task: BoardTask }>(),
 );
 export const updateTaskSuccess = createAction('[Boards] Update task success');

@@ -3,6 +3,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  &__title {
+    pointer-events: none;
+  }
   &__delete {
     width: 20px;
     height: 20px;
@@ -12,6 +15,8 @@
       height: 20px;
       font-size: 20px;
       line-height: 20px;
+      pointer-events: none;
     }
   }
 }
+

@@ -3,8 +3,6 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { BoardColumn, BoardTask } from '../../models/board.model';
 import { ActivatedRoute } from '@angular/router';
 import { BoardsService } from '../../services/boards.service';
-import { EditTaskComponent } from '../edit-task/edit-task.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { selectTasks } from '../../../state/selectors/boards.selectors';
 import { Observable } from 'rxjs';
@@ -23,8 +21,9 @@ export class BoardColumnComponent implements OnInit {
 
   public tasks$!: Observable<BoardTask[]>;
 
+  public tasks!: BoardTask[];
+
   constructor(
-    public dialog: MatDialog,
     private readonly route: ActivatedRoute,
     private readonly boardsService: BoardsService,
     private readonly store: Store,
@@ -34,6 +33,7 @@ export class BoardColumnComponent implements OnInit {
     this.boardId = this.route.snapshot.params['id'];
     this.columnId = this.column.id;
     this.tasks$ = this.store.select(selectTasks(this.boardId, this.columnId));
+    this.tasks$.subscribe((tasks) => (this.tasks = [...tasks]));
   }
 
   drop(event: CdkDragDrop<BoardTask[]>) {
@@ -53,6 +53,7 @@ export class BoardColumnComponent implements OnInit {
 
   updateTasks(event: CdkDragDrop<BoardTask[]>, transfer: boolean = false) {
     const { previousIndex, currentIndex, previousContainer, container, item } = event;
+    console.log(container);
     const taskId = item.element.nativeElement.dataset['id'];
     const [prevColId, colId] = [previousContainer, container].map(
       (elem) => elem.element.nativeElement.closest<HTMLElement>('app-board-column')?.dataset['id'],
@@ -99,7 +100,13 @@ export class BoardColumnComponent implements OnInit {
 
   onTaskAdded(task: string) {
     if (task.length != 0) {
-      // this.column.tasks?.push({ title: task, id: '5' });
+      this.boardsService.createTask(this.boardId, this.columnId, {
+        title: task,
+        description: ' ',
+        userId: localStorage.getItem('pma-user-id') as string,
+        order: this.tasks.length + 1,
+        done: false,
+      });
       this.taskInput.nativeElement.value = '';
       this.isAddTaskModeOn = !this.isAddTaskModeOn;
     }
@@ -110,29 +117,6 @@ export class BoardColumnComponent implements OnInit {
       this.boardsService.editColumn({ ...this.column, title: value }, this.boardId);
       this.isAddTitleModeOn = !this.isAddTitleModeOn;
     }
-  }
-
-  onTaskEdit() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-
-    // здесь получаем данные из store для кликнутой задачи и
-    // заполняем их в data
-
-    dialogConfig.data = {
-      title: 'Default task',
-      description: 'Default description',
-      userId: 'null',
-    };
-
-    const dialogRef = this.dialog.open(EditTaskComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        // Здесь сохраняем данные
-        console.log('new task data', result);
-      }
-    });
   }
 
   onDeleteColumn() {
