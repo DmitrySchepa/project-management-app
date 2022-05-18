@@ -1,0 +1,23 @@
+<h2 mat-dialog-title >{{ 'CREATECOLUMN.header' | translate }}</h2>
+<mat-dialog-content [formGroup]="createForm" >
+  <mat-form-field appearance='outline'>
+    <mat-label>{{ 'CREATECOLUMN.title' | translate }}</mat-label>
+    <input matInput formControlName='title' type='text'>
+    <mat-error *ngIf='_title?.errors?.["required"]'>
+      {{ 'CREATECOLUMN.titleError' | translate }}
+    </mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button 
+    mat-raised-button 
+    mat-dialog-close
+    (click)="onCancelClick()"
+  >{{ 'CREATECOLUMN.btnCancel' | translate }}</button>
+	<button 
+    mat-raised-button 
+    color="primary" 
+    (click)="onOkClick()"
+    [disabled]="createForm.invalid"
+  >{{ 'CREATECOLUMN.btnok' | translate }}</button>	
+</mat-dialog-actions>

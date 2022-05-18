@@ -14,6 +14,9 @@
     "descriptionError": "Введите описание задачи",
     "none": "Нет"
   },
+  "TASKCREATE": {
+    "header": "Создать задачу"
+  },
   "BOARDS": {
     "title": "Доски",
     "searchLabel": "Поиск по задачам",
@@ -108,5 +111,16 @@
   "CONTRIBUTIONS": {
     "title": "Вклад в разработку:",
     "teamlead": "Тимлид"
+  },
+  "CREATECOLUMN": {
+    "header": "Создание колонки",
+    "title": "Название колонки",
+    "btnok": "Да",
+    "btnCancel": "Отменить",
+    "titleError": "Введите название колонки",
+    "none": "Нет"
+  },
+  "DELETECOLUMN": {
+    "title": "Удалить колонку"
   }
 }

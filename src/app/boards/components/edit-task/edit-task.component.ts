@@ -1,45 +1,54 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { IAssignedUser } from '../../models/assigneduser.model';
 import { ApiService } from '../../../core/services/api.service';
 import { UserDB } from '../../../auth/models/auth.model';
+import { BoardsService } from '../../services/boards.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-task',
   templateUrl: './edit-task.component.html',
-  styleUrls: ['./edit-task.component.scss']
+  styleUrls: ['./edit-task.component.scss'],
 })
 export class EditTaskComponent implements OnInit {
   taskEditform: FormGroup;
+
   title: string;
+
   description: string;
+
   users: UserDB[] = [];
+
   selected: string = '';
 
-  constructor( 
+  isEditModeOn$!: Observable<boolean>;
+
+  constructor(
     private fb: FormBuilder,
     private readonly apiService: ApiService,
+    private readonly boardsService: BoardsService,
     private dialogRef: MatDialogRef<EditTaskComponent>,
-    @Inject(MAT_DIALOG_DATA) { title, description, userId }: IAssignedUser ) {
-
+    @Inject(MAT_DIALOG_DATA) { title, description, userId }: IAssignedUser,
+  ) {
     this.title = title;
-    this.description = description; 
+    this.description = description;
 
     this.taskEditform = fb.group({
       title: [title, Validators.required],
       description: [description, Validators.required],
-      userId: [userId, Validators.required]
+      userId: [userId, Validators.required],
     });
 
     this.apiService.getUsers().subscribe({
       next: (users) => {
-        users.sort((a, b) => a.name.localeCompare(b.name));        
+        users.sort((a, b) => a.name.localeCompare(b.name));
         this.users = users;
-      }
+      },
     });
 
-    this.selected = userId ?? 'null'; 
+    this.selected = userId ?? 'null';
   }
 
   get _title() {
@@ -51,6 +60,7 @@ export class EditTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isEditModeOn$ = this.boardsService.isEditModeOn$;
   }
 
   onOkClick() {
@@ -60,6 +70,4 @@ export class EditTaskComponent implements OnInit {
   onCancelClick() {
     this.dialogRef.close();
   }
-
 }
-

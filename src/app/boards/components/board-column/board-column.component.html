@@ -3,11 +3,19 @@
     <h2
     class="column-title"
     (click)="isAddTitleModeOn = !isAddTitleModeOn">{{column.title}}</h2>
-    <mat-icon class="delete-icon" (click)="onDeleteColumn()">delete</mat-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="delete-btn">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item  (click)="onDeleteColumn()">
+        <mat-icon>delete</mat-icon>
+        <span>{{ 'DELETECOLUMN.title' | translate}}</span>
+      </button>
+    </mat-menu>
   </div>
   <div class="change-title" *ngIf="isAddTitleModeOn">
     <mat-form-field >
-      <mat-label>{{ 'BOARD_COLUMN.settitle"' | translate }}</mat-label>
+      <mat-label>{{ 'BOARD_COLUMN.settitle' | translate }}</mat-label>
       <input
       type="text"
       #columnTitle
@@ -45,33 +53,9 @@
       mat-button
       color="primary"
       class="add-task_btn"
-      *ngIf="!isAddTaskModeOn"
-      (click)="isAddTaskModeOn = !isAddTaskModeOn">
+      (click)="onTaskAdded()">
       <mat-icon>add</mat-icon>
       {{ 'BOARD_COLUMN.addnewtask' | translate }}
-    </button>
-  </div>
-  <div class="change-title" *ngIf="isAddTaskModeOn">
-    <mat-form-field >
-      <mat-label>{{ 'BOARD_COLUMN.addnewtask' | translate }}</mat-label>
-      <input
-      type="text"
-      #taskInput
-      matInput
-      (keyup.enter)="onTaskAdded(taskInput.value)"
-      required>
-    </mat-form-field>
-    <button
-      mat-icon-button
-      color="primary"
-      (click)="onTaskAdded(taskInput.value)">
-      <mat-icon>done</mat-icon>
-    </button>
-    <button
-      mat-icon-button
-      color="warn"
-      (click)="isAddTaskModeOn = !isAddTaskModeOn">
-      <mat-icon>cancel</mat-icon>
     </button>
   </div>
 </div>

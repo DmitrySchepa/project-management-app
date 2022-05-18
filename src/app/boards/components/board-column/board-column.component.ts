@@ -44,16 +44,30 @@ export class BoardColumnComponent implements OnInit {
 
   isAddTitleModeOn = false;
 
-  isAddTaskModeOn = false;
-
   @ViewChild('taskInput', { static: false }) taskInput!: ElementRef;
 
-  onTaskAdded(task: string) {
-    if (task.length != 0) {
-      this.column.tasks?.push(task);
-      this.taskInput.nativeElement.value = '';
-      this.isAddTaskModeOn = !this.isAddTaskModeOn;
-    }
+  onTaskAdded() {
+    this.boardsService.isEditModeOn$.next(false);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+
+    // здесь получаем данные из store для кликнутой задачи и
+    // заполняем их в data
+
+    dialogConfig.data = {
+      title: 'Your title',
+      description: 'Description',
+      userId: 'null',
+    };
+
+    const dialogRef = this.dialog.open(EditTaskComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Здесь сохраняем данные
+        console.log('new task data', result);
+      }
+    });
   }
 
   onChangeTitle(value: string) {
@@ -64,6 +78,7 @@ export class BoardColumnComponent implements OnInit {
   }
 
   onTaskEdit() {
+    this.boardsService.isEditModeOn$.next(true);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
 
@@ -71,14 +86,14 @@ export class BoardColumnComponent implements OnInit {
     // заполняем их в data
 
     dialogConfig.data = {
-      title: 'Default task',
+      title: 'Default title',
       description: 'Default description',
-      userId: 'null'
+      userId: 'null',
     };
 
     const dialogRef = this.dialog.open(EditTaskComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // Здесь сохраняем данные
         console.log('new task data', result);
