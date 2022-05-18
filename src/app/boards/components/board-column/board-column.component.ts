@@ -129,7 +129,6 @@ export class BoardColumnComponent implements OnInit {
   }
 
   onDeleteColumn() {
-    console.log(this.columnId, this.boardId);
-    this.boardsService.deleteColumn(this.boardId, this.columnId);
+    this.boardsService.deleteColumn(this.boardId, this.columnId, this.column.order);
   }
 }

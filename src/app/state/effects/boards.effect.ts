@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatMap, of } from 'rxjs';
+import { concatAll, concatMap, of, take } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, switchMapTo } from 'rxjs/operators';
 import { BoardModel } from 'src/app/boards/models/board.model';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -25,10 +25,16 @@ import {
   reorderColumnSuccess,
 } from '../actions/boards.actions';
 import { tokenOutdated } from '../actions/user.actions';
+import { Store } from '@ngrx/store';
+import { selectBoardColumns } from '../selectors/boards.selectors';
 
 @Injectable()
 export class BoardsEffects {
-  constructor(private actions$: Actions, private readonly apiService: ApiService) {}
+  constructor(
+    private actions$: Actions,
+    private readonly apiService: ApiService,
+    private readonly store: Store,
+  ) {}
 
   getBoards$ = createEffect(() => {
     return this.actions$.pipe(
@@ -135,11 +141,29 @@ export class BoardsEffects {
   deleteColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(deleteColumn),
-      concatMap(({ boardId, columnId }) => {
+      concatMap(({ boardId, columnId, order }) => {
         return this.apiService
           .deleteColumn(boardId, columnId)
-          .pipe(map(() => deleteColumnSuccess()));
+          .pipe(map(() => deleteColumnSuccess({ boardId, order })));
       }),
+    );
+  });
+
+  reorderColumns$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteColumnSuccess),
+      concatMap(({ boardId, order }) =>
+        this.store.select(selectBoardColumns(boardId)).pipe(
+          map((columns) => columns.slice(order - 1)),
+          take(1),
+          concatAll(),
+          concatMap((column) => {
+            return this.apiService
+              .editColumn(boardId, { ...column, order: column.order - 1 })
+              .pipe(map((editedColumn) => editColumnSuccess({ column: editedColumn, boardId })));
+          }),
+        ),
+      ),
     );
   });
 }

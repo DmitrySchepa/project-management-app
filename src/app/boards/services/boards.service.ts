@@ -61,8 +61,8 @@ export class BoardsService {
     this.store.dispatch(reorderColumn({ column, boardId, last }));
   }
 
-  deleteColumn(boardId: string, columnId: string) {
-    this.store.dispatch(deleteColumn({ boardId, columnId }));
+  deleteColumn(boardId: string, columnId: string, order: number) {
+    this.store.dispatch(deleteColumn({ boardId, columnId, order }));
   }
 
   updateColumn() {}

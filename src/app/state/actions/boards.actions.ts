@@ -58,9 +58,12 @@ export const createColumnSuccess = createAction(
 );
 export const deleteColumn = createAction(
   '[Boards] Delete column',
-  props<{ boardId: string; columnId: string }>(),
+  props<{ boardId: string; columnId: string; order: number }>(),
 );
-export const deleteColumnSuccess = createAction('[Boards] Delete column success');
+export const deleteColumnSuccess = createAction(
+  '[Boards] Delete column success',
+  props<{ boardId: string; order: number }>(),
+);
 export const updateColumn = createAction(
   '[Boards] Update column',
   props<{ boardId: string; columnId: string }>(),

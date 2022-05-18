@@ -78,8 +78,4 @@ export class BoardPageComponent implements OnInit {
     };
     this.boardsService.createColumn(column.title, column.order, this.boardId);
   }
-
-  onDeleteColumn() {
-    this.boardsService.deleteColumn(this.boardId, '');
-  }
 }
