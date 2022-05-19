@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject } from 'rxjs';
 import {
   createBoard,
   createColumn,
@@ -15,6 +16,8 @@ import { BoardData } from '../models/board.model';
 })
 export class BoardsService {
   boardData!: BoardData;
+
+  isEditModeOn$ = new BehaviorSubject<boolean>(true);
 
   constructor(private readonly store: Store) {}
 

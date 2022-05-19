@@ -14,6 +14,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BoardParticipantsComponent } from './components/board-participants/board-participants.component';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
+import { CreateColumnComponent } from './components/create-column/create-column.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { EditTaskComponent } from './components/edit-task/edit-task.component';
     FilterPipe,
     BoardParticipantsComponent,
     EditTaskComponent,
+    CreateColumnComponent,
   ],
   imports: [CommonModule, BoardsRoutingModule, SharedModule, FormsModule, ReactiveFormsModule],
 })
