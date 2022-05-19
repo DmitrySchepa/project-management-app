@@ -36,4 +36,8 @@ export class BoardsPageComponent implements OnInit {
     this.router.navigateByUrl(`/search?str=${searchString}`);
   }
 
+  navigateToPomodoro() {
+    this.router.navigateByUrl(`/pomodoro`);
+  }
+
 }

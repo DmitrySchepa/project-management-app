@@ -14,6 +14,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from '../core/interceptors/api.interceptor';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMenuModule} from '@angular/material/menu';
 
 const MaterialModules = [
   MatToolbarModule,
@@ -26,7 +29,10 @@ const MaterialModules = [
   MatCardModule,
   MatTabsModule,
   MatTooltipModule,
-  MatSelectModule
+  MatSelectModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatMenuModule
 ];
 
 @NgModule({

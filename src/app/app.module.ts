@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { UserEffects } from './state/effects/user.effects';
 import { SharedModule } from './shared/shared.module';
 import { BoardsEffects } from './state/effects/boards.effect';
+import { PomodoroModule } from './pomodoro/pomodoro.module';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -31,6 +32,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     SearchModule,
     HttpClientModule,
     SharedModule,
+    PomodoroModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

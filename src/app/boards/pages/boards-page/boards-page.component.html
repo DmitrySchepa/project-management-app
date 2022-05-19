@@ -21,4 +21,11 @@
       <app-board-card [board]='board'></app-board-card>
     </li>
   </ul>
+  <button
+    class="btnPomodoro"
+    mat-raised-button 
+    color="primary"
+    (click)="navigateToPomodoro()"
+  >{{ 'POMODORO.title' | translate }}</button>
+
 </div>

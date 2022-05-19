@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { HomePageComponent } from './core/pages/home-page/home-page.component';
 import { NotFoundPageComponent } from './core/pages/not-found-page/not-found-page.component';
-import  { SearchComponent } from './search/search.component';
+import { SearchComponent } from './search/search.component';
+import { PomodoroComponent } from './pomodoro/pomodoro.component';
+import { PomodoroItemComponent } from './pomodoro/components/pomodoro-item/pomodoro-item.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,11 @@ const routes: Routes = [
     component: SearchComponent,
     canLoad: [AuthGuard],
   },
+  {
+    path: 'pomodoro',
+    component: PomodoroComponent,
+    canLoad: [AuthGuard],
+  },  
   {
     path: 'welcome',
     component: HomePageComponent,
