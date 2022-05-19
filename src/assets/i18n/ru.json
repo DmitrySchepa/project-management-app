@@ -121,7 +121,8 @@
   },
   "CONTRIBUTIONS": {
     "title": "Вклад в разработку:",
-    "teamlead": "Тимлид"
+    "teamlead": "Тимлид",
+    "curboards": "Текущая доска"    
   },
   "CREATECOLUMN": {
     "header": "Создание колонки",
