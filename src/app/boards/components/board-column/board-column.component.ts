@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import { selectTasks } from '../../../state/selectors/boards.selectors';
 import { Observable } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { ConfirmationDialogComponent } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-board-column',
@@ -113,8 +115,6 @@ export class BoardColumnComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
 
-    // здесь получаем данные из store для кликнутой задачи и
-    // заполняем их в data
 
     dialogConfig.data = {
       title: 'Your title',
@@ -126,13 +126,13 @@ export class BoardColumnComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // this.boardsService.createTask(this.boardId, this.columnId, {
-        //   title: task,
-        //   description: ' ',
-        //   userId: localStorage.getItem('pma-user-id') as string,
-        //   order: this.tasks.length + 1,
-        //   done: false,
-        // });
+        this.boardsService.createTask(this.boardId, this.columnId, {
+          title: result.title,
+          description: result.description,
+          userId: result.userId,
+          order: this.tasks.length + 1,
+          done: false,
+        });
       }
     });
   }
@@ -145,6 +145,20 @@ export class BoardColumnComponent implements OnInit {
   }
 
   onDeleteColumn() {
-    this.boardsService.deleteColumn(this.boardId, this.columnId, this.column.order);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: `Are you sure want to delete column '${this.column.title}'?`,
+        buttonText: {
+          ok: 'Delete',
+          cancel: 'Cancel',
+        },
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.boardsService.deleteColumn(this.boardId, this.columnId, this.column.order);
+      }
+    });
   }
 }

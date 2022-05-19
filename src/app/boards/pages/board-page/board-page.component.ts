@@ -87,7 +87,7 @@ export class BoardPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.boardsService.createColumn(result.title, dialogConfig.data.order, this.boardId);
+        this.boardsService.createColumn(result.title, this.columns.length + 1, this.boardId);
       }
     });
   }
