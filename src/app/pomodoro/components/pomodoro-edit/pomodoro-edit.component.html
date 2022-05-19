@@ -1,0 +1,31 @@
+<h2 mat-dialog-title >{{ 'POMODORO_EDIT.title' | translate }}</h2>
+<mat-dialog-content [formGroup]="pomodoroEditform" >
+  <mat-form-field appearance='outline'>
+    <mat-label>{{ 'POMODORO_EDIT.name' | translate }}</mat-label>
+    <input matInput formControlName='name' type='text'>
+    <mat-error *ngIf='_name?.errors?.["required"]'>
+      {{ 'POMODORO_EDIT.nameError' | translate }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance='outline'>
+    <mat-label>{{ 'POMODORO_EDIT.description' | translate }}</mat-label>
+    <input matInput formControlName='description' type='text'>
+    <mat-error *ngIf='_description?.errors?.["required"]'>
+      {{ 'POMODORO_EDIT.descriptionError' | translate }}
+    </mat-error>
+  </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button 
+    mat-raised-button 
+    mat-dialog-close
+    (click)="onCancelClick()"
+  >{{ 'TASKEDIT.btnCancel' | translate }}</button>
+	<button 
+    mat-raised-button 
+    color="primary" 
+    (click)="onOkClick()"
+    [disabled]="pomodoroEditform.invalid"
+  >{{ 'TASKEDIT.btnok' | translate }}</button>	
+</mat-dialog-actions>

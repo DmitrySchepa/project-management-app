@@ -1,0 +1,40 @@
+<mat-card class="pomItemCard" 
+  [ngStyle]="{ 'background-color': pomodoro.success ? '#ADFF2F' : '#FFD700' }"
+>
+  <mat-card-actions class="btnMenu">
+
+    <button 
+      mat-icon-button 
+      [matMenuTriggerFor]="menu" 
+      aria-label="Example icon-button with a menu"      
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <span (click)="editPomodoro()">Edit pomodoro</span>
+      </button>      
+      <button mat-menu-item>
+        <span (click)="deletePomodoro(pomodoro.id)">Delete pomodoro</span>
+      </button>
+      <button mat-menu-item>
+        <span (click)="setPomodoroSuccess(pomodoro.id)">Set pomodoro success</span>
+      </button>
+      <button mat-menu-item>
+        <span (click)="setPomodoroFail(pomodoro.id)">Set pomodoro fail</span>
+      </button>
+    </mat-menu>
+    
+  </mat-card-actions>
+
+  <mat-card-title>{{pomodoro.name}}</mat-card-title>
+
+  <mat-card-content>
+    <p class='description'>{{pomodoro.description}}</p>
+    <div class="time-interval" >    
+      <p>{{ pomodoro.start | date:'H:mm:ss' }} – {{ pomodoro.end | date:'H:mm:ss' }}</p>
+    </div>
+  </mat-card-content>
+
+</mat-card>

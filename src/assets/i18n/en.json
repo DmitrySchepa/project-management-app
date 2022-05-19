@@ -123,6 +123,35 @@
     "title": "Contributions:",
     "teamlead": "Teamlead"
   },
+  "POMODORO_EDIT": {
+    "title": "Edit pomodoro",
+    "name": "Pomodoro name",
+    "description": "Pomodoro Description",
+    "nameError": "Please enter pomodoro name",
+    "descriptionError": "Please enter pomodoro description",
+    "editpomodoro": "Edit pomodoro",
+    "delete": "Delete pomodoro",
+    "tpomodorosuccess": "Set pomodoro success",
+    "tpomodorofail": "Set pomodoro fail"
+  },
+  "POMODORO": {
+    "title": "Pomodoro",
+    "btnnew": "New pomodoro",
+    "removeall": "Remove All",
+    "empty": "The list of pomodoroes is empty",
+    "btnupdate": "Update list"
+  },
+  "POMODORO_CREATE": {
+    "title": "New pomodoro",
+    "duration": "Duration",
+    "durationError": "Please enter duration",
+    "durationtoosmall": "Min duration is 1 minute",
+    "durationtoobig": "Max duration is 120 minutes",
+    "btntitle": "Start"
+  },
+  "TIMER": {
+    "btntitle": "Stop"
+  }
   "CREATECOLUMN": {
     "header": "Create a column",
     "title": "Column title",

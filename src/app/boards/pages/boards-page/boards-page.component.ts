@@ -42,4 +42,9 @@ export class BoardsPageComponent implements OnInit {
     const searchString = this.formSearch.value.search;
     this.router.navigateByUrl(`/search?str=${searchString}`);
   }
+
+  navigateToPomodoro() {
+    this.router.navigateByUrl(`/pomodoro`);
+  }
+
 }
