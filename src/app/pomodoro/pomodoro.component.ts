@@ -33,11 +33,13 @@ export class PomodoroComponent implements OnInit {
 
   onRemoveAll() {
     this.pomodoroService.removeAll();
+    this.updateList();
   }
 
   updateList() {
     const pomodoroes = this.pomodoroService.getAll();
-    if(pomodoroes) this.pomodoroes = pomodoroes;   
+    if(pomodoroes) this.pomodoroes = pomodoroes;
+    else this.pomodoroes = [];
   }
 
   onNewPomodoro() {
@@ -81,6 +83,7 @@ export class PomodoroComponent implements OnInit {
           newPom.end = Date.now().toString();
           newPom.success = result ? false : true;
           this.pomodoroService.addPomodoro(newPom);
+          this.updateList();
         });
       }
     });    
