@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { deleteTask } from '../../../state/actions/boards.actions';
 import { BoardsService } from '../../services/boards.service';
+import { TranslateService } from '@ngx-translate/core';
+import { translateText, translateParamText } from 'src/app/core/helpers/translate.function';
 
 @Component({
   selector: 'app-board-task',
@@ -19,6 +21,7 @@ export class BoardTaskComponent {
     private readonly dialog: MatDialog,
     private readonly store: Store,
     private readonly boardsService: BoardsService,
+    protected readonly translate: TranslateService,
   ) {}
 
   onTaskEdit(event: Event) {
@@ -50,10 +53,10 @@ export class BoardTaskComponent {
   deleteTask() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
-        message: `Are you sure want to delete task '${this.task.title}'?`,
+        message: translateParamText('TASKDELETE.wantdeletetask', this.translate, this.task.title),
         buttonText: {
-          ok: 'Delete',
-          cancel: 'Cancel',
+          ok: translateText('TASKDELETE.okbtntext', this.translate),
+          cancel: translateText('TASKDELETE.cancelbtntext', this.translate),
         },
       },
     });

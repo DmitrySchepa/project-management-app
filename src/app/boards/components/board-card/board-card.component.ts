@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 import { BoardModel } from '../../models/board.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,7 +7,7 @@ import { ConfirmationDialogComponent } from '../../../core/components/confirmati
 import { Store } from '@ngrx/store';
 import { deleteBoard } from 'src/app/state/actions/boards.actions';
 import { BoardsService } from '../../services/boards.service';
-import { translateText, translateParamText  } from 'src/app/core/helpers/translate.function';
+import { translateText, translateParamText } from 'src/app/core/helpers/translate.function';
 
 @Component({
   selector: 'app-board-card',

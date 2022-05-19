@@ -17,10 +17,18 @@
   "TASKCREATE": {
     "header": "Создать задачу"
   },
+  "TASKDELETE": {
+    "wantdeletetask": "Вы уверены, что хотите удалить задачу {{param}}?",
+    "okbtntext": "Удалить",
+    "cancelbtntext": "Отменить"
+  },
   "BOARDS": {
     "title": "Доски",
     "searchLabel": "Поиск по задачам",
-    "buttonText": "Искать!"
+    "buttonText": "Искать!",
+    "noBoardsFirst": "Ниодной доски ещё не создано. Вы можете",
+    "noBoardsCreate": "создать",
+    "noBoardsLast": "первую доску."
   },
   "BOARD": {
     "currentboard": "Активная доска",
@@ -29,7 +37,10 @@
   },
   "BOARD_COLUMN": {
     "settitle": "Введите заголовок",
-    "addnewtask": "Добавить задачу"
+    "addnewtask": "Добавить задачу",
+    "wantdeletecolumn": "Вы уверены, что хотите удалить колонку {{param}}?",
+    "okbtntext": "Удалить",
+    "cancelbtntext": "Отменить"
   },
   "BOARD_CARD": {
     "wantdeleteboard": "Вы уверены, что хотите удалить доску {{param}}?",
@@ -65,7 +76,7 @@
     "confirmpassword": "Подтвердите пароль",
     "valuenotvalid": "Введённая величина некорректна",
     "specialcharfound": "Найден специальный символ!",
-    "passwordmismatch": "Пароли не совпадают"   
+    "passwordmismatch": "Пароли не совпадают"
   },
   "EDITPROFILE": {
     "title": "Редактирование профиля",

@@ -10,6 +10,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { ConfirmationDialogComponent } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
 import { deleteTask } from '../../../state/actions/boards.actions';
+import { TranslateService } from '@ngx-translate/core';
+import { translateText, translateParamText } from 'src/app/core/helpers/translate.function';
 
 @Component({
   selector: 'app-board-column',
@@ -32,6 +34,7 @@ export class BoardColumnComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly boardsService: BoardsService,
     private readonly store: Store,
+    protected readonly translate: TranslateService,
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +42,7 @@ export class BoardColumnComponent implements OnInit {
     this.columnId = this.column.id;
     this.tasks$ = this.store.select(selectTasks(this.boardId, this.columnId));
     this.tasks$.subscribe((tasks) => {
-      if (tasks) this.tasks = [...tasks]
+      if (tasks) this.tasks = [...tasks];
     });
   }
 
@@ -59,13 +62,14 @@ export class BoardColumnComponent implements OnInit {
   }
 
   updateTasks(event: CdkDragDrop<BoardTask[]>, transfer: boolean = false) {
-    const { previousIndex, currentIndex, previousContainer, container, item } = event;
+    const { previousIndex, currentIndex, container, item } = event;
     const taskId = item.element.nativeElement.dataset['id'];
     if (transfer) {
-      const task = this.tasks.find(task => task.id === taskId) as BoardTask
-      this.store.dispatch(deleteTask({task}))
+      const task = this.tasks.find((taskItem) => taskItem.id === taskId) as BoardTask;
+      this.store.dispatch(deleteTask({ task }));
       //action: move task to column (colId, taskId, order = currentIdx + 1)
-      const columnId = container.element.nativeElement.closest<HTMLElement>('app-board-column')?.dataset['id'] as string
+      const columnId = container.element.nativeElement.closest<HTMLElement>('app-board-column')
+        ?.dataset['id'] as string;
       this.boardsService.reorderTasks(columnId, currentIndex, this.boardId);
       this.boardsService.insertTask(this.boardId, columnId, {
         title: task.title,
@@ -73,7 +77,7 @@ export class BoardColumnComponent implements OnInit {
         userId: task.userId,
         order: currentIndex + 1,
         done: false,
-      })
+      });
     } else {
       const tasks = Array.from(container.element.nativeElement.children) as HTMLElement[];
       //tasks[previousIndex] = currentIndex + 1
@@ -141,10 +145,14 @@ export class BoardColumnComponent implements OnInit {
   onDeleteColumn() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
-        message: `Are you sure want to delete column '${this.column.title}'?`,
+        message: translateParamText(
+          'BOARD_COLUMN.wantdeletecolumn',
+          this.translate,
+          this.column.title,
+        ),
         buttonText: {
-          ok: 'Delete',
-          cancel: 'Cancel',
+          ok: translateText('BOARD_COLUMN.okbtntext', this.translate),
+          cancel: translateText('BOARD_COLUMN.cancelbtntext', this.translate),
         },
       },
     });
