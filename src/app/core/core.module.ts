@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ParticipantsComponent } from './components/home/participants/participants.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AboutAppPageComponent } from './pages/about-app-page/about-app-page.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule, RouterModule, FormsModule, ReactiveFormsModule],
@@ -23,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NotFoundPageComponent,
     HomeComponent,
     ParticipantsComponent,
+    AboutAppPageComponent,
   ],
   exports: [HeaderComponent, FooterComponent],
 })
