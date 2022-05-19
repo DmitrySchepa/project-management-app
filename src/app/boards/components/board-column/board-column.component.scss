@@ -29,17 +29,12 @@
   flex-grow: 5;
 }
 
-.delete-icon {
-  color: rgb(243, 24, 24);
+.delete-btn {
+  color: white;
   cursor: pointer;
   flex-grow: 1;
   margin-bottom: 5px;
   justify-self: flex-end;
-}
-
-.delete-icon:hover {
-  transition: .3s;
-  color: rgb(195, 14, 14);
 }
 
 .title-container:hover {

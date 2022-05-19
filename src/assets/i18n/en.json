@@ -14,6 +14,9 @@
     "descriptionError": "Please enter task description",
     "none": "None"
   },
+  "TASKCREATE": {
+    "header": "Create task"
+  },
   "BOARDS": {
     "title": "Boards",
     "searchLabel": "Serch tasks",
@@ -108,5 +111,16 @@
   "CONTRIBUTIONS": {
     "title": "Contributions:",
     "teamlead": "Teamlead"
+  },
+  "CREATECOLUMN": {
+    "header": "Create a column",
+    "title": "Column title",
+    "btnok": "Ok",
+    "btnCancel": "Cancel",
+    "titleError": "Please provide a column title",
+    "none": "None"
+  },
+  "DELETECOLUMN": {
+    "title": "Delete column"
   }
 }

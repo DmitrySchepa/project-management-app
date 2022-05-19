@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { selectBoardColumns } from 'src/app/state/selectors/boards.selectors';
 import { BoardsService } from '../../services/boards.service';
 import { getColumns } from 'src/app/state/actions/boards.actions';
+import { CreateColumnComponent } from '../../components/create-column/create-column.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -24,6 +26,7 @@ export class BoardPageComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly store: Store,
     private readonly boardsService: BoardsService,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -72,10 +75,20 @@ export class BoardPageComponent implements OnInit {
   }
 
   onAddColumn() {
-    const column = {
-      title: 'New column',
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      title: 'Column title',
       order: this.columns.length + 1,
     };
-    this.boardsService.createColumn(column.title, column.order, this.boardId);
+
+    const dialogRef = this.dialog.open(CreateColumnComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.boardsService.createColumn(result.title, dialogConfig.data.order, this.boardId);
+      }
+    });
   }
 }

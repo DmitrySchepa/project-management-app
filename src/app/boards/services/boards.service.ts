@@ -1,5 +1,6 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject } from 'rxjs';
 import {
   createBoard,
   createColumn,
@@ -21,6 +22,8 @@ import { BoardColumn, BoardData, BoardTask, CreateTask } from '../models/board.m
 })
 export class BoardsService {
   boardData!: BoardData;
+
+  isEditModeOn$ = new BehaviorSubject<boolean>(true);
 
   @Output() openDialogEvent = new EventEmitter<string[]>();
 

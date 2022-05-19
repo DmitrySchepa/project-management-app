@@ -6,6 +6,7 @@ import { BoardsService } from '../../services/boards.service';
 import { Store } from '@ngrx/store';
 import { selectTasks } from '../../../state/selectors/boards.selectors';
 import { Observable } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-board-column',
@@ -24,6 +25,7 @@ export class BoardColumnComponent implements OnInit {
   public tasks!: BoardTask[];
 
   constructor(
+    public dialog: MatDialog,
     private readonly route: ActivatedRoute,
     private readonly boardsService: BoardsService,
     private readonly store: Store,
@@ -104,22 +106,35 @@ export class BoardColumnComponent implements OnInit {
 
   isAddTitleModeOn = false;
 
-  isAddTaskModeOn = false;
-
   @ViewChild('taskInput', { static: false }) taskInput!: ElementRef;
 
-  onTaskAdded(task: string) {
-    if (task.length != 0) {
-      this.boardsService.createTask(this.boardId, this.columnId, {
-        title: task,
-        description: ' ',
-        userId: localStorage.getItem('pma-user-id') as string,
-        order: this.tasks.length + 1,
-        done: false,
-      });
-      this.taskInput.nativeElement.value = '';
-      this.isAddTaskModeOn = !this.isAddTaskModeOn;
-    }
+  onTaskAdded() {
+    this.boardsService.isEditModeOn$.next(false);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+
+    // здесь получаем данные из store для кликнутой задачи и
+    // заполняем их в data
+
+    dialogConfig.data = {
+      title: 'Your title',
+      description: 'Description',
+      userId: 'null',
+    };
+
+    const dialogRef = this.dialog.open(EditTaskComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // this.boardsService.createTask(this.boardId, this.columnId, {
+        //   title: task,
+        //   description: ' ',
+        //   userId: localStorage.getItem('pma-user-id') as string,
+        //   order: this.tasks.length + 1,
+        //   done: false,
+        // });
+      }
+    });
   }
 
   onChangeTitle(value: string) {
