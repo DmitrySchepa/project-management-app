@@ -3,12 +3,12 @@
     color="primary"
     class="header"
     [ngClass]="{'sticky-header': enableSticky}">
-    <h1 class="logo">PMA</h1>
+    <h1 class="logo" routerLink='main'>PMA</h1>
     <div class="navbar">
       <div class="navbar_item">
         <mat-button-toggle-group
           appearance="legacy"
-          name="languages"  
+          name="languages"
           aria-label="Available languages"
         >
           <mat-button-toggle
@@ -26,7 +26,7 @@
         </mat-button-toggle-group>
       </div>
       <div class='navbar__group' *ngIf='hasToken$ | async'>
-        <a class="navbar_item" (click)="onCreateBoard()">
+        <a class="navbar_item" (click)="onBoardDialog('create')">
           <mat-icon matTooltip="{{ 'HEADER.newboard' | translate }}">add</mat-icon>
           <span>{{ 'HEADER.newboard' | translate }}</span>
         </a>

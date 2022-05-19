@@ -26,6 +26,17 @@
   }
   &__title {
     font-size: 32px;
+    color: #3f51b5;
+  }
+  &__message {
+    margin-top: 20px;
+    color: #3f51b5;
+    font-size: 20px;
+    align-items: center;
+  }
+  &__click {
+    text-decoration: underline;
+    cursor: pointer;
   }
   &__list {
     width: 100%;
