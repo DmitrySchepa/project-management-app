@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { ConfirmationDialogComponent } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
+import { deleteTask } from '../../../state/actions/boards.actions';
 
 @Component({
   selector: 'app-board-column',
@@ -60,27 +61,19 @@ export class BoardColumnComponent implements OnInit {
   updateTasks(event: CdkDragDrop<BoardTask[]>, transfer: boolean = false) {
     const { previousIndex, currentIndex, previousContainer, container, item } = event;
     const taskId = item.element.nativeElement.dataset['id'];
-    const [prevColId, colId] = [previousContainer, container].map(
-      (elem) => elem.element.nativeElement.closest<HTMLElement>('app-board-column')?.dataset['id'],
-    );
     if (transfer) {
-      console.log('prev:');
-      Array.from(previousContainer.element.nativeElement.children)
-        .filter((child) => !child.classList.contains('cdk-drag-dragging'))
-        .forEach((child, index) => {
-          if (index >= previousIndex) {
-            const id = (child as HTMLElement).dataset['id'];
-            console.log(index + 1, id, child.textContent); //Reorder task in prevColumn
-          }
-        });
+      const task = this.tasks.find(task => task.id === taskId) as BoardTask
+      this.store.dispatch(deleteTask({task}))
       //action: move task to column (colId, taskId, order = currentIdx + 1)
-      console.log('curr:');
-      Array.from(container.element.nativeElement.children).forEach((child, index) => {
-        const id = (child as HTMLElement).dataset['id'];
-        if (index >= currentIndex) {
-          console.log(index + 2, id, child.textContent); //reorder task in currColumn
-        }
-      });
+      const columnId = container.element.nativeElement.closest<HTMLElement>('app-board-column')?.dataset['id'] as string
+      this.boardsService.reorderTasks(columnId, currentIndex, this.boardId);
+      this.boardsService.insertTask(this.boardId, columnId, {
+        title: task.title,
+        description: task.description,
+        userId: task.userId,
+        order: currentIndex + 1,
+        done: false,
+      })
     } else {
       const tasks = Array.from(container.element.nativeElement.children) as HTMLElement[];
       //tasks[previousIndex] = currentIndex + 1

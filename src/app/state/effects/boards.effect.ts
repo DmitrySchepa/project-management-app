@@ -31,7 +31,7 @@ import {
   editTask,
   editTaskSuccess,
   reorderTaskSuccess,
-  reorderTask,
+  reorderTask, reorderTasks, insertTask, insertTaskSuccess,
 } from '../actions/boards.actions';
 import { tokenOutdated } from '../actions/user.actions';
 import { Store } from '@ngrx/store';
@@ -256,4 +256,30 @@ export class BoardsEffects {
       }),
     );
   });
+
+  reorderTasks1$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(reorderTasks),
+      concatMap(({columnId, index, boardId}) => {
+        return this.store.select(selectTasks(boardId, columnId)).pipe(
+          map(tasks => tasks.slice(index).reverse()),
+          take(1),
+          concatAll(),
+          concatMap(currentTask => this.apiService
+            .editTask({...currentTask, order: currentTask.order + 1})
+            .pipe(map(editTask => editTaskSuccess({task: editTask})))
+          )
+        )
+      })
+    )
+  })
+
+  insertTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(insertTask),
+      concatMap(({boardId, columnId, task}) => this.apiService.createTask(boardId, columnId, task)
+        .pipe(map(newTask => insertTaskSuccess({task: newTask})))
+      )
+    )
+  })
 }

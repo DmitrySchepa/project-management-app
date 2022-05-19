@@ -116,3 +116,6 @@ export const reorderTaskSuccess = createAction(
   '[Boards] Reorder task success',
   props<{ task: BoardTask; last: boolean }>(),
 );
+export const reorderTasks = createAction('[Boards] Reorder tasks in column', props<{columnId: string, index: number, boardId: string}>())
+export const insertTask = createAction('[Boards] Insert task in column', props<{boardId: string, columnId: string, task: CreateTask}>())
+export const insertTaskSuccess = createAction('[Boards] Insert task in column success', props<{task: BoardTask}>())

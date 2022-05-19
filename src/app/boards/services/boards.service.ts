@@ -11,9 +11,9 @@ import {
   editColumn,
   editTask,
   getBoards,
-  getColumns,
+  getColumns, insertTask,
   reorderColumn,
-  reorderTask,
+  reorderTask, reorderTasks,
 } from 'src/app/state/actions/boards.actions';
 import { BoardColumn, BoardData, BoardTask, CreateTask } from '../models/board.model';
 
@@ -79,15 +79,15 @@ export class BoardsService {
     this.store.dispatch(editTask({ task }));
   }
 
-  updateColumn() {}
-
-  getTask() {}
-
-  updateTask() {}
-
-  deleteTask() {}
-
   reorderTask(task: BoardTask, last: boolean = false) {
     this.store.dispatch(reorderTask({ task, last }));
+  }
+
+  reorderTasks(columnId: string, index: number, boardId: string) {
+    this.store.dispatch(reorderTasks({columnId, index, boardId}))
+  }
+
+  insertTask(boardId: string, columnId: string, task: CreateTask) {
+    this.store.dispatch(insertTask({boardId, columnId, task}))
   }
 }
