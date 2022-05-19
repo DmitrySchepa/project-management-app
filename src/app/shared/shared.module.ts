@@ -15,6 +15,7 @@ import { ApiInterceptor } from '../core/interceptors/api.interceptor';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatStepperModule } from '@angular/material/stepper';
 
 const MaterialModules = [
   MatToolbarModule,
@@ -29,6 +30,7 @@ const MaterialModules = [
   MatTooltipModule,
   MatSelectModule,
   MatMenuModule,
+  MatStepperModule,
 ];
 
 @NgModule({

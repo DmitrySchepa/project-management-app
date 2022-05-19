@@ -1,0 +1,65 @@
+<button mat-raised-button color="primary" class="home" [routerLink]="'../'">
+  <mat-icon>home</mat-icon>
+  Home page
+</button>
+<div class="wrapper">
+  <mat-stepper #stepper>
+    <mat-step label="Регистрация нового пользователя">
+          <div class="description">
+            <img src="./assets/images/1step.png" alt="Registration">
+            <p>Перед началом работы необходимо зарегестрировать пользователя. При нажатии на
+              кнопку регистрации, появится форма регистрации. После успешной регистрации пользователь
+              будет перенаправлен на главную страницу приложения.
+            </p>
+            <div class="buttons">
+              <button mat-raised-button matStepperPrevious color="primary">Back</button>
+              <button mat-raised-button matStepperNext color="primary">Next</button>
+            </div>
+          </div>
+    </mat-step>
+    <mat-step label="Создание досок">
+          <div class="description">
+            <img src="./assets/images/Step2.png" alt="Registration">
+            <p>Для создания новой доски необходимо нажать кнопку "Новая доска", после этого пользователю
+              будет предложено ввести название доски и её описание. После успешного создания, доска появится
+              на странице.
+            </p>
+            <img src="./assets/images/Step3.png" alt="Registration">
+          </div>
+          <div class="buttons">
+            <button mat-raised-button matStepperPrevious color="primary">Back</button>
+            <button mat-raised-button matStepperNext color="primary">Next</button>
+          </div>
+    </mat-step>
+    <mat-step label="Текущая доска">
+      <div>
+        <div class="description">
+          <img src="./assets/images/Step4.png" alt="Registration">
+          <p>При нажатии на доску пользовательно будет перенаправлен на текущую(выбранную) доску.
+            При нажатии на "Добавить колонку" пользователю будет предложено поля для заполнения
+            названия колонки.
+          </p>
+          <div class="buttons">
+            <button mat-raised-button matStepperPrevious color="primary">Back</button>
+            <button mat-raised-button matStepperNext color="primary">Next</button>
+          </div>
+          
+        </div>
+        
+      </div>
+    </mat-step>
+    <mat-step label="Дополнительный функционал">
+      <h2>Pomodoro</h2>
+      <p>Программа для тайм-менеджмента по технике Pomodoro, когда работа выполняется в течение заданного промежутка времени (по умолчанию 25 минут), после которого следует отдохнуть.
+        Использование программы:
+        На главном экране отображается список помидорок (ранее учтённых промежутков времени). Чтобы стартовать новый помидор, нужно нажать "New Pomodoro" и задать название, описание и желаемый промежуток времени. После нажатия на "Start" включится таймер. Если нажать кнопку "Stop" не дожидаясь окончания промежутка времени, текущий помидор считается проваленным (Failed, окрашен оранжевым).
+        У каждого помидора в списке есть меню (три точки), из которого можно удалить помидор,  отредактировать название и описание, а также поменять статус на успешный и проваленный по желанию. Для обновления списка, нажать "Update list". 
+        Данные хранятся в local storage.</p>
+      <div>
+        <div class="buttons">
+          <button mat-raised-button matStepperPrevious color="primary">Back</button>
+        </div>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>

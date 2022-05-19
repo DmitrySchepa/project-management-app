@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { AboutAppPageComponent } from './core/pages/about-app-page/about-app-page.component';
 import { HomePageComponent } from './core/pages/home-page/home-page.component';
 import { NotFoundPageComponent } from './core/pages/not-found-page/not-found-page.component';
-import  { SearchComponent } from './search/search.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '/welcome',
     pathMatch: 'full',
+  },
+  {
+    path: 'about',
+    component: AboutAppPageComponent,
   },
   {
     path: '404',
