@@ -5,6 +5,8 @@ import { AboutAppPageComponent } from './core/pages/about-app-page/about-app-pag
 import { HomePageComponent } from './core/pages/home-page/home-page.component';
 import { NotFoundPageComponent } from './core/pages/not-found-page/not-found-page.component';
 import { SearchComponent } from './search/search.component';
+import { PomodoroComponent } from './pomodoro/pomodoro.component';
+import { PomodoroItemComponent } from './pomodoro/components/pomodoro-item/pomodoro-item.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,11 @@ const routes: Routes = [
     canLoad: [AuthGuard],
   },
   {
+    path: 'pomodoro',
+    component: PomodoroComponent,
+    canLoad: [AuthGuard],
+  },  
+  {
     path: 'welcome',
     component: HomePageComponent,
   },
@@ -35,12 +42,13 @@ const routes: Routes = [
     component: AboutAppPageComponent,
   },
   {
-    path: '404',
-    component: NotFoundPageComponent,
-  },
-  {
+
     path: '**',
     redirectTo: '/404',
+  },
+  {
+    path: '404',
+    component: NotFoundPageComponent,
   },
 ];
 

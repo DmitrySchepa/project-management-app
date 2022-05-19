@@ -17,10 +17,18 @@
   "TASKCREATE": {
     "header": "Создать задачу"
   },
+  "TASKDELETE": {
+    "wantdeletetask": "Вы уверены, что хотите удалить задачу {{param}}?",
+    "okbtntext": "Удалить",
+    "cancelbtntext": "Отменить"
+  },
   "BOARDS": {
     "title": "Доски",
     "searchLabel": "Поиск по задачам",
-    "buttonText": "Искать!"
+    "buttonText": "Искать!",
+    "noBoardsFirst": "Ниодной доски ещё не создано. Вы можете",
+    "noBoardsCreate": "создать",
+    "noBoardsLast": "первую доску."
   },
   "BOARD": {
     "currentboard": "Активная доска",
@@ -29,7 +37,10 @@
   },
   "BOARD_COLUMN": {
     "settitle": "Введите заголовок",
-    "addnewtask": "Добавить задачу"
+    "addnewtask": "Добавить задачу",
+    "wantdeletecolumn": "Вы уверены, что хотите удалить колонку {{param}}?",
+    "okbtntext": "Удалить",
+    "cancelbtntext": "Отменить"
   },
   "BOARD_CARD": {
     "wantdeleteboard": "Вы уверены, что хотите удалить доску {{param}}?",
@@ -65,7 +76,7 @@
     "confirmpassword": "Подтвердите пароль",
     "valuenotvalid": "Введённая величина некорректна",
     "specialcharfound": "Найден специальный символ!",
-    "passwordmismatch": "Пароли не совпадают"   
+    "passwordmismatch": "Пароли не совпадают"
   },
   "EDITPROFILE": {
     "title": "Редактирование профиля",
@@ -111,6 +122,34 @@
   "CONTRIBUTIONS": {
     "title": "Вклад в разработку:",
     "teamlead": "Тимлид"
+  },
+  "POMODORO_EDIT": {
+    "title": "Редактирование",
+    "name": "Название помидорки",
+    "description": "Описание помидорки",
+    "nameError": "Введите название помидорки",
+    "descriptionError": "Введите описание помидорки",
+    "editpomodoro": "Редактировать помидор",
+    "delete": "Удалить помидор",
+    "tpomodorosuccess": "Считать успешным",
+    "tpomodorofail": "Считать проваленным"
+  },
+  "POMODORO": {
+    "title": "Помидорки",
+    "btnnew": "Новый помидор",
+    "removeall": "Удалить все",
+    "empty": "Список помидорок пуст"
+  },
+  "POMODORO_CREATE": {
+    "title": "Новый помидор",
+    "duration": "Продолжительность",
+    "durationError": "Введите продолжительность",
+    "durationtoosmall": "Минимум 1 минута",
+    "durationtoobig": "Максимум 120 минут",
+    "btntitle": "Старт"
+  },
+  "TIMER": {
+    "btntitle": "Стоп"    
   },
   "CREATECOLUMN": {
     "header": "Создание колонки",

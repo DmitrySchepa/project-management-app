@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
+import { concatAll, concatMap, of, take } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, switchMapTo } from 'rxjs/operators';
 import { BoardModel } from 'src/app/boards/models/board.model';
 import { ApiService } from 'src/app/core/services/api.service';
@@ -17,12 +17,33 @@ import {
   getColumnsSuccess,
   deleteColumn,
   deleteColumnSuccess,
+  editBoard,
+  editBoardSuccess,
+  editColumn,
+  editColumnSuccess,
+  reorderColumn,
+  reorderColumnSuccess,
+  getTasksSuccess,
+  createTask,
+  createTaskSuccess,
+  deleteTask,
+  deleteTaskSuccess,
+  editTask,
+  editTaskSuccess,
+  reorderTaskSuccess,
+  reorderTask, reorderTasks, insertTask, insertTaskSuccess,
 } from '../actions/boards.actions';
 import { tokenOutdated } from '../actions/user.actions';
+import { Store } from '@ngrx/store';
+import { selectBoardColumns, selectTasks } from '../selectors/boards.selectors';
 
 @Injectable()
 export class BoardsEffects {
-  constructor(private actions$: Actions, private readonly apiService: ApiService) {}
+  constructor(
+    private actions$: Actions,
+    private readonly apiService: ApiService,
+    private readonly store: Store,
+  ) {}
 
   getBoards$ = createEffect(() => {
     return this.actions$.pipe(
@@ -55,6 +76,15 @@ export class BoardsEffects {
     );
   });
 
+  editBoard$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editBoard),
+      switchMap(({ data, boardId }) =>
+        this.apiService.editBoard(data, boardId).pipe(map((board) => editBoardSuccess({ board }))),
+      ),
+    );
+  });
+
   deleteBoard$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(deleteBoard),
@@ -70,7 +100,8 @@ export class BoardsEffects {
       switchMap(({ boardId }) => {
         return this.apiService.getColumns(boardId).pipe(
           map((columns) => {
-            console.log(columns, boardId);
+            columns.sort((a, b) => a.order - b.order);
+            columns = columns.map((column) => ({ ...column, tasks: [] }));
             return getColumnsSuccess({ columns, boardId });
           }),
         );
@@ -84,21 +115,171 @@ export class BoardsEffects {
       mergeMap(({ title, order, boardId }) => {
         return this.apiService.createColumn(boardId, { title, order }).pipe(
           map((column) => {
-            return createColumnSuccess({ column, boardId });
+            return createColumnSuccess({ column: { ...column, tasks: [] }, boardId });
           }),
         );
       }),
     );
   });
 
+  editColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editColumn),
+      concatMap(({ boardId, column }) =>
+        this.apiService.editColumn(boardId, column).pipe(
+          map((editedColumn) => {
+            return editColumnSuccess({ column: editedColumn, boardId });
+          }),
+        ),
+      ),
+    );
+  });
+
+  reorderColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(reorderColumn),
+      concatMap(({ boardId, column, last }) =>
+        this.apiService
+          .editColumn(boardId, column)
+          .pipe(
+            map((editedColumn) => reorderColumnSuccess({ column: editedColumn, boardId, last })),
+          ),
+      ),
+    );
+  });
+
   deleteColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(deleteColumn),
-      switchMap(({ boardId, columnId }) => {
+      concatMap(({ boardId, columnId, order }) => {
         return this.apiService
           .deleteColumn(boardId, columnId)
-          .pipe(map(() => deleteColumnSuccess()));
+          .pipe(map(() => deleteColumnSuccess({ boardId, order })));
       }),
     );
   });
+
+  reorderColumns$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteColumnSuccess),
+      concatMap(({ boardId, order }) =>
+        this.store.select(selectBoardColumns(boardId)).pipe(
+          map((columns) => columns.slice(order - 1)),
+          take(1),
+          concatAll(),
+          concatMap((column) => {
+            return this.apiService
+              .editColumn(boardId, { ...column, order: column.order - 1 })
+              .pipe(map((editedColumn) => editColumnSuccess({ column: editedColumn, boardId })));
+          }),
+        ),
+      ),
+    );
+  });
+
+  getTasks$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getColumnsSuccess),
+      concatMap(({ boardId, columns }) =>
+        of(columns).pipe(
+          take(1),
+          concatAll(),
+          concatMap((column) => {
+            return this.apiService.getTasks(boardId, column.id).pipe(
+              map((tasks) => {
+                tasks.sort((a, b) => a.order - b.order);
+                return getTasksSuccess({ boardId, columnId: column.id, tasks });
+              }),
+            );
+          }),
+        ),
+      ),
+    );
+  });
+
+  createTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(createTask),
+      concatMap(({ boardId, columnId, task }) =>
+        this.apiService
+          .createTask(boardId, columnId, task)
+          .pipe(map((newTask) => createTaskSuccess({ task: newTask }))),
+      ),
+    );
+  });
+
+  editTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editTask),
+      concatMap(({ task }) =>
+        this.apiService
+          .editTask(task)
+          .pipe(map((editedTask) => editTaskSuccess({ task: editedTask }))),
+      ),
+    );
+  });
+
+  reorderTasks$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteTaskSuccess),
+      concatMap(({ task }) =>
+        this.store.select(selectTasks(task.boardId, task.columnId)).pipe(
+          map((tasks) => tasks.slice(task.order - 1)),
+          take(1),
+          concatAll(),
+          concatMap((currentTask) => {
+            return this.apiService
+              .editTask({ ...currentTask, order: currentTask.order - 1 })
+              .pipe(map((editedTask) => editTaskSuccess({ task: editedTask })));
+          }),
+        ),
+      ),
+    );
+  });
+
+  reorderTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(reorderTask),
+      concatMap(({ task, last }) => {
+        return this.apiService
+          .editTask(task)
+          .pipe(map((reorderedTask) => reorderTaskSuccess({ task: reorderedTask, last })));
+      }),
+    );
+  });
+
+  deleteTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteTask),
+      concatMap(({ task }) => {
+        return this.apiService.deleteTask(task).pipe(map(() => deleteTaskSuccess({ task })));
+      }),
+    );
+  });
+
+  reorderTasks1$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(reorderTasks),
+      concatMap(({columnId, index, boardId}) => {
+        return this.store.select(selectTasks(boardId, columnId)).pipe(
+          map(tasks => tasks.slice(index).reverse()),
+          take(1),
+          concatAll(),
+          concatMap(currentTask => this.apiService
+            .editTask({...currentTask, order: currentTask.order + 1})
+            .pipe(map(editTask => editTaskSuccess({task: editTask})))
+          )
+        )
+      })
+    )
+  })
+
+  insertTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(insertTask),
+      concatMap(({boardId, columnId, task}) => this.apiService.createTask(boardId, columnId, task)
+        .pipe(map(newTask => insertTaskSuccess({task: newTask})))
+      )
+    )
+  })
 }

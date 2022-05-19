@@ -1,24 +1,36 @@
 <div class='boards'>
-  <form [formGroup]='formSearch' class='search-form' (submit)='onSubmit()' (input)="formSearch.valid">    
+  <form [formGroup]='formSearch' class='search-form' (submit)='onSubmit()' (input)="formSearch.valid">
     <input
       class='search-input'
       matInput
-      formControlName='search' 
+      formControlName='search'
       type='search'
       placeholder="{{ 'BOARDS.searchLabel' | translate }}"
     >
-    <button 
-      mat-raised-button 
+    <button
+      mat-raised-button
       class='search-button'
-      type='submit' 
-      color='primary' 
+      type='submit'
+      color='primary'
       [disabled]="formSearch.invalid"
     >{{ 'BOARDS.buttonText' | translate }}</button>
   </form>
   <h2 class='boards__title'>{{ 'BOARDS.title' | translate }}</h2>
+  <p *ngIf='(boards$ | async)?.length === 0' class='boards__message'>
+    {{'BOARDS.noBoardsFirst' | translate}}
+    <b class='boards__click' (click)='createDialog()'>{{'BOARDS.noBoardsCreate' | translate}}</b>
+    {{'BOARDS.noBoardsLast' | translate}}
+  </p>
   <ul class='boards__list'>
     <li class='boards__list-item' *ngFor='let board of boards$ | async'>
       <app-board-card [board]='board'></app-board-card>
     </li>
   </ul>
+  <button
+    class="btnPomodoro"
+    mat-raised-button 
+    color="primary"
+    (click)="navigateToPomodoro()"
+  >{{ 'POMODORO.title' | translate }}</button>
+
 </div>

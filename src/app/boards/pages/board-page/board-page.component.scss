@@ -1,6 +1,19 @@
 :host {
-  overflow: auto;
   white-space: nowrap;
+}
+
+.board__columns {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    height: 5px;
+    &-thumb {
+      border-radius: 2px;
+      background-color: #3f51b5;
+    }
+  }
 }
 
 .add-column-btn {

@@ -37,16 +37,16 @@
     </button>
   </div>
   <div
-    cdkDropList
-    [cdkDropListData]="column.tasks"
     class="task-list"
+    cdkDropList
+    [cdkDropListData]="tasks"
     (cdkDropListDropped)="drop($event)">
-    <div 
-      (click)="onTaskEdit()"
-      class="task-box" 
-      *ngFor="let task of column.tasks" 
-      cdkDrag>{{task}}      
-    </div>
+    <app-board-task
+      class="task-box"
+      *ngFor="let task of tasks"
+      [attr.data-id]='task.id'
+      cdkDrag
+      [task]='task'></app-board-task>
   </div>
   <div class="add-task-container">
     <button

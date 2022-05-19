@@ -1,0 +1,35 @@
+<div class="pomodoro">
+  <h2 class='pomodoro__title'>{{ 'POMODORO.title' | translate }}</h2>
+  <div class="cards-list">
+    <div *ngFor="let item of pomodoroes" >
+      <app-pomodoro-item [pomodoro]="item" ></app-pomodoro-item>
+    </div>
+  </div>
+  <div *ngIf="pomodoroes.length === 0">
+    <p>{{ 'POMODORO.empty' | translate }}</p>
+  </div>
+  
+  <div class="pomodoroBtns">
+    <button
+    class="btnRemove"
+    mat-raised-button
+    color="primary"
+    (click)="onRemoveAll()"
+  >{{ 'POMODORO.removeall' | translate }}</button>
+  
+  <button
+    class="btnNew"
+    mat-raised-button 
+    color="primary"
+    (click)="onNewPomodoro()"
+  >{{ 'POMODORO.btnnew' | translate }}</button>
+
+  <button
+    mat-raised-button 
+    color="primary"
+    (click)="updateList()"
+  >{{ 'POMODORO.btnupdate' | translate }}</button>
+
+  </div>
+
+</div>
