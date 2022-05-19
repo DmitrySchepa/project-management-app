@@ -37,7 +37,9 @@ export class BoardColumnComponent implements OnInit {
     this.boardId = this.route.snapshot.params['id'];
     this.columnId = this.column.id;
     this.tasks$ = this.store.select(selectTasks(this.boardId, this.columnId));
-    this.tasks$.subscribe((tasks) => (this.tasks = [...tasks]));
+    this.tasks$.subscribe((tasks) => {
+      if (tasks) this.tasks = [...tasks]
+    });
   }
 
   drop(event: CdkDragDrop<BoardTask[]>) {
@@ -115,11 +117,10 @@ export class BoardColumnComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
 
-
     dialogConfig.data = {
       title: 'Your title',
       description: 'Description',
-      userId: 'null',
+      userId: localStorage.getItem('pma-user-id'),
     };
 
     const dialogRef = this.dialog.open(EditTaskComponent, dialogConfig);
