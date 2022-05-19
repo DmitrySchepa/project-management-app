@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: space-between;
   background-color:#3f51b5;
-  cursor: pointer; 
+  cursor: pointer;
   border-radius: 5px 5px 0 0;
 }
 
@@ -24,22 +24,17 @@
   color: white;
   text-align: center;
   padding: 5px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-left: 35px;
   flex-grow: 5;
 }
 
-.delete-icon {
-  color: rgb(243, 24, 24);
+.delete-btn {
+  color: white;
   cursor: pointer;
   flex-grow: 1;
   margin-bottom: 5px;
   justify-self: flex-end;
-}
-
-.delete-icon:hover {
-  transition: .3s;
-  color: rgb(195, 14, 14);
 }
 
 .title-container:hover {
@@ -48,11 +43,19 @@
 }
 
 .task-list {
-  border: solid 1px #ccc; 
+  border: solid 1px #ccc;
   background: white;
   border-radius: 4px;
-  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 308px;
   display: block;
+  &::-webkit-scrollbar {
+    width: 5px;
+    &-thumb {
+      border-radius: 2px;
+      background-color: #3f51b5;
+    }
+  }
 }
 
 .task-box {
@@ -92,7 +95,7 @@
 .add-task-form {
   display: flex;
   justify-content: space-between;
-  
+
 }
 
 .mat-form-field {

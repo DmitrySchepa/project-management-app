@@ -44,8 +44,8 @@ export class ConfirmationDialogComponent implements OnInit {
 
   ngOnInit() {
     this.formGroup = this.fb.group({
-      title: ['', [Validators.required]],
-      description: [' ', Validators.maxLength(255)],
+      title: [this.boardsService.boardData?.title || '', [Validators.required]],
+      description: [this.boardsService.boardData?.description || ' ', Validators.maxLength(255)],
     });
   }
 

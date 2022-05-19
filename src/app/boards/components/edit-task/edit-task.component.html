@@ -1,4 +1,7 @@
-<h2 mat-dialog-title >{{ 'TASKEDIT.header' | translate }}</h2>
+<h2 mat-dialog-title *ngIf="isEditModeOn$ | async; else taskCreate">{{ 'TASKEDIT.header' | translate }}</h2>
+<ng-template #taskCreate>
+  <h2 mat-dialog-title>{{ 'TASKCREATE.header' | translate}}</h2>
+</ng-template>
 <mat-dialog-content [formGroup]="taskEditform" >
   <mat-form-field appearance='outline'>
     <mat-label>{{ 'TASKEDIT.title' | translate }}</mat-label>

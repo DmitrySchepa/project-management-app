@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { selectBoards } from '../../../state/selectors/boards.selectors';
+import { BoardsService } from '../../services/boards.service';
 
 @Component({
   selector: 'app-boards-page',
@@ -13,22 +14,28 @@ import { selectBoards } from '../../../state/selectors/boards.selectors';
 })
 export class BoardsPageComponent implements OnInit {
   formSearch: FormGroup;
+
   public boards: BoardModel[] = [];
 
   boards$!: Observable<BoardModel[]>;
 
   constructor(
-    private readonly store: Store, 
+    private readonly store: Store,
     private readonly fb: FormBuilder,
-    private readonly router: Router
-    ) {
+    private readonly router: Router,
+    private readonly boardsService: BoardsService,
+  ) {
     this.formSearch = this.fb.group({
-      search: ['', [Validators.required]]
+      search: ['', [Validators.required]],
     });
   }
 
   ngOnInit() {
     this.boards$ = this.store.select(selectBoards);
+  }
+
+  createDialog() {
+    this.boardsService.openBoardDialog('create');
   }
 
   onSubmit() {

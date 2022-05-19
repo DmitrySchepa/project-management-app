@@ -14,10 +14,21 @@
     "descriptionError": "Please enter task description",
     "none": "None"
   },
+  "TASKCREATE": {
+    "header": "Create task"
+  },
+  "TASKDELETE": {
+    "wantdeletetask": "Are you sure want to delete task {{param}}?",
+    "okbtntext": "Delete",
+    "cancelbtntext": "Cancel"
+  },
   "BOARDS": {
     "title": "Boards",
     "searchLabel": "Serch tasks",
-    "buttonText": "Search"
+    "buttonText": "Search",
+    "noBoardsFirst": "No boards created yet. You can",
+    "noBoardsCreate": "create",
+    "noBoardsLast": "first board."
   },
   "BOARD": {
     "currentboard": "Current board",
@@ -26,7 +37,10 @@
   },
   "BOARD_COLUMN": {
     "settitle": "Set column title",
-    "addnewtask": "Add new task"
+    "addnewtask": "Add new task",
+    "wantdeletecolumn": "Are you sure want to delete column {{param}}?",
+    "okbtntext": "Delete",
+    "cancelbtntext": "Cancel"
   },
   "BOARD_CARD": {
     "wantdeleteboard": "Are you sure want to delete board {{param}}?",
@@ -35,7 +49,7 @@
   },
   "BOARD_PARTICIPANTS": {
     "addparticipant": "Add participant"
-  },  
+  },
   "SEARCH_RESULTS": {
     "title": "Search results",
     "empty_result": "Tasks with the specified text not found."
@@ -137,5 +151,16 @@
   },
   "TIMER": {
     "btntitle": "Stop"
+  }
+  "CREATECOLUMN": {
+    "header": "Create a column",
+    "title": "Column title",
+    "btnok": "Ok",
+    "btnCancel": "Cancel",
+    "titleError": "Please provide a column title",
+    "none": "None"
+  },
+  "DELETECOLUMN": {
+    "title": "Delete column"
   }
 }

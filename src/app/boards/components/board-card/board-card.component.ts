@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 import { BoardModel } from '../../models/board.model';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
 import { Store } from '@ngrx/store';
 import { deleteBoard } from 'src/app/state/actions/boards.actions';
-import { translateText, translateParamText  } from 'src/app/core/helpers/translate.function';
+import { BoardsService } from '../../services/boards.service';
+import { translateText, translateParamText } from 'src/app/core/helpers/translate.function';
 
 @Component({
   selector: 'app-board-card',
@@ -20,6 +21,7 @@ export class BoardCardComponent {
     private readonly router: Router,
     private readonly dialog: MatDialog,
     private readonly store: Store,
+    private readonly boardsService: BoardsService,
     protected readonly translate: TranslateService,
   ) {}
 
@@ -45,5 +47,10 @@ export class BoardCardComponent {
         this.store.dispatch(deleteBoard({ id: this.board.id }));
       }
     });
+  }
+
+  editBoard() {
+    this.boardsService.boardData = this.board;
+    this.boardsService.openBoardDialog('edit', this.board.id);
   }
 }
