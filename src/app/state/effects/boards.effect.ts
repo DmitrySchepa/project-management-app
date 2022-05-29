@@ -21,8 +21,6 @@ import {
   editBoardSuccess,
   editColumn,
   editColumnSuccess,
-  reorderColumn,
-  reorderColumnSuccess,
   getTasksSuccess,
   createTask,
   createTaskSuccess,
@@ -30,8 +28,7 @@ import {
   deleteTaskSuccess,
   editTask,
   editTaskSuccess,
-  reorderTaskSuccess,
-  reorderTask, reorderTasks, insertTask, insertTaskSuccess,
+  reorderTasks,
 } from '../actions/boards.actions';
 import { tokenOutdated } from '../actions/user.actions';
 import { Store } from '@ngrx/store';
@@ -135,19 +132,6 @@ export class BoardsEffects {
     );
   });
 
-  reorderColumn$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(reorderColumn),
-      concatMap(({ boardId, column, last }) =>
-        this.apiService
-          .editColumn(boardId, column)
-          .pipe(
-            map((editedColumn) => reorderColumnSuccess({ column: editedColumn, boardId, last })),
-          ),
-      ),
-    );
-  });
-
   deleteColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(deleteColumn),
@@ -237,17 +221,6 @@ export class BoardsEffects {
     );
   });
 
-  reorderTask$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(reorderTask),
-      concatMap(({ task, last }) => {
-        return this.apiService
-          .editTask(task)
-          .pipe(map((reorderedTask) => reorderTaskSuccess({ task: reorderedTask, last })));
-      }),
-    );
-  });
-
   deleteTask$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(deleteTask),
@@ -260,26 +233,18 @@ export class BoardsEffects {
   reorderTasks1$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(reorderTasks),
-      concatMap(({columnId, index, boardId}) => {
+      concatMap(({ columnId, index, boardId }) => {
         return this.store.select(selectTasks(boardId, columnId)).pipe(
-          map(tasks => tasks.slice(index).reverse()),
+          map((tasks) => tasks.slice(index).reverse()),
           take(1),
           concatAll(),
-          concatMap(currentTask => this.apiService
-            .editTask({...currentTask, order: currentTask.order + 1})
-            .pipe(map(editTask => editTaskSuccess({task: editTask})))
-          )
-        )
-      })
-    )
-  })
-
-  insertTask$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(insertTask),
-      concatMap(({boardId, columnId, task}) => this.apiService.createTask(boardId, columnId, task)
-        .pipe(map(newTask => insertTaskSuccess({task: newTask})))
-      )
-    )
-  })
+          concatMap((currentTask) =>
+            this.apiService
+              .editTask({ ...currentTask, order: currentTask.order + 1 })
+              .pipe(map((editedTask) => editTaskSuccess({ task: editedTask }))),
+          ),
+        );
+      }),
+    );
+  });
 }

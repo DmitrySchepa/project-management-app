@@ -71,36 +71,37 @@ export class BoardColumnComponent implements OnInit {
       const columnId = container.element.nativeElement.closest<HTMLElement>('app-board-column')
         ?.dataset['id'] as string;
       this.boardsService.reorderTasks(columnId, currentIndex, this.boardId);
-      this.boardsService.insertTask(this.boardId, columnId, {
+      console.log(columnId);
+      this.boardsService.createTask(this.boardId, columnId, {
         title: task.title,
         description: task.description,
         userId: task.userId,
         order: currentIndex + 1,
-        done: false,
+        done: task.done,
       });
     } else {
       const tasks = Array.from(container.element.nativeElement.children) as HTMLElement[];
       //tasks[previousIndex] = currentIndex + 1
       const eventTask = this.tasks.find((task) => task.id === taskId) as BoardTask;
-      this.boardsService.reorderTask({ ...eventTask, order: 0 });
+      this.boardsService.editTask({ ...eventTask, order: 0 });
       if (previousIndex < currentIndex) {
         for (let i = previousIndex + 1; i <= currentIndex; i += 1) {
           //tasks[i] order = i
           const editTask = this.tasks.find(
             (task) => task.id === (tasks[i].dataset['id'] as string),
           ) as BoardTask;
-          this.boardsService.reorderTask({ ...editTask, order: i });
+          this.boardsService.editTask({ ...editTask, order: i });
         }
-        this.boardsService.reorderTask({ ...eventTask, order: currentIndex + 1 }, true);
+        this.boardsService.editTask({ ...eventTask, order: currentIndex + 1 });
       } else {
         for (let i = currentIndex; i < previousIndex; i += 1) {
           // tasks[i] order = i + 2
           const editTask = this.tasks.find(
             (task) => task.id === (tasks[i].dataset['id'] as string),
           ) as BoardTask;
-          this.boardsService.reorderTask({ ...editTask, order: i + 2 });
+          this.boardsService.editTask({ ...editTask, order: i + 2 });
         }
-        this.boardsService.reorderTask({ ...eventTask, order: currentIndex + 1 });
+        this.boardsService.editTask({ ...eventTask, order: currentIndex + 1 });
       }
     }
   }

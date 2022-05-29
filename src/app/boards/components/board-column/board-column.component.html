@@ -1,4 +1,3 @@
-<div class="column-container">
   <div class="title-container" *ngIf="!isAddTitleModeOn">
     <h2
     class="column-title"
@@ -43,7 +42,7 @@
     (cdkDropListDropped)="drop($event)">
     <app-board-task
       class="task-box"
-      *ngFor="let task of tasks"
+      *ngFor="let task of (tasks | sort)"
       [attr.data-id]='task.id'
       cdkDrag
       [task]='task'></app-board-task>
@@ -58,6 +57,5 @@
       {{ 'BOARD_COLUMN.addnewtask' | translate }}
     </button>
   </div>
-</div>
 
 
